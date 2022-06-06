@@ -407,7 +407,17 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
             hss = "";
         }
 
-        str = "Klasse " + Klasse.klassenString[actualKlasse] + " " + hss;
+        str = "Klasse Fr. " + Klasse.klassenString[actualKlasse] + " " + hss;
+
+        if (Klasse.klassenString[actualKlasse].contains("Heidingsfelder") ||
+                Klasse.klassenString[actualKlasse].contains("Mueller")) {
+            str = "Klasse Hr. " + Klasse.klassenString[actualKlasse] + " " + hss;
+        }
+
+        if (Klasse.klassenString[actualKlasse].contains("Alvers")) {
+            str = "Klasse Dr. " + Klasse.klassenString[actualKlasse] + " " + hss;
+        }
+
         g2d.drawString(str, 10, 26);
 
 
