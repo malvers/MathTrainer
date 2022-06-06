@@ -9,12 +9,13 @@ public class MyPopup extends JPopupMenu {
 
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
-    JMenuItem alvers = new JMenuItem("Klasse Alvers");
-    JMenuItem heidingsfelder = new JMenuItem("Klasse Heigingsfelder");
-    JMenuItem mueller = new JMenuItem("Klasse Müller");
-    JMenuItem beyer = new JMenuItem("Klasse Beyer");
-    JMenuItem schnabel = new JMenuItem("Klasse Schnabel");
-    JMenuItem wilhelm = new JMenuItem("Klasse Wilhelm");
+    JMenuItem obenaus = new JMenuItem("Klasse Fr. Obenaus");
+    JMenuItem alvers = new JMenuItem("Klasse Dr. Alvers");
+    JMenuItem heidingsfelder = new JMenuItem("Klasse Hr. Heigingsfelder");
+    JMenuItem mueller = new JMenuItem("Klasse Hr. Müller");
+    JMenuItem beyer = new JMenuItem("Klasse Fr. Beyer");
+    JMenuItem schnabel = new JMenuItem("Klasse Fr. Schnabel");
+    JMenuItem wilhelm = new JMenuItem("Klasse Fr. Wilhelm");
 
     public MyPopup(MatheTrainer mathTrainer) {
 
@@ -39,6 +40,8 @@ public class MyPopup extends JPopupMenu {
 
         wilhelm.addActionListener(e -> mathTrainer.setActualKlasse(5));
 
+        obenaus.addActionListener(e -> mathTrainer.setActualKlasse(6));
+
         add(newGameMenu);
 
         add(new Separator());
@@ -53,9 +56,10 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         add(alvers);
+        add(beyer);
         add(heidingsfelder);
         add(mueller);
-        add(beyer);
+        add(obenaus);
         add(schnabel);
         add(wilhelm);
 

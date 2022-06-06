@@ -66,13 +66,14 @@ public class Klasse extends ArrayList<OneSchueler> {
     }
 
     private void initKlassenId() {
-        klassenString = new String[6];
+        klassenString = new String[7];
         klassenString[0] = "Alvers";
         klassenString[1] = "Schnabel";
         klassenString[2] = "Mueller";
         klassenString[3] = "Heidingsfelder";
         klassenString[4] = "Beyer";
         klassenString[5] = "Wilhelm";
+        klassenString[6] = "Obenaus";
     }
 
     public Klasse() {
