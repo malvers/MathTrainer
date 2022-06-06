@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="MathTrainer:jar">
+    <output-path>$USER_HOME$/Google Drive/MATHTRAINER</output-path>
+    <root id="archive" name="MathTrainer.jar">
+      <element id="module-output" name="MathTrainer" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../Mrautilities/out/artifacts/Mrautilities_jar/Mrautilities.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
