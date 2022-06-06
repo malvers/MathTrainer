@@ -73,8 +73,11 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
     private Timer nextTask;
     private float soundVolume = 1.0f;
     boolean playMusic = true;
+    private boolean isWindows = false;
 
     public MatheTrainer() {
+
+        isWindows = getOperatingSystem().contains("Windows");
 
         setFocusable(true);
 
@@ -411,7 +414,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         str = alleKlassen.get(actualKlasse).getNumberTasks() + " Aufgaben";
         width = (int) metrics.getStringBounds(str, g2d).getWidth();
         int xShift = 10;
-        if (getOperatingSystem().contains("Windows")) {
+        if (isWindows) {
             xShift += 20;
         }
         g2d.drawString(str, getWidth() - width - xShift, 26);
@@ -615,9 +618,8 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         int sw = -1;
         int xPos = 10;
         int yPos = getHeight() - 40;
-        String os = getOperatingSystem();
 
-        if (os.contains("Windows")) {
+        if (isWindows) {
             yPos -= 30;
         }
 
@@ -686,7 +688,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         int sw = metrics.stringWidth(sName);
         int yPos = 200;
 
-        if (getOperatingSystem().contains("Windows")) {
+        if (isWindows) {
             yPos += 50;
         }
         g2d.drawString(sName, xPos - (sw / 2), getHeight() - yPos);
@@ -708,7 +710,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
             }
             yPos = 110;
 
-            if (getOperatingSystem().contains("Windows")) {
+            if (isWindows) {
                 yPos += 50;
             }
 
@@ -781,7 +783,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         g2d.setColor(cs.fgLight);
         int yPos = 40;
-        if (getOperatingSystem().contains("Windows")) {
+        if (isWindows) {
             yPos += 30;
         }
         g2d.drawString(duration, xPos - (sWidth / 2), getHeight() - yPos);
