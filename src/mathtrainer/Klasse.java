@@ -66,7 +66,7 @@ public class Klasse extends ArrayList<OneSchueler> {
     }
 
     private void initKlassenId() {
-        klassenString = new String[7];
+        klassenString = new String[10];
         klassenString[0] = "Alvers";
         klassenString[1] = "Schnabel";
         klassenString[2] = "Mueller";
@@ -74,6 +74,9 @@ public class Klasse extends ArrayList<OneSchueler> {
         klassenString[4] = "Beyer";
         klassenString[5] = "Wilhelm";
         klassenString[6] = "Obenaus";
+        klassenString[7] = "Tremel";
+        klassenString[8] = "Platz";
+        klassenString[9] = "Liebermann";
     }
 
     public Klasse() {

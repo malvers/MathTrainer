@@ -470,7 +470,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
-        String str = "Mathematiktrainer von Dr. Michael R. Alvers - ©2020 - all rights reserved";
+        String str = "MathTrainer by Dr. Michael R. Alvers - ©2020-2022 - all rights reserved";
         Rectangle2D bounds = metrics.getStringBounds(str, g2d);
         g2d.setColor(Color.GRAY);
         g2d.drawString(str, (float) (getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 30);
