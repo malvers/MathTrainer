@@ -403,8 +403,8 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         String hss = " - high score " + hs + " s";
         if (alleKlassen.get(actualKlasse).highScore >= 10000) {
-//            hss = " - kein high score vorhanden";
-            hss = "";
+            hss = " - no high score available ...";
+//            hss = "";
         }
 
         str = "Klasse Fr. " + Klasse.klassenString[actualKlasse] + " " + hss;
@@ -460,7 +460,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         g2d.drawString("Zurück auf Beginn", xShift, yShift + (yPos * i++));
 
         g2d.drawString("E", 50, yShift + (yPos * i));
-        g2d.drawString("Einstellungen", xShift, yShift + (yPos * i++));
+        g2d.drawString("Einstellungen - welche Reihen sollen benutzt werden", xShift, yShift + (yPos * i++));
 
         g2d.drawString("L", 50, yShift + (yPos * i));
         g2d.drawString("Limit Modus ein/aus", xShift, yShift + (yPos * i++));
@@ -469,7 +469,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         g2d.drawString("Hintergrundmusik ein/aus", xShift, yShift + (yPos * i++));
 
         g2d.drawString("S", 50, yShift + (yPos * i));
-        g2d.drawString("Zeigt die Statistik", xShift, yShift + (yPos * i++));
+        g2d.drawString("Zeigt die Schüler Statistik", xShift, yShift + (yPos * i++));
 
         g2d.drawString("T | Shift T", 50, yShift + (yPos * i));
         g2d.drawString("Ändere die Tranzparenz des Bildes (+|-)", xShift, yShift + (yPos * i++));
@@ -1115,9 +1115,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
             debugMode = !debugMode;
         } else if (e.getKeyCode() == KeyEvent.VK_E) {
 
-            drawHelp = false;
-            drawStatistics = false;
-            drawSettings = !drawSettings;
+            showSettingsPage();
 
         } else if (e.getKeyCode() == KeyEvent.VK_H) {
 
@@ -1151,9 +1149,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         } else if (e.getKeyCode() == KeyEvent.VK_S) {
 
-            drawSettings = false;
-            drawHelp = false;
-            drawStatistics = !drawStatistics;
+            showSchuelerPage();
 
         } else if (e.getKeyCode() == KeyEvent.VK_T) {
 
@@ -1197,6 +1193,20 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         }
 
         display();
+    }
+
+    void showSettingsPage() {
+        drawHelp = false;
+        drawStatistics = false;
+        drawSettings = !drawSettings;
+        repaint();
+    }
+
+    void showSchuelerPage() {
+        drawSettings = false;
+        drawHelp = false;
+        drawStatistics = !drawStatistics;
+        repaint();
     }
 
     void toggleSoundOnOff() {

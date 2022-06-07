@@ -7,6 +7,8 @@ import javax.swing.*;
 
 public class MyPopup extends JPopupMenu {
 
+    JMenuItem settingsMenu = new JMenuItem("Settings");
+    JMenuItem schuelerMenu = new JMenuItem("Schüler");
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
     JMenuItem obenaus = new JMenuItem("Klasse Fr. Obenaus");
@@ -51,16 +53,11 @@ public class MyPopup extends JPopupMenu {
 
         liebermann.addActionListener(e -> mathTrainer.setActualKlasse(8));
 
+        settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
+
+        schuelerMenu.addActionListener(e -> mathTrainer.showSchuelerPage());
+
         add(newGameMenu);
-
-        add(new Separator());
-
-        JCheckBox cb = new JCheckBox("Sound on/off");
-        cb.setSelected(mathTrainer.playMusic);
-        MTools.println("playMusic: " + mathTrainer.playMusic);
-        add(cb);
-
-        cb.addActionListener(e -> mathTrainer.toggleSoundOnOff());
 
         add(new Separator());
 
@@ -77,6 +74,17 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
+        JCheckBox cb = new JCheckBox("Sound on/off");
+        cb.setSelected(mathTrainer.playMusic);
+        MTools.println("playMusic: " + mathTrainer.playMusic);
+        add(cb);
+
+        cb.addActionListener(e -> mathTrainer.toggleSoundOnOff());
+
+        add(new Separator());
+
+        add(schuelerMenu);
+        add(settingsMenu);
         add(helpMenu);
     }
 }
