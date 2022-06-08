@@ -12,17 +12,13 @@ klassen/KlasseLiebermann.txt
 initNames done ...
 initAllTasks done ...
 setImageForTask done ...
-mousy
-mousy:right
-playMusic: true
-klassen/KlasseAlvers.txt
-klassen/KlasseSchnabel.txt
-klassen/KlasseMueller.txt
-klassen/KlasseHeidingsfelder.txt
-klassen/KlasseBeyer.txt
-klassen/KlasseWilhelm.txt
-klassen/KlasseObenaus.txt
-klassen/KlasseTremel.txt
-klassen/KlassePlatz.txt
-klassen/KlasseLiebermann.txt
-mousy
+Wilhelm 1
+Tremel 111
+Schnabel 222
+Platz 333
+Obenaus 444
+Mueller 555
+Liebermann 666
+Heidingsfelder 777
+Beyer 888
+Alvers 999

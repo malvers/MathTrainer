@@ -10,7 +10,6 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
-import java.net.URL;
 import java.util.Timer;
 import java.util.*;
 
@@ -18,6 +17,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
     private static JFrame frame;
     private static Clip clip;
+    private static ArrayList<HighScorePair> allHighscores = new ArrayList<HighScorePair>();
     private final String sound1 = "sound/6 Minuten Jeopardy Theme Music 5%.wav";
     private final String sound2 = "sound/Madonna - Frozen 10%.wav";
     private String soundOnDisplay = sound2;
@@ -73,7 +73,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
     private Timer nextTask;
     private float soundVolume = 1.0f;
     boolean playMusic = true;
-    private boolean isWindows = false;
+    private boolean isWindows;
 
     public MatheTrainer() {
 
@@ -838,7 +838,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         sWidth = metrics.stringWidth(ttt);
         g2d.drawString(ttt, xPos - (sWidth / 2), yShift + (getHeight() / 2 - 220));
 
-        String duration = Util.getTimeStringDuration(finalDeltaT + penalty * 1000);
+        String duration = Util.getTimeStringDuration(finalDeltaT + penalty * 1000L);
 
         duration = duration.substring(3);
         duration = duration.substring(0, duration.length() - 4);
@@ -952,7 +952,11 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
                     } finally {
 
-                        while (sc.hasNextLine()) {
+                        while (true) {
+                            assert sc != null;
+                            if (!sc.hasNextLine()) {
+                                break;
+                            }
                             String str = sc.nextLine();
                             pinnedHighScore = Integer.parseInt(str);
                         }
@@ -975,6 +979,52 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         initAllTasks(false);
 
         repaint();
+    }
+
+    public static void readKlassenHighScores() {
+
+        File folder = new File("./klassen/");
+        File[] listOfFiles = folder.listFiles();
+
+        for (int i = 0; i < listOfFiles.length; i++) {
+
+            File file = listOfFiles[i];
+
+            if (!file.getName().contains("HighScore")) {
+                continue;
+            }
+
+            System.out.println("Klassen File: " + file.getName());
+
+            String klassenleiter = file.getName().substring(6, file.getName().indexOf(".") - 9);
+
+            int val = -1;
+            try {
+                BufferedReader br = new BufferedReader(new FileReader(file));
+
+                String highScore = br.readLine();
+
+                val = Integer.parseInt(highScore);
+
+            } catch (IOException e1) {
+                System.out.println("An I/O Error Occurred");
+            }
+            allHighscores.add(new HighScorePair(klassenleiter, val));
+        }
+
+        Collections.sort(allHighscores, new Comparator<HighScorePair>() {
+            @Override
+            public int compare(HighScorePair hsp1, HighScorePair hsp2) {
+                if( hsp2.value > hsp1.value ) return -1;
+                if( hsp2.value < hsp1.value ) return +1;
+                return 0;
+            }
+        });
+
+        for (int i = 0; i < allHighscores.size(); i++) {
+            HighScorePair hsp = allHighscores.get(i);
+            MTools.println(hsp.name + " " + hsp.value);
+        }
     }
 
     private boolean handleOperationToggling(MouseEvent e) {
@@ -1191,7 +1241,6 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         } else if (e.getKeyCode() == KeyEvent.VK_Z) {
 
         }
-
         display();
     }
 
@@ -1230,17 +1279,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         System.out.println("Xperimental ...");
 
-        if (clip.isOpen() || clip.isRunning()) {
-            clip.stop();
-        }
-
-        if (soundOnDisplay.contentEquals(sound1)) {
-            soundOnDisplay = sound2;
-            setAndPlaySound(soundOnDisplay);
-        } else {
-            soundOnDisplay = sound1;
-            setAndPlaySound(soundOnDisplay);
-        }
+        readKlassenHighScores();
     }
 
     private void setVolume() {
