@@ -28,8 +28,6 @@ public class Klasse extends ArrayList<OneSchueler> {
         String kStr = "klassen/Klasse" + klassenString[id] + ".txt";
         file = new File(kStr);
 
-        MTools.println(kStr);
-
         String hStr = "klassen/Klasse" + klassenString[id] + "HighScore.txt";
         fileHighScore = new File(hStr);
 

@@ -1,6 +1,5 @@
 package mathtrainer;
 
-import mathtrainer.MatheTrainer;
 import mratools.MTools;
 
 import javax.swing.*;
@@ -9,6 +8,7 @@ public class MyPopup extends JPopupMenu {
 
     JMenuItem settingsMenu = new JMenuItem("Settings");
     JMenuItem schuelerMenu = new JMenuItem("Schüler");
+    JMenuItem highScoreMenu = new JMenuItem("High-score");
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
     JMenuItem obenaus = new JMenuItem("Klasse Fr. Obenaus");
@@ -25,7 +25,7 @@ public class MyPopup extends JPopupMenu {
     public MyPopup(MatheTrainer mathTrainer) {
 
         helpMenu.addActionListener(e -> {
-            mathTrainer.drawStatistics = false;
+            mathTrainer.drawSchueler = false;
             mathTrainer.drawSettings = false;
             mathTrainer.drawHelp = !mathTrainer.drawHelp;
             mathTrainer.repaint();
@@ -57,6 +57,8 @@ public class MyPopup extends JPopupMenu {
 
         schuelerMenu.addActionListener(e -> mathTrainer.showSchuelerPage());
 
+        highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
+
         add(newGameMenu);
 
         add(new Separator());
@@ -78,11 +80,11 @@ public class MyPopup extends JPopupMenu {
         cb.setSelected(mathTrainer.playMusic);
         MTools.println("playMusic: " + mathTrainer.playMusic);
         add(cb);
-
-        cb.addActionListener(e -> mathTrainer.toggleSoundOnOff());
+        cb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
 
         add(new Separator());
 
+        add(highScoreMenu);
         add(schuelerMenu);
         add(settingsMenu);
         add(helpMenu);
