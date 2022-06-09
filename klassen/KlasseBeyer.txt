@@ -1,7 +1,6 @@
 Nadine
-Selin
 Nico
-Niclas
+Niklas
 Victoria
 Janina
 Leo
@@ -10,5 +9,7 @@ Robin
 Nils
 Vivian
 Antonin
-Eric
-Neo-Dean
+Erik
+Celine
+Emilio
+Clementine

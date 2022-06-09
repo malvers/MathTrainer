@@ -99,7 +99,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         initColors();
 
-        actualKlasse = 0; // Alvers
+        actualKlasse = 0; /// Alvers
 
         initBeginning();
 

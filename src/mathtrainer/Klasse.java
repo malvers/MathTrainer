@@ -39,7 +39,7 @@ public class Klasse extends ArrayList<OneSchueler> {
         }
 
         while (sc.hasNextLine()) {
-            String line = sc.nextLine();
+            String line = sc.nextLine().trim();
             if (line.startsWith("//")) {
                 continue;
             }
@@ -47,6 +47,11 @@ public class Klasse extends ArrayList<OneSchueler> {
         }
 
         /// read high scores
+//        readHighscores(fileHighScore);
+    }
+
+    private void readHighscores(File fileHighScore) {
+        Scanner sc;
         try {
             sc = new Scanner(fileHighScore);
         } catch (FileNotFoundException e) {
