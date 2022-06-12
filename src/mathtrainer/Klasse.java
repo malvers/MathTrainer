@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 public class Klasse extends ArrayList<OneSchueler> {
 
+    public String name = "nonameklasse";
     int id;
     long highScore;
     static String[] klassenString;
@@ -25,8 +26,8 @@ public class Klasse extends ArrayList<OneSchueler> {
         File file = null;
         File fileHighScore = null;
 
-        String kStr = "klassen/Klasse" + klassenString[id] + ".txt";
-        file = new File(kStr);
+        name = "klassen/Klasse" + klassenString[id] + ".txt";
+        file = new File(name);
 
         String hStr = "klassen/Klasse" + klassenString[id] + "HighScore.txt";
         fileHighScore = new File(hStr);
@@ -47,7 +48,11 @@ public class Klasse extends ArrayList<OneSchueler> {
         }
 
         /// read high scores
-//        readHighscores(fileHighScore);
+        readHighscores(fileHighScore);
+    }
+
+    public Klasse() {
+        initKlassenId();
     }
 
     private void readHighscores(File fileHighScore) {
@@ -80,10 +85,6 @@ public class Klasse extends ArrayList<OneSchueler> {
         klassenString[7] = "Tremel";
         klassenString[8] = "Platz";
         klassenString[9] = "Liebermann";
-    }
-
-    public Klasse() {
-        initKlassenId();
     }
 
     public int getNumberTasks() {

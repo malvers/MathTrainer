@@ -77,6 +77,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
     boolean playMusic = true;
     private boolean isWindows;
     private boolean drawHighScore = false;
+    private boolean showAndPlayName = true;
 
     public MatheTrainer() {
 
@@ -161,6 +162,7 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         new Klasse();
         for (int klassenId = 0; klassenId < Klasse.klassenString.length; klassenId++) {
+            Klasse klasse = new Klasse(klassenId);
             alleKlassen.add(new Klasse(klassenId));
         }
         if (shuffle) {
@@ -174,6 +176,8 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         for (int i = 0; i < numberTasksProSchueler; i++) {
 
             Klasse klasse = alleKlassen.get(actualKlasse);
+
+            MTools.println("klasse: " + klasse.name);
 
             for (OneSchueler oneSchueler : klasse) {
 
@@ -404,10 +408,10 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
             zeitProAufgabeUndSchueler = pinnedHighScore;
         }
 
-        String hss = " - high score " + hs + " s";
+        String hss = "";// - high score " + hs + " s";
         if (alleKlassen.get(actualKlasse).highScore >= 10000) {
-            hss = " - no high score available ...";
-//            hss = "";
+//            hss = " - no high score available ...";
+            hss = "";
         }
 
         str = "Klasse Fr. " + Klasse.klassenString[actualKlasse] + " " + hss;
@@ -470,6 +474,9 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         g2d.drawString("M", 50, yShift + (yPos * i));
         g2d.drawString("Hintergrundmusik ein/aus", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("N", 50, yShift + (yPos * i));
+        g2d.drawString("Name ein/aus", xShift, yShift + (yPos * i++));
 
         g2d.drawString("S", 50, yShift + (yPos * i));
         g2d.drawString("Zeigt die Schüler Statistik", xShift, yShift + (yPos * i++));
@@ -721,22 +728,27 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
         /// draw Schüler name
 
-        metrics = g2d.getFontMetrics();
-        g2d.setColor(cs.fgLight);
         String sName;
-        if (pinnedName.length() > 0) {
-            sName = pinnedName;
-        } else {
-            sName = allTasks.get(taskCounter).name;
-        }
+        int sw;
+        int yPos;
 
-        int sw = metrics.stringWidth(sName);
-        int yPos = 200;
+        if (showAndPlayName) {
+            metrics = g2d.getFontMetrics();
+            g2d.setColor(cs.fgLight);
+            if (pinnedName.length() > 0) {
+                sName = pinnedName;
+            } else {
+                sName = allTasks.get(taskCounter).name;
+            }
 
-        if (isWindows) {
-            yPos += 50;
+            sw = metrics.stringWidth(sName);
+            yPos = 200;
+
+            if (isWindows) {
+                yPos += 50;
+            }
+            g2d.drawString(sName, xPos - (sw / 2), getHeight() - yPos);
         }
-        g2d.drawString(sName, xPos - (sw / 2), getHeight() - yPos);
 
         /// draw count down
 
@@ -922,12 +934,12 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
         ttt = "High Score Team";
         sWidth = metrics.stringWidth(ttt);
         g2d.setColor(cs.fgLight);
-        g2d.drawString(ttt, xPos - (sWidth / 2), yShift + (getHeight() / 2 + 200));
+//        g2d.drawString(ttt, xPos - (sWidth / 2), yShift + (getHeight() / 2 + 200));
 
         g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeNumbers / 2));
         metrics = g2d.getFontMetrics();
 
-        ts = getHighScoreString() + " s";
+        ts = "Toll gemacht!"; //getHighScoreString() + " s";
         sWidth = metrics.stringWidth(ts);
         g2d.setColor(Color.CYAN);
         g2d.drawString(ts, xPos - (sWidth / 2), yShift + (getHeight() / 2 + 300));
@@ -1251,6 +1263,10 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
 
             toggleMusicOnOff();
 
+        } else if (e.getKeyCode() == KeyEvent.VK_N) {
+
+            showAndPlayName = !showAndPlayName;
+
         } else if (e.getKeyCode() == KeyEvent.VK_P) {
 
             allTasks.print();
@@ -1431,7 +1447,9 @@ public class MatheTrainer extends JPanel implements MouseListener, MouseMotionLi
             }
             countDown = new MyCountDown(this, countDownFrom);
             setImageForTask();
-            playSchuelerName(allTasks.get(taskCounter).name);
+            if (showAndPlayName) {
+                playSchuelerName(allTasks.get(taskCounter).name);
+            }
 
         } else {
 
