@@ -21,8 +21,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private static Clip clip;
     private static ArrayList<HighScorePair> allHighscores = new ArrayList<HighScorePair>();
     private final String sound1 = "/Users/malvers/IdeaProjects/MathTrainer/sound/Jeopardy.wav";
-    private final String sound2 = "/Users/malvers/IdeaProjects/MathTrainer/sound/Madonna - Frozen 10.wav";
-    private String soundOnDisplay = sound1;
+    private final String sound2 = "/Users/malvers/IdeaProjects/MathTrainer/sound/Madonna - Frozen.wav";
+    private String soundOnDisplay = sound2;
     private Timer timer;
     private MyCountDown countDown;
 
@@ -1703,7 +1703,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             gender = "_female";
         }
 
-        String name = "sound/" + schueler + "_de-DE" + gender + ".wav";
+        gender = "_male";
+
+        String name = "/Users/malvers/IdeaProjects/MathTrainer/sound/" + schueler + ".wav";
 
 //        MTools.println("Playing sound: " + name);
 

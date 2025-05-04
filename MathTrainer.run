@@ -1,0 +1,10 @@
+#!/bin/bash
+
+jpackage \
+  --input /Users/malvers/IdeaProjects/MathTrainer/out/artifacts/MathTrainer_jar\
+  --main-jar MathTrainer.jar\
+  --main-class mathtrainer.MathTrainer\
+  --name MathTrainer\
+  --type app-image\
+  --app-version 1.0\
+  --dest /Users/malvers/Desktop/DemoPrograms\
