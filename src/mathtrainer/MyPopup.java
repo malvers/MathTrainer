@@ -22,7 +22,7 @@ public class MyPopup extends JPopupMenu {
     JMenuItem platz = new JMenuItem("Klasse Fr. Platz");
     JMenuItem liebermann = new JMenuItem("Klasse Fr. Liebermann");
 
-    public MyPopup(MatheTrainer mathTrainer) {
+    public MyPopup(MathTrainer mathTrainer) {
 
         helpMenu.addActionListener(e -> {
             mathTrainer.drawSchueler = false;

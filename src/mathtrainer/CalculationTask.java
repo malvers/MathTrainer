@@ -4,13 +4,13 @@ import java.awt.*;
 
 public class CalculationTask {
 
-    private final short operation;
+    private final int operation;
     String name;
     int number1;
     int number2;
     private String sOperator;
 
-    public CalculationTask(String nameIn, Reihen reihen, boolean limitToSelected, short op) {
+    public CalculationTask(String nameIn, Reihen reihen, boolean limitToSelected, int op) {
 
         operation = op;
         if (operation == 0) {
@@ -57,7 +57,7 @@ public class CalculationTask {
         System.out.println(name + " ->\t" + space + i + " ->\t" + number1 + sOperator + number2 + " = ");
     }
 
-    public short getOperation() {
+    public int getOperation() {
         return operation;
     }
 

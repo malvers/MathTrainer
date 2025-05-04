@@ -23,14 +23,20 @@ public class Operations {
         }
     }
 
-    public static short getRandomOperation() {
+    public static int getRandomOperation() {
 
-        short check;
+        int check = (int) (Math.random() * 4);
         int i = 0;
 
-        while (switchedOn[check = (short) (Math.random() * 4)] == 0) {
-            /// do nothing special
+        int count = 0;
+        while (switchedOn[check] == 0) {
+            check = (int) (Math.random() * 4);
+            count++;
+            if (count > 10) {
+                break;
+            }
         }
+
         return check;
     }
 
@@ -52,11 +58,15 @@ public class Operations {
 
         int count = 0;
         for (int i = 0; i < 4; i++) {
-            if( switchedOn[i] == 0 ) count++;
-            MTools.println("switched on: " + i + " value: " + switchedOn[i] );
+            if (switchedOn[i] == 0) {
+                count++;
+            }
+            MTools.println("switched on: " + i + " value: " + switchedOn[i]);
         }
         /// multiplication is on when all others are off
-        if(count == 4 ) switchedOn[0] = 1;
+        if (count == 4) {
+            switchedOn[0] = 1;
+        }
     }
 
     public static short isOn(short op) {
@@ -78,7 +88,7 @@ public class Operations {
     public static void printAll() {
         MTools.println("Operations.printAll()");
         for (int i = 0; i < 4; i++) {
-            MTools.println("switched on: " + i + " value: " + switchedOn[i] );
+            MTools.println("switched on: " + i + " value: " + switchedOn[i]);
         }
     }
 }

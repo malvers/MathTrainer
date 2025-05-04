@@ -8,10 +8,15 @@ import java.util.Scanner;
 
 public class Klasse extends ArrayList<OneSchueler> {
 
-    public String name = "nonameklasse";
+    public String name = "Nonameklasse";
     int id;
     long highScore;
     static String[] klassenString;
+
+    public Klasse() {
+        initKlassenId();
+    }
+
 
     public Klasse(int idIn) {
 
@@ -26,7 +31,11 @@ public class Klasse extends ArrayList<OneSchueler> {
         File file = null;
         File fileHighScore = null;
 
-        name = "klassen/Klasse" + klassenString[id] + ".txt";
+        if (klassenString[id] == null) {
+            return;
+        }
+
+        name = "/Users/malvers/IdeaProjects/MathTrainer/klassen/Klasse" + klassenString[id] + ".txt";
         file = new File(name);
 
         String hStr = "klassen/Klasse" + klassenString[id] + "HighScore.txt";
@@ -51,11 +60,7 @@ public class Klasse extends ArrayList<OneSchueler> {
         readHighscores(fileHighScore);
     }
 
-    public Klasse() {
-        initKlassenId();
-    }
-
-    private void readHighscores(File fileHighScore) {
+     private void readHighscores(File fileHighScore) {
         Scanner sc;
         try {
             sc = new Scanner(fileHighScore);
@@ -76,15 +81,7 @@ public class Klasse extends ArrayList<OneSchueler> {
     private void initKlassenId() {
         klassenString = new String[10];
         klassenString[0] = "Alvers";
-        klassenString[1] = "Schnabel";
-        klassenString[2] = "Mueller";
-        klassenString[3] = "Heidingsfelder";
-        klassenString[4] = "Beyer";
-        klassenString[5] = "Wilhelm";
-        klassenString[6] = "Obenaus";
-        klassenString[7] = "Tremel";
-        klassenString[8] = "Platz";
-        klassenString[9] = "Liebermann";
+        klassenString[1] = "Magdalena";
     }
 
     public int getNumberTasks() {

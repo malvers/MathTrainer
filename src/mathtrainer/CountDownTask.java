@@ -5,9 +5,9 @@ import java.util.TimerTask;
 public class CountDownTask extends TimerTask {
 
     private int counter;
-    MatheTrainer matheTrainer;
+    MathTrainer matheTrainer;
 
-    public CountDownTask(MatheTrainer mt, int c) {
+    public CountDownTask(MathTrainer mt, int c) {
         matheTrainer = mt;
         counter = c;
     }

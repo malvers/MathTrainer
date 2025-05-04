@@ -8,5 +8,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Mrautilities" level="project" />
+    <orderEntry type="library" name="Make" level="project" />
   </component>
 </module>
