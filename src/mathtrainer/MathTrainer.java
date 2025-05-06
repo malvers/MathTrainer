@@ -1697,13 +1697,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static void playSchuelerName(String schueler) {
 
-        String gender = "_male";
-
-        if (Math.random() < 0.5) {
-            gender = "_female";
-        }
-
-        gender = "_male";
+//        String gender = "_male";
+//
+//        if (Math.random() < 0.5) {
+//            gender = "_female";
+//        }
+//
+//        gender = "_male";
 
         String name = "/Users/malvers/IdeaProjects/MathTrainer/sound/" + schueler + ".wav";
 
