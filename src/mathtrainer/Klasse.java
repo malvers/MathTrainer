@@ -81,7 +81,7 @@ public class Klasse extends ArrayList<OneSchueler> {
     private void initKlassenId() {
         klassenString = new String[10];
         klassenString[0] = "Alvers";
-        klassenString[1] = "Magdalena";
+        klassenString[1] = "Wischnewski";
     }
 
     public int getNumberTasks() {

@@ -429,11 +429,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         str = "Klasse Fr. " + Klasse.klassenString[actualKlasse] + " " + hss;
 
-        if (Klasse.klassenString[actualKlasse].contains("Heidingsfelder") ||
-                Klasse.klassenString[actualKlasse].contains("Mueller")) {
-            str = "Klasse Hr. " + Klasse.klassenString[actualKlasse] + " " + hss;
-        }
-
         if (Klasse.klassenString[actualKlasse].contains("Alvers")) {
             str = "Klasse Dr. " + Klasse.klassenString[actualKlasse] + " " + hss;
         }
@@ -441,6 +436,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString(str, 10, 26);
 
 
+        g2d.setColor(Color.yellow);
         str = alleKlassen.get(actualKlasse).getNumberTasks() + " Aufgaben";
         width = (int) metrics.getStringBounds(str, g2d).getWidth();
         int xShift = 10;
@@ -727,7 +723,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private void drawNameAndCountDown(Graphics2D g2d, ColorSheme cs, int xPos) {
 
         FontMetrics metrics;
-        g2d.setColor(cs.fgLight);
+//        g2d.setColor(cs.fgLight);
+        g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.PLAIN, 90));
 
         if (taskCounter >= 0) {
@@ -747,7 +744,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (showAndPlayName) {
             metrics = g2d.getFontMetrics();
-            g2d.setColor(cs.fgLight);
+            //g2d.setColor(cs.fgLight);
+            g2d.setColor(Color.WHITE);
             if (pinnedName.length() > 0) {
                 sName = pinnedName;
             } else {

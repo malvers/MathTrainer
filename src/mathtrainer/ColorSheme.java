@@ -8,8 +8,8 @@ public class ColorSheme {
     public static Color orange = Color.ORANGE;
     public static Color niceGreen = new Color(113, 197, 37);
     public Color backGround = Color.WHITE;
-    public Color fgLight = Color.DARK_GRAY;
-    public Color fgDark = Color.DARK_GRAY;
+    public Color fgLight = Color.WHITE;
+    public Color fgDark = Color.YELLOW;
 
     public ColorSheme(Color bg, Color fg, Color light) {
 
