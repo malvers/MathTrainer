@@ -1,67 +1,11 @@
 readImages done ...
 initNames done ...
 klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
+oneSchueler: Dian
 Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Erwin
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Colin
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Frieda
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Johann
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leo
-Get operation ...
-operation: 1
+operation: 0
 After: allTasks.add()
 oneSchueler: Aurora
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Sarina
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Theo Schibbe
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Ellen
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Edgar
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Ernst
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leonas
 Get operation ...
 operation: 1
 After: allTasks.add()
@@ -69,128 +13,168 @@ oneSchueler: Nic
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Dian
+oneSchueler: Lexy
 Get operation ...
 operation: 1
+After: allTasks.add()
+oneSchueler: Leonardo
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Johann
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Ellen
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Leonas
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Ernst
+Get operation ...
+operation: 0
 After: allTasks.add()
 oneSchueler: Theo Scheinpflug
 Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Emma
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Erwin
+Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Carlos
+oneSchueler: Sarina
 Get operation ...
-operation: 2
+operation: 0
 After: allTasks.add()
-oneSchueler: Lysann
+oneSchueler: Theo Schibbe
 Get operation ...
-operation: 3
+operation: 1
 After: allTasks.add()
-oneSchueler: Clara
+oneSchueler: Pauline
 Get operation ...
-operation: 2
+operation: 0
 After: allTasks.add()
 oneSchueler: Álvaro
 Get operation ...
-operation: 2
+operation: 0
+After: allTasks.add()
+oneSchueler: Colin
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Carlos
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Clara
+Get operation ...
+operation: 1
 After: allTasks.add()
 oneSchueler: Frederik
 Get operation ...
-operation: 3
+operation: 1
 After: allTasks.add()
-oneSchueler: Lexy
+oneSchueler: Edgar
 Get operation ...
-operation: 2
+operation: 1
+After: allTasks.add()
+oneSchueler: Polly
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Frieda
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Lysann
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Leo
+Get operation ...
+operation: 0
 After: allTasks.add()
 klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
+oneSchueler: Dian
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Erwin
+oneSchueler: Aurora
 Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
-oneSchueler: Colin
+oneSchueler: Nic
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Frieda
+oneSchueler: Lexy
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Leonardo
 Get operation ...
 operation: 1
 After: allTasks.add()
 oneSchueler: Johann
 Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Leo
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Aurora
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Sarina
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Theo Schibbe
-Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
 oneSchueler: Ellen
 Get operation ...
-operation: 2
+operation: 1
 After: allTasks.add()
-oneSchueler: Edgar
+oneSchueler: Leonas
 Get operation ...
 operation: 1
 After: allTasks.add()
 oneSchueler: Ernst
 Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leonas
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Nic
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Dian
-Get operation ...
-operation: 1
+operation: 0
 After: allTasks.add()
 oneSchueler: Theo Scheinpflug
 Get operation ...
-operation: 3
+operation: 0
+After: allTasks.add()
+oneSchueler: Emma
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Erwin
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Sarina
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Theo Schibbe
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Pauline
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Álvaro
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Colin
+Get operation ...
+operation: 1
 After: allTasks.add()
 oneSchueler: Carlos
 Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Lysann
-Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
 oneSchueler: Clara
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Álvaro
 Get operation ...
 operation: 1
 After: allTasks.add()
@@ -198,133 +182,28 @@ oneSchueler: Frederik
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Lexy
+oneSchueler: Edgar
 Get operation ...
-operation: 1
+operation: 0
+After: allTasks.add()
+oneSchueler: Polly
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Frieda
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Lysann
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Leo
+Get operation ...
+operation: 0
 After: allTasks.add()
 klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Erwin
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Colin
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Frieda
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Johann
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Leo
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Aurora
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Sarina
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Theo Schibbe
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Ellen
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Edgar
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Ernst
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Leonas
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Nic
-Get operation ...
-operation: 3
-After: allTasks.add()
 oneSchueler: Dian
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Theo Scheinpflug
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Carlos
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Lysann
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Clara
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Álvaro
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Frederik
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Lexy
-Get operation ...
-operation: 1
-After: allTasks.add()
-klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Erwin
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Colin
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Frieda
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Johann
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leo
 Get operation ...
 operation: 1
 After: allTasks.add()
@@ -332,320 +211,100 @@ oneSchueler: Aurora
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Sarina
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Theo Schibbe
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Ellen
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Edgar
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Ernst
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Leonas
-Get operation ...
-operation: 1
-After: allTasks.add()
 oneSchueler: Nic
 Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Dian
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Theo Scheinpflug
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Carlos
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Lysann
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Clara
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Álvaro
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Frederik
-Get operation ...
-operation: 2
+operation: 0
 After: allTasks.add()
 oneSchueler: Lexy
 Get operation ...
 operation: 1
 After: allTasks.add()
-klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
+oneSchueler: Leonardo
 Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Erwin
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Colin
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Frieda
-Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
 oneSchueler: Johann
 Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Leo
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Aurora
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Sarina
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Theo Schibbe
-Get operation ...
-operation: 3
-After: allTasks.add()
 oneSchueler: Ellen
 Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Edgar
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Ernst
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 2
+operation: 0
 After: allTasks.add()
 oneSchueler: Leonas
 Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Nic
-Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Dian
+oneSchueler: Ernst
 Get operation ...
 operation: 1
 After: allTasks.add()
 oneSchueler: Theo Scheinpflug
 Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
-oneSchueler: Carlos
+oneSchueler: Emma
 Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Lysann
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Clara
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Álvaro
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Frederik
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Lexy
-Get operation ...
-operation: 3
-After: allTasks.add()
-klasse: /Users/malvers/IdeaProjects/MathTrainer/klassen/KlasseAlvers.txt
-oneSchueler: Polly
-Get operation ...
-operation: 2
+operation: 0
 After: allTasks.add()
 oneSchueler: Erwin
 Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Colin
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Frieda
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Johann
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leo
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Aurora
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Pauline
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Leonardo
-Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
 oneSchueler: Sarina
 Get operation ...
-operation: 2
+operation: 1
 After: allTasks.add()
 oneSchueler: Theo Schibbe
 Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Ellen
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Edgar
-Get operation ...
 operation: 1
 After: allTasks.add()
-oneSchueler: Ernst
+oneSchueler: Pauline
 Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Emma
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Leonas
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Nic
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Dian
-Get operation ...
-operation: 2
-After: allTasks.add()
-oneSchueler: Theo Scheinpflug
-Get operation ...
-operation: 1
-After: allTasks.add()
-oneSchueler: Carlos
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Lysann
-Get operation ...
-operation: 3
-After: allTasks.add()
-oneSchueler: Clara
-Get operation ...
-operation: 3
+operation: 0
 After: allTasks.add()
 oneSchueler: Álvaro
 Get operation ...
-operation: 3
+operation: 1
+After: allTasks.add()
+oneSchueler: Colin
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Carlos
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Clara
+Get operation ...
+operation: 0
 After: allTasks.add()
 oneSchueler: Frederik
 Get operation ...
-operation: 2
+operation: 1
 After: allTasks.add()
-oneSchueler: Lexy
+oneSchueler: Edgar
 Get operation ...
-operation: 3
+operation: 0
+After: allTasks.add()
+oneSchueler: Polly
+Get operation ...
+operation: 1
+After: allTasks.add()
+oneSchueler: Frieda
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Lysann
+Get operation ...
+operation: 0
+After: allTasks.add()
+oneSchueler: Leo
+Get operation ...
+operation: 0
 After: allTasks.add()
 initAllTasks done ...
 setImageForTask done ...
 ready to go ...
 
 
-
-
-handleDown() - beginning
-
-iterationCount: 2.....................................
-In Ergebnis ...
-automated new Aufgabe
-handleDown() - nextTask != null
-
-iterationCount: 3.....................................
-In Aufgabe ...
-handleDown() - nextTask != null
-
-iterationCount: 4.....................................
-In Ergebnis ...
-automated new Aufgabe
-handleDown() - nextTask != null
-
-iterationCount: 5.....................................
-In Aufgabe ...
-handleDown() - nextTask != null
-
-iterationCount: 6.....................................
-In Ergebnis ...
-automated new Aufgabe
-handleDown() - nextTask != null
-
-iterationCount: 7.....................................
-In Aufgabe ...
-handleDown() - nextTask != null
-
-iterationCount: 8.....................................
-In Ergebnis ...
-automated new Aufgabe
-handleDown() - nextTask != null
-
-iterationCount: 9.....................................
-In Aufgabe ...

@@ -19,10 +19,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static JFrame frame;
     private static Clip clip;
-    private static ArrayList<HighScorePair> allHighscores = new ArrayList<HighScorePair>();
+    private static final ArrayList<HighScorePair> allHighscores = new ArrayList<HighScorePair>();
     private final String sound1 = "/Users/malvers/IdeaProjects/MathTrainer/sound/Jeopardy.wav";
     private final String sound2 = "/Users/malvers/IdeaProjects/MathTrainer/sound/Madonna - Frozen.wav";
-    private String soundOnDisplay = sound2;
+    private final String soundOnDisplay = sound2;
     private Timer timer;
     private MyCountDown countDown;
 
@@ -35,7 +35,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     BufferedImage bgImg = null;
 
-    private final int fontSizeSchueler = 30;
+    private final int fontSizeSchueler = 26;
     private int numberTasksProSchueler = 6;
     private int colorSchemeId = 0;
     private int fontSizeNumbers = 220;
@@ -54,7 +54,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final String settingsFileName = "/Users/malvers/IdeaProjects/MathTrainer/MatheTrainer.binary.settings";
     private String pinnedName = "";
 
-    private boolean timeStartIsReseted = false;
+    private boolean timeStartIsRested = false;
     public boolean drawSchueler = false;
     private boolean showDuration = false;
     private boolean beginning = true;
@@ -114,7 +114,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         MTools.println("\ninitBeginning:");
 
-        timeStartIsReseted = false;
+        timeStartIsRested = false;
         beginning = true;
         taskCounter = 0;
         iterationCount = 0;
@@ -232,7 +232,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void initColors() {
 
-        allColorSchemes.add(new ColorSheme(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.GRAY));
+        allColorSchemes.add(new ColorSheme(Color.LIGHT_GRAY, Color.DARK_GRAY, Color.LIGHT_GRAY));
         allColorSchemes.add(new ColorSheme(Color.DARK_GRAY, Color.WHITE, Color.LIGHT_GRAY));
         allColorSchemes.add(new ColorSheme(ColorSheme.darkBlue, ColorSheme.orange, Color.lightGray));
         allColorSchemes.add(new ColorSheme(ColorSheme.darkBlue, ColorSheme.niceGreen, Color.WHITE));
@@ -586,8 +586,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             g2d.setColor(colorStore);
             if (kl.get(i).anwesend) {
-                g2d.drawString("✓  ", 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
+                g2d.drawString("✅  ", 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
             } else {
+                g2d.drawString("❌  ", 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
                 g2d.setColor(cs.fgLight);
             }
 
@@ -723,6 +724,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private void drawNameAndCountDown(Graphics2D g2d, ColorSheme cs, int xPos) {
 
         FontMetrics metrics;
+        // TODO: check why cs.fgLight is not taken
 //        g2d.setColor(cs.fgLight);
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.PLAIN, 90));
@@ -744,9 +746,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (showAndPlayName) {
             metrics = g2d.getFontMetrics();
+            // TODO: check why cs.fgLight is not taken
             //g2d.setColor(cs.fgLight);
             g2d.setColor(Color.WHITE);
-            if (pinnedName.length() > 0) {
+            if (!pinnedName.isEmpty()) {
                 sName = pinnedName;
             } else {
                 sName = allTasks.get(taskCounter).name;
@@ -1419,11 +1422,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             beginning = false;
             shallWriteHighScore = false;
 
-            if (taskCounter == 0 && !timeStartIsReseted) {
+            if (taskCounter == 0 && !timeStartIsRested) {
 
 //                System.out.println("start timer ... " + taskCounter);
                 countDown = new MyCountDown(this, countDownFrom);
-                timeStartIsReseted = true;
+                timeStartIsRested = true;
                 resetTimerStart();
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
@@ -1695,18 +1698,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static void playSchuelerName(String schueler) {
 
-//        String gender = "_male";
-//
-//        if (Math.random() < 0.5) {
-//            gender = "_female";
-//        }
-//
-//        gender = "_male";
-
         String name = "/Users/malvers/IdeaProjects/MathTrainer/sound/" + schueler + ".wav";
-
-//        MTools.println("Playing sound: " + name);
-
         setAndPlaySound(name);
     }
 
