@@ -1,7 +1,5 @@
 package mathtrainer;
 
-import mratools.MTools;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -61,7 +59,6 @@ public class Operations {
             if (switchedOn[i] == 0) {
                 count++;
             }
-            MTools.println("switched on: " + i + " value: " + switchedOn[i]);
         }
         /// multiplication is on when all others are off
         if (count == 4) {
@@ -86,9 +83,9 @@ public class Operations {
     }
 
     public static void printAll() {
-        MTools.println("Operations.printAll()");
+        System.out.println("Operations.printAll()");
         for (int i = 0; i < 4; i++) {
-            MTools.println("switched on: " + i + " value: " + switchedOn[i]);
+            System.out.println("switched on: " + i + " value: " + switchedOn[i]);
         }
     }
 }

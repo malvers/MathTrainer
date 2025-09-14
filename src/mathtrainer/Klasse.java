@@ -1,7 +1,5 @@
 package mathtrainer;
 
-import mratools.MTools;
-
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -65,7 +63,7 @@ public class Klasse extends ArrayList<OneSchueler> {
         try {
             sc = new Scanner(fileHighScore);
         } catch (FileNotFoundException e) {
-            MTools.println("HighScore file not found.");
+            System.out.println("HighScore file not found.");
             return;
         }
 

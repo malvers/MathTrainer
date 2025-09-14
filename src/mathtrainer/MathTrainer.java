@@ -1,7 +1,5 @@
 package mathtrainer;
 
-import mratools.MTools;
-
 import javax.imageio.ImageIO;
 import javax.sound.sampled.*;
 import javax.swing.*;
@@ -12,8 +10,6 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.Timer;
 import java.util.*;
-
-import MyTools.Make;
 
 public class MathTrainer extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
@@ -117,7 +113,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     public void initBeginning() {
 
-        MTools.println("\ninitBeginning:");
+        System.out.println("\ninitBeginning:");
 
         timeStartIsRested = false;
         beginning = true;
@@ -139,26 +135,26 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         readImages();
 
-        MTools.setLogFileName("mathtrainer.log");
+        //System.out.setLogFileName("mathtrainer.log");
 
-        MTools.println("readImages done ...");
+        System.out.println("readImages done ...");
 
         initNames(true);
 
-        MTools.println("initNames done ...");
+        System.out.println("initNames done ...");
 
         initAllTasks(true);
 
-        MTools.println("initAllTasks done ...");
+        System.out.println("initAllTasks done ...");
 
         setImageForTask();
 
-        MTools.println("setImageForTask done ...");
+        System.out.println("setImageForTask done ...");
 
         timer = new Timer();
         resetTimerStart();
 
-        MTools.println("ready to go ...\n\n");
+        System.out.println("ready to go ...\n\n");
     }
 
     private void initNames(boolean shuffle) {
@@ -181,7 +177,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             Klasse klasse = alleKlassen.get(actualKlasse);
 
-            MTools.println("klasse: " + klasse.name);
+            System.out.println("klasse: " + klasse.name);
 
 //            for (OneSchueler oneSchueler : klasse) {
 
@@ -189,25 +185,25 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
                 OneSchueler oneSchueler = klasse.getSchueler(j);
 
-                MTools.println("oneSchueler: " + oneSchueler.name);
+                System.out.println("oneSchueler: " + oneSchueler.name);
 
                 if (!oneSchueler.anwesend) {
-                    MTools.println("nicht anwesend ...");
+                    System.out.println("nicht anwesend ...");
                     continue;
                 }
 
-                MTools.println("Get operation ...");
+                System.out.println("Get operation ...");
 
                 int operation = Operations.getRandomOperation();
 
-                MTools.println("operation: " + operation);
+                System.out.println("operation: " + operation);
 
                 allMathematicsTasks.add(new MathTask(oneSchueler.name, series, limitedToSelectedSeries, operation));
                 allEnglishTasks.add(new EnglishTask(oneSchueler.name));
                 allHistoryTasks.add(new HistoryTask(oneSchueler.name));
                 allLatinTasks.add(new LatinTask(oneSchueler.name));
 
-                MTools.println("After: allTasks.add()");
+                System.out.println("After: allTasks.add()");
             }
         }
 
@@ -296,7 +292,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             soundVolume = in.readFloat();
             playMusic = in.readBoolean();
 
-            MTools.println("playMusic: " + playMusic);
+            System.out.println("playMusic: " + playMusic);
 
             Operations.read(in);
 
@@ -565,7 +561,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             double val = hsp.value / 1000.0;
 
-            String sVal = "  (" + MTools.fixedWidthDoubletoString(val, 4, 2) + " Sekunden pro Aufgabe)";
+            String sVal = "";// (" + System.out.fixedWidthDoubletoString(val, 4, 2) + " Sekunden pro Aufgabe)";
             g2d.setColor(cs.fgDark);
             g2d.drawString((i + 1) + ". Platz: " + kl + hsp.name, 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
             g2d.setColor(Color.LIGHT_GRAY);
@@ -1023,11 +1019,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mousePressed(MouseEvent e) {
 
-        MTools.println("mousy");
+        System.out.println("mousy");
 
         if (SwingUtilities.isRightMouseButton(e)) {
 
-            MTools.println("mousy:right");
+            System.out.println("mousy:right");
 
             mathtrainer.MyPopup pop = new mathtrainer.MyPopup(this);
             pop.show(this, e.getX(), e.getY());
@@ -1094,32 +1090,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         repaint();
     }
 
-    private void copyToGoogleDrive() {
-
-        File folder = new File("./klassen/");
-        File[] listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            File file = listOfFiles[i];
-            try {
-                MTools.copyFile(file, new File("/Users/malvers/Google Drive/MATHTRAINER/klassen/" + file.getName()));
-            } catch (IOException exception) {
-                MTools.println("something went wrong copying file: " + file.getName());
-            }
-        }
-        folder = new File("./sound/");
-        listOfFiles = folder.listFiles();
-
-        for (int i = 0; i < listOfFiles.length; i++) {
-            File file = listOfFiles[i];
-            try {
-                MTools.copyFile(file, new File("/Users/malvers/Google Drive/MATHTRAINER/sound/" + file.getName()));
-            } catch (IOException exception) {
-                MTools.println("something went wrong copying file: " + file.getName());
-            }
-        }
-    }
-
     public static void readKlassenHighScores() {
 
         File folder = new File("./klassen/");
@@ -1135,7 +1105,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 continue;
             }
 
-//            MTools.println("Klassen File: " + file.getName());
+//            System.out.println("Klassen File: " + file.getName());
 
             String klassenleiter = file.getName().substring(6, file.getName().indexOf(".") - 9);
 
@@ -1304,7 +1274,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         } else if (e.getKeyCode() == KeyEvent.VK_B) {
             initBeginning();
         } else if (e.getKeyCode() == KeyEvent.VK_C && e.isControlDown() && e.isShiftDown()) {
-            copyToGoogleDrive();
+            //copyToGoogleDrive();
         } else if (e.getKeyCode() == KeyEvent.VK_D) {
             debugMode = !debugMode;
         } else if (e.getKeyCode() == KeyEvent.VK_E) {
@@ -1344,7 +1314,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         } else if (e.getKeyCode() == KeyEvent.VK_R) {
 
             if (e.isMetaDown()) {
-                Make.jarAndApp(getClass());
+                //Make.jarAndApp(getClass());
             } else if (e.isShiftDown()) {
                 readImages();
             } else {
@@ -1472,7 +1442,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (beginning) {
 
-            MTools.println("\n\nhandleDown() - beginning");
+            System.out.println("\n\nhandleDown() - beginning");
             beginning = false;
             shallWriteHighScore = false;
 
@@ -1494,22 +1464,22 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         if (showDuration) {
-            MTools.println("handleDown() - show duration true");
+            System.out.println("handleDown() - show duration true");
             return true;
         }
 
         if (nextTaskIn != null) {
-            MTools.println("handleDown() - nextTask != null");
+            System.out.println("handleDown() - nextTask != null");
             nextTaskIn.cancel();
         }
 
         iterationCount++;
 
-        MTools.println("\niterationCount: " + iterationCount + ".....................................");
+        System.out.println("\niterationCount: " + iterationCount + ".....................................");
 
         if (iterationCount % 2 > 0) {
 
-            MTools.println("In Aufgabe ...");
+            System.out.println("In Aufgabe ...");
 
             EnglishTask.nextTask();
             HistoryTask.nextTask();
@@ -1528,7 +1498,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         } else {
 
-            MTools.println("In Ergebnis ...");
+            System.out.println("In Ergebnis ...");
 
             if (taskCounter >= alleKlassen.get(actualKlasse).getNumberTasks()) {
                 taskCounter = numberTasksProSchueler;
@@ -1541,7 +1511,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             if (countDown != null) {
-                MTools.println("automated new Aufgabe");
+                System.out.println("automated new Aufgabe");
                 countDown.cancel();
                 nextTaskIn = new Timer();
                 nextTaskIn.scheduleAtFixedRate(
@@ -1551,7 +1521,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                                 nextTaskCountDown--;
                                 if (nextTaskCountDown == 0) {
                                     this.cancel();
-                                    MTools.println("should start automatically");
+                                    System.out.println("should start automatically");
                                     /// TODO: not thread safe
 //                                    handleDown();
                                     nextTaskCountDown = nextTaskCountDownFrom;
@@ -1603,7 +1573,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         pinnedName = "Klasse" + Klasse.klassenString[actualKlasse];
 
-        MTools.println("write high score Klasse: " + pinnedName);
+        System.out.println("write high score Klasse: " + pinnedName);
 
         if (pinnedName.length() > 0) {
 
@@ -1611,7 +1581,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             try {
                 String fileName = "klassen/" + pinnedName + "HighScore.txt";
 
-//                MTools.println("fileName: " + fileName);
+//                System.out.println("fileName: " + fileName);
 
                 writer = new OutputStreamWriter(new FileOutputStream(fileName));
                 writer.append("" + timePerTaskAndStudent);
@@ -1652,7 +1622,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
         } catch (IOException e) {
-            MTools.println("some image could not be loaded: setImageForTask()");
+            System.out.println("some image could not be loaded: setImageForTask()");
         }
     }
 
@@ -1685,9 +1655,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         try {
             bgImg = ImageIO.read(imagesMatrix[0][0]);
             String name = String.valueOf(imagesMatrix[0][0].getName());
-            MTools.println("image name: " + name);
+            System.out.println("image name: " + name);
 //            URL res = getClass().getResource(name);
-//            MTools.println("URL: " + res);
+//            System.out.println("URL: " + res);
 //            bgImg = ImageIO.read(res);
         } catch (IOException e) {
             e.printStackTrace();

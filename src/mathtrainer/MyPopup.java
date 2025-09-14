@@ -1,7 +1,5 @@
 package mathtrainer;
 
-import mratools.MTools;
-
 import javax.swing.*;
 
 public class MyPopup extends JPopupMenu {
@@ -71,7 +69,7 @@ public class MyPopup extends JPopupMenu {
 
         JCheckBox cb = new JCheckBox("Sound on/off");
         cb.setSelected(mathTrainer.playMusic);
-        MTools.println("playMusic: " + mathTrainer.playMusic);
+        System.out.println("playMusic: " + mathTrainer.playMusic);
         add(cb);
         cb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
 
