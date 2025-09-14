@@ -33,10 +33,10 @@ public class Klasse extends ArrayList<OneSchueler> {
             return;
         }
 
-        name = "klassen/Klasse" + klassenString[id] + ".txt";
+        name = MathTrainer.workingDirectory + "klassen/Klasse" + klassenString[id] + ".txt";
         file = new File(name);
 
-        String hStr = "klassen/Klasse" + klassenString[id] + "HighScore.txt";
+        String hStr = MathTrainer.workingDirectory + "klassen/Klasse" + klassenString[id] + "HighScore.txt";
         fileHighScore = new File(hStr);
 
         Scanner sc = null;
@@ -114,7 +114,7 @@ public class Klasse extends ArrayList<OneSchueler> {
     public void writeHighScore() throws IOException {
 
         File file = null;
-        file = new File("Klasse" + klassenString[id] + "_HighScore.txt");
+        file = new File(MathTrainer.workingDirectory + "Klasse" + klassenString[id] + "_HighScore.txt");
 
         Writer writer = new OutputStreamWriter(new FileOutputStream(file, true));
         try {

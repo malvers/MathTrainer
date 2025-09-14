@@ -8,3 +8,6 @@ jpackage \
   --type app-image\
   --app-version 1.0\
   --dest /Users/malvers/Desktop/DemoPrograms\
+
+
+# Build -> build artifacts -> for making the .jar

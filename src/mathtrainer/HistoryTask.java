@@ -1,7 +1,11 @@
 package mathtrainer;
 
 import java.awt.*;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -19,7 +23,8 @@ public class HistoryTask {
     public HistoryTask(String nameIn) {
 
         try {
-            readTasksFromFile(Path.of("history/history.txt"));
+            //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "history/history.txt"));
+            readTasksFromResource("/history/history.txt");
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -61,6 +66,36 @@ public class HistoryTask {
             }
         }
         Collections.shuffle(tasks);
+    }
+
+    private void readTasksFromResource(String resourcePath) throws IOException {
+
+        try (InputStream in = MathTrainer.class.getResourceAsStream(resourcePath)) {
+            if (in == null) {
+                throw new IOException("Resource not found: " + resourcePath);
+            }
+
+            try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+                List<String> lines = reader.lines().toList();
+
+                for (String line : lines) {
+                    line = line.trim();
+                    if (line.isEmpty()) {
+                        continue;
+                    }
+                    String[] parts = line.split("\\s*:\\s*");
+                    if (parts.length >= 2) {
+                        try {
+                            tasks.add(new HistoryTask.Vocabulary(parts[0], parts[1]));
+                            System.out.println(parts[0] + " - " + parts[1]);
+                        } catch (NumberFormatException e) {
+                            System.err.println("Skipping line: " + line);
+                        }
+                    }
+                }
+                Collections.shuffle(tasks);
+            }
+        }
     }
 
     String getTaskString() {

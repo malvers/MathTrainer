@@ -16,9 +16,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private static JFrame frame;
     private static Clip clip;
     private static final ArrayList<HighScorePair> allHighScores = new ArrayList<>();
-    private final String sound1 = "sound/Jeopardy.wav";
-    private final String sound2 = "sound/Madonna - Frozen.wav";
+    private final String sound1 = MathTrainer.workingDirectory + "sound/Jeopardy.wav";
+    private final String sound2 = MathTrainer.workingDirectory + "sound/Madonna - Frozen.wav";
+//    private final String sound1 = "sound/Jeopardy.wav";
+//    private final String sound2 = "sound/Madonna - Frozen.wav";
     private final String soundOnDisplay = sound2;
+    public static String workingDirectory = "";
     private Timer timer;
     private MyCountDown countDown;
 
@@ -82,6 +85,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     public MathTrainer() {
 
+        //readWorkingDirectory();
+
         isWindows = getOperatingSystem().contains("Windows");
 
         setFocusable(true);
@@ -97,12 +102,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         });
         Runtime.getRuntime().addShutdownHook(t);
 
-        /// Testing
         //readSettings();
-
         initColors();
 
-        actualKlasse = 0; /// Alvers
+
+        actualKlasse = 1; /// Alvers = 0, Wischnewski = 1
 
         initBeginning();
 
@@ -111,6 +115,24 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             setVolume();
         }
     }
+
+//    private static void readWorkingDirectory() {
+//
+//        File wd;
+//        List<String> lines = null;
+//        try {
+//            lines = Files.readAllLines(Path.of(MathTrainer.workingDirectory + "workingDirectory.txt"));
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        if (lines != null) {
+//            workingDirectory = lines.getFirst();
+//        }
+//
+//        MTools.init("mathDebug.txt", true);
+//        MTools.println("wd: " + workingDirectory);
+//    }
 
     public void initBeginning() {
 
@@ -275,7 +297,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         FileInputStream f;
         try {
-            f = new FileInputStream(settingsFileName);
+            f = new FileInputStream(workingDirectory + settingsFileName);
             ObjectInputStream in = new ObjectInputStream(f);
             int x = in.readInt();
             int y = in.readInt();
@@ -1636,7 +1658,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void readImages() {
 
-        File folder = new File("images");
+        File folder = new File(MathTrainer.workingDirectory + "images");
         File[] listOfFiles = folder.listFiles();
 
         int counter = 0;
@@ -1644,7 +1666,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             for (int j = 0; j < 10; j++) {
                 imagesMatrix[i][j] = listOfFiles[counter];
 
-//                System.out.println(i + " - " + j + " name: " + listOfFiles[counter].getName());
+                System.out.println(i + " - " + j + " name: " + listOfFiles[counter].getName());
 
                 counter++;
                 if (counter > listOfFiles.length) {
@@ -1728,7 +1750,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static void playSchuelerName(String schueler) {
 
-        String name = "sound/" + schueler + ".wav";
+        String name = MathTrainer.workingDirectory + "sound/" + schueler + ".wav";
         setAndPlaySound(name);
     }
 
