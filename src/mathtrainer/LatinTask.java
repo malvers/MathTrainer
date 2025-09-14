@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HistoryTask {
+public class LatinTask {
 
     String name;
     String question = "Question";
@@ -16,10 +16,10 @@ public class HistoryTask {
     private final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public HistoryTask(String nameIn) {
+    public LatinTask(String nameIn) {
 
         try {
-            readTasksFromFile(Path.of("history/history.txt"));
+            readTasksFromFile(Path.of("latin/latin.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -50,7 +50,7 @@ public class HistoryTask {
             if (line.isEmpty()) {
                 continue;
             }
-            String[] parts = line.split("\\s*:\\s*");
+            String[] parts = line.split("\\s*-\\s*");
             if (parts.length >= 2) {
                 try {
                     tasks.add(new Vocabulary(parts[0], parts[1]));
@@ -64,7 +64,6 @@ public class HistoryTask {
     }
 
     String getTaskString() {
-
         return tasks.get(taskNumber).english;
     }
 

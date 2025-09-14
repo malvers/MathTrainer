@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class EnglishTask {
@@ -12,13 +13,13 @@ public class EnglishTask {
     String name;
     String question = "Question";
     String answer = "Answer";
-    private List<Vocabulary> words = new ArrayList<>();
+    private final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public EnglishTask(String nameIn) {
 
         try {
-            readTasksFromFile(Path.of("/Users/malvers/IdeaProjects/MathTrainer/english/english.txt"));
+            readTasksFromFile(Path.of("english/english.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -52,23 +53,20 @@ public class EnglishTask {
             String[] parts = line.split("[,\\s]+");
             if (parts.length >= 2) {
                 try {
-                    words.add(new Vocabulary(parts[0], parts[1]));
+                    tasks.add(new Vocabulary(parts[0], parts[1]));
                     //System.out.println(parts[0] + " - " + parts[1]);
                 } catch (NumberFormatException e) {
                     System.err.println("Skipping line: " + line);
                 }
             }
-
-//            for (int i = 0; i < words.size(); i++) {
-//                System.out.println(words.get(i).english);
-//            }
         }
+        Collections.shuffle(tasks);
+
     }
 
     String getTaskString() {
 
-        System.out.println("tn: " + taskNumber);
-        return words.get(taskNumber).english;
+        return tasks.get(taskNumber).english;
     }
 
     public void print(int i) {
@@ -81,7 +79,7 @@ public class EnglishTask {
     }
 
     public String getResult() {
-        return words.get(taskNumber).german;
+        return tasks.get(taskNumber).german;
     }
 
     public Color getColor() {

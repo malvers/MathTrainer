@@ -1,0 +1,113 @@
+amo - ich liebe
+amas - du liebst
+amat - er/sie/es liebt
+amamus - wir lieben
+amatis - ihr liebt
+amant - sie lieben
+sum - ich bin
+es - du bist
+est - er/sie/es ist
+sumus - wir sind
+estis - ihr seid
+sunt - sie sind
+ego - ich
+tu - du
+is - er
+ea - sie
+id - es
+nos - wir
+vos - ihr
+illi - jene
+hic - dieser
+haec - diese
+hoc - dieses
+ille - jener
+illa - jene
+illud - jenes
+qui - der
+quae - die
+quod - das
+quid - was
+ubi - wo
+quando - wann
+cur - warum
+quomodo - wie
+non - nicht
+et - und
+sed - aber
+aut - oder
+si - wenn
+quia - weil
+nam - denn
+enim - nämlich
+ad - zu / nach
+in - in / auf
+ex - aus / von
+de - über / von
+cum - mit
+sine - ohne
+per - durch
+pro - für / statt
+sub - unter
+super - über
+inter - zwischen
+ante - vor
+post - nach
+contra - gegen
+extra - außerhalb
+infra - darunter
+ultra - jenseits
+magnus - groß
+parvus - klein
+longus - lang
+brevis - kurz
+altus - hoch / tief
+novus - neu
+vetus - alt
+bonus - gut
+malus - schlecht
+fortis - stark
+debilis - schwach
+clarus - klar / berühmt
+obscurus - dunkel / unklar
+pulcher - schön
+foedus - hässlich
+gravis - schwer / ernst
+levis - leicht
+celer - schnell
+lentus - langsam
+verus - wahr
+falsus - falsch
+facilis - leicht
+difficilis - schwer
+liber - frei
+servus - Sklave
+rex - König
+regina - Königin
+puer - Junge
+puella - Mädchen
+homo - Mensch
+femina - Frau
+vir - Mann
+amicus - Freund
+amica - Freundin
+domus - Haus
+via - Straße
+urbs - Stadt
+ager - Feld
+silva - Wald
+mare - Meer
+flumen - Fluss
+mons - Berg
+caelum - Himmel
+sol - Sonne
+luna - Mond
+stella - Stern
+tempus - Zeit
+dies - Tag
+nox - Nacht
+aqua - Wasser
+ignis - Feuer
+terra - Erde
+ventus - Wind
+animal - Tier

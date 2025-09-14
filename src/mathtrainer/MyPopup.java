@@ -10,6 +10,7 @@ public class MyPopup extends JPopupMenu {
     JMenuItem matheMenu = new JMenuItem("Mathematics");
     JMenuItem englishMenu = new JMenuItem("English");
     JMenuItem historyMenu = new JMenuItem("History");
+    JMenuItem latinMenu = new JMenuItem("Latin");
     JMenuItem schuelerMenu = new JMenuItem("Students");
     JMenuItem highScoreMenu = new JMenuItem("High-Score");
     JMenuItem helpMenu = new JMenuItem("Help");
@@ -43,6 +44,7 @@ public class MyPopup extends JPopupMenu {
         matheMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.MATHEMATICS);
         englishMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.ENGLISH);
         historyMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.HISTORY);
+        latinMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.LATIN);
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
 
@@ -53,6 +55,7 @@ public class MyPopup extends JPopupMenu {
         add(matheMenu);
         add(englishMenu);
         add(historyMenu);
+        add(latinMenu);
 
         add(new Separator());
 

@@ -35,7 +35,7 @@ public class Klasse extends ArrayList<OneSchueler> {
             return;
         }
 
-        name = "/Users/malvers/IdeaProjects/MathTrainer/klassen/Klasse" + klassenString[id] + ".txt";
+        name = "klassen/Klasse" + klassenString[id] + ".txt";
         file = new File(name);
 
         String hStr = "klassen/Klasse" + klassenString[id] + "HighScore.txt";
