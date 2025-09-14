@@ -1,5 +1,6 @@
 package mathtrainer;
 
+import MyTools.Make;
 import mratools.MTools;
 
 import javax.imageio.ImageIO;
@@ -89,7 +90,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     public MathTrainer() {
 
         MTools.init("mathDebug.txt", true);
-        //readWorkingDirectory();
 
         isWindows = getOperatingSystem().contains("Windows");
 
@@ -1419,7 +1419,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     private void handleExperimental() {
+
         System.out.println("Experimental ...");
+
+        Make.jarAndApp(this.getClass());
     }
 
     private void setVolume() {
