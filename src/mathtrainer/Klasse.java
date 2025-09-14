@@ -82,6 +82,7 @@ public class Klasse extends ArrayList<OneSchueler> {
         klassenString = new String[10];
         klassenString[0] = "Alvers";
         klassenString[1] = "Wischnewski";
+        klassenString[2] = "Cool";
     }
 
     public int getNumberTasks() {

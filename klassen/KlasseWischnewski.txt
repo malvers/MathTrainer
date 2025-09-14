@@ -9,13 +9,11 @@ Fritz
 Raphael
 Frederik
 Elise
-Julius
 Bella
 Simon
 Christa
 Leo
 Fiby
-Aria
 Greta
 Linus
 Pepe
@@ -24,4 +22,3 @@ Hannes
 Rosalinde
 Hugo
 Herr Foltin
-Florian

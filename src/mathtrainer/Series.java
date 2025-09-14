@@ -2,9 +2,9 @@ package mathtrainer;//import mratools.System.out;
 
 import java.util.ArrayList;
 
-public class Reihen extends ArrayList<Boolean> {
+public class Series extends ArrayList<Boolean> {
 
-    public Reihen(int limit) {
+    public Series(int limit) {
         for (int i = 0; i < limit; i++) {
             add(true);
         }

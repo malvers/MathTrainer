@@ -1,0 +1,89 @@
+package mathtrainer;
+
+import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
+
+public class HistoryTask {
+
+    String name;
+    String question = "Question";
+    String answer = "Answer";
+    private List<Vocabulary> words = new ArrayList<>();
+    private static int taskNumber = 0;
+
+    public HistoryTask(String nameIn) {
+
+        try {
+            readTasksFromFile(Path.of("/Users/malvers/IdeaProjects/MathTrainer/history/history.txt"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        name = nameIn;
+    }
+
+    public static void nextTask() {
+        taskNumber++;
+    }
+
+    private static class Vocabulary {
+
+        String english;
+        String german;
+
+        public Vocabulary(String en, String ge) {
+            english = en;
+            german = ge;
+        }
+    }
+
+    private void readTasksFromFile(Path path) throws IOException {
+
+        List<String> lines = Files.readAllLines(path);
+
+        for (String line : lines) {
+            line = line.trim();
+            if (line.isEmpty()) {
+                continue;
+            }
+            String[] parts = line.split("\\s*:\\s*");
+            if (parts.length >= 2) {
+                try {
+                    words.add(new Vocabulary(parts[0], parts[1]));
+                    System.out.println(parts[0] + " - " + parts[1]);
+                } catch (NumberFormatException e) {
+                    System.err.println("Skipping line: " + line);
+                }
+            }
+
+//            for (int i = 0; i < words.size(); i++) {
+//                System.out.println(words.get(i).english);
+//            }
+        }
+    }
+
+    String getTaskString() {
+
+        return words.get(taskNumber).english;
+    }
+
+    public void print(int i) {
+
+        String space = "";
+        if (i < 10) {
+            space = " ";
+        }
+        System.out.println(name + " ->\t" + space + i + " ->\t" + question);
+    }
+
+    public String getResult() {
+        return words.get(taskNumber).german;
+    }
+
+    public Color getColor() {
+        return Color.WHITE;
+    }
+}

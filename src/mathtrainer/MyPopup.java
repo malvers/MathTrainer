@@ -7,12 +7,16 @@ import javax.swing.*;
 public class MyPopup extends JPopupMenu {
 
     JMenuItem settingsMenu = new JMenuItem("Settings");
-    JMenuItem schuelerMenu = new JMenuItem("Schüler");
-    JMenuItem highScoreMenu = new JMenuItem("High-score");
+    JMenuItem matheMenu = new JMenuItem("Mathematics");
+    JMenuItem englishMenu = new JMenuItem("English");
+    JMenuItem historyMenu = new JMenuItem("History");
+    JMenuItem schuelerMenu = new JMenuItem("Students");
+    JMenuItem highScoreMenu = new JMenuItem("High-Score");
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
     JMenuItem wischnewski = new JMenuItem("Klasse Fr. Wischnewski");
     JMenuItem alvers = new JMenuItem("Klasse Dr. Alvers");
+    JMenuItem cool = new JMenuItem("Klasse Cool");
 
 
     public MyPopup(MathTrainer mathTrainer) {
@@ -32,7 +36,13 @@ public class MyPopup extends JPopupMenu {
 
         wischnewski.addActionListener(e -> mathTrainer.setActualKlasse(1));
 
+        cool.addActionListener(e -> mathTrainer.setActualKlasse(2));
+
         /// end Teacher
+
+        matheMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.MATHEMATICS);
+        englishMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.ENGLISH);
+        historyMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.HISTORY);
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
 
@@ -40,12 +50,19 @@ public class MyPopup extends JPopupMenu {
 
         highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
 
+        add(matheMenu);
+        add(englishMenu);
+        add(historyMenu);
+
+        add(new Separator());
+
         add(newGameMenu);
 
         add(new Separator());
 
         add(alvers);
         add(wischnewski);
+        add(cool);
 
         add(new Separator());
 

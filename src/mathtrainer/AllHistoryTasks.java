@@ -2,9 +2,9 @@ package mathtrainer;
 
 import java.util.ArrayList;
 
-public class AllTasks extends ArrayList<CalculationTask> {
+public class AllHistoryTasks extends ArrayList<HistoryTask> {
 
-    public AllTasks() {
+    public AllHistoryTasks() {
         super(50);
     }
 
@@ -19,7 +19,7 @@ public class AllTasks extends ArrayList<CalculationTask> {
 
         for (int i = 0; i < size() - 1; i++) {
             if (get(i).name.contentEquals(get(i + 1).name)) {
-                CalculationTask store = get(i);
+                HistoryTask store = get(i);
                 remove(i);
                 add(store);
             }
