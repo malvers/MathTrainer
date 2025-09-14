@@ -97,6 +97,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         });
         Runtime.getRuntime().addShutdownHook(t);
 
+        /// Testing
         //readSettings();
 
         initColors();
