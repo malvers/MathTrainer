@@ -17,7 +17,7 @@ public class Team extends ArrayList<OneSchueler> {
 
     private void readTeams(int classId) {
 
-        MTools.println("readTeams");
+//        MTools.println("readTeams");
 
         fileName = "/teams/Team" + teamsString[classId] + ".txt";
 

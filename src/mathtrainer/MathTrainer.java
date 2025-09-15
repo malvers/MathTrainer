@@ -23,12 +23,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private static JFrame frame;
     private static Clip clip;
     private static final ArrayList<HighScorePair> allHighScores = new ArrayList<>();
-    private final String sound1 = MathTrainer.workingDirectory + "sound/Jeopardy.wav";
-    private final String sound2 = MathTrainer.workingDirectory + "sound/Madonna - Frozen.wav";
+    private final String sound1 = "sound/Jeopardy.wav";
+    private final String sound2 = "sound/Madonna - Frozen.wav";
     //    private final String sound1 = "sound/Jeopardy.wav";
 //    private final String sound2 = "sound/Madonna - Frozen.wav";
     private final String soundOnDisplay = sound2;
-    public static String workingDirectory = "";
     private Timer timer;
     private MyCountDown countDown;
 
@@ -94,7 +93,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     public MathTrainer() {
 
-        MTools.init("mathDebug.txt", true);
+        MTools.init("MathTrainerLogDebug.txt", false);
 
         isWindows = getOperatingSystem().contains("Windows");
 
@@ -302,7 +301,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         FileInputStream f;
         try {
-            f = new FileInputStream(workingDirectory + settingsFileName);
+            f = new FileInputStream(settingsFileName);
             ObjectInputStream in = new ObjectInputStream(f);
             int x = in.readInt();
             int y = in.readInt();
@@ -1312,7 +1311,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 if (clip.isOpen() || clip.isRunning()) {
                     clip.stop();
                 }
-                setAndPlaySound("sound/Jeopardy.wav");
+                setAndPlaySound("/sound/Jeopardy.wav");
             }
             case KeyEvent.VK_V -> {
                 if (e.isShiftDown()) {
@@ -1724,7 +1723,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static void playStudentName(String schueler) {
 
-        String name = MathTrainer.workingDirectory + "sound/" + schueler + ".wav";
+        String name = "sound/" + schueler + ".wav";
         setAndPlaySound(name);
     }
 
@@ -1734,58 +1733,34 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             setSound(name);
             clip.start();
         } catch (Exception ex) {
-            System.out.println("Error with playing sound: " + name);
-        }
-    }
-
-    private static void setSoundOld(String name) {
-
-        AudioInputStream audioInputStream = null;
-        try {
-            clip = null;
-            audioInputStream = AudioSystem.getAudioInputStream(new File(name).getAbsoluteFile());
-            clip = AudioSystem.getClip();
-            clip.open(audioInputStream);
-//            clip.loop(10);
-        } catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            System.out.println("setSound: file not found: " + name);
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
+            MTools.println("Error with playing sound: " + name);
         }
     }
 
     private static void setSound(String name) {
+        // Try loading via URL first (works great in JARs!)
+        URL soundUrl = MathTrainer.class.getResource("/" + name);
 
-        // This is the resource path. Adjust if your sounds are in a subfolder (e.g., "/sounds/")
-        String resourcePath = "/" + name;
+        if (soundUrl == null) {
+            MTools.println("setSound: resource not found: " + name);
+            return;
+        }
 
-        try (InputStream audioSrc = MathTrainer.class.getResourceAsStream(resourcePath)) {
-            // Check if the resource was found
-            if (audioSrc == null) {
-                System.out.println("setSound: resource not found: " + resourcePath);
-                return;
-            }
-
-            // Reset the clip
-            clip = null;
-
-            // Create AudioInputStream from the resource stream
-            try (AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(audioSrc)) {
-                clip = AudioSystem.getClip();
-                clip.open(audioInputStream);
-//            clip.loop(10);
-            }
+        try {
+            // 🚀 Use URL directly — this works perfectly in JARs!
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundUrl);
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            // clip.loop(10); // Uncomment if needed
 
         } catch (UnsupportedAudioFileException e) {
-            System.err.println("setSound: Unsupported audio format for: " + resourcePath);
+            MTools.println("setSound: Unsupported audio format for: " + name);
             e.printStackTrace();
         } catch (IOException e) {
-            System.err.println("setSound: IO error loading: " + resourcePath);
+            MTools.println("setSound: IO error loading: " + name);
             e.printStackTrace();
         } catch (LineUnavailableException e) {
-            System.err.println("setSound: Audio line unavailable for: " + resourcePath);
+            MTools.println("setSound: Audio line unavailable for: " + name);
             e.printStackTrace();
         }
     }
