@@ -11,8 +11,12 @@ import java.awt.event.*;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.net.JarURLConnection;
+import java.net.URL;
 import java.util.Timer;
 import java.util.*;
+import java.util.jar.JarEntry;
+import java.util.jar.JarFile;
 
 public class MathTrainer extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
@@ -37,8 +41,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private AllHistoryTasks allHistoryTasks = new AllHistoryTasks();
     private AllLatinTasks allLatinTasks = new AllLatinTasks();
 
-    private File[][] imagesMatrix = new File[10][10];
-    private BufferedImage[][] bufImagesMatrix = new BufferedImage[10][10];
+    //private File[][] imagesMatrixURL = new File[10][10];
+    private URL[][] imagesMatrixURL = new URL[10][10];
+    private BufferedImage[][] bufimagesMatrixURL = new BufferedImage[10][10];
 
     BufferedImage bgImg = null;
 
@@ -102,7 +107,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         /// make sure also whe window is closed via X or cmd q all settings are written
         Thread t = new Thread(() -> {
             writeSettings();
-            writeHighScores();
         });
         Runtime.getRuntime().addShutdownHook(t);
 
@@ -160,6 +164,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDown.cancel();
         }
 
+//        readImagesOld();
         readImages();
 
         //System.out.setLogFileName("mathtrainer.log");
@@ -203,10 +208,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         for (int i = 0; i < numberTasksProSchueler; i++) {
 
             Klasse klasse = alleKlassen.get(actualKlasse);
-
-            System.out.println("klasse: " + klasse.name);
-
-//            for (OneSchueler oneSchueler : klasse) {
 
             for (int j = 0; j < klasse.size(); j++) {
 
@@ -454,26 +455,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.setColor(Color.ORANGE);
             g2d.drawString(str, (float) (getWidth() / 2.0 - width / 2.0), 66);
             g2d.setColor(sc);
-        }
-
-        double hs = alleKlassen.get(actualKlasse).highScore / 1000.0;
-
-        if (pinnedName.length() > 0) {
-            System.out.println(pinnedName + " pinned hs: " + pinnedHighScore);
-            hs = pinnedHighScore / 1000.0;
-            timePerTaskAndStudent = pinnedHighScore;
-        }
-
-        String hss = "";// - high score " + hs + " s";
-        if (alleKlassen.get(actualKlasse).highScore >= 10000) {
-//            hss = " - no high score available ...";
-            hss = "";
-        }
-
-        str = "Klasse Fr. " + Klasse.klassenString[actualKlasse] + " " + hss;
-
-        if (Klasse.klassenString[actualKlasse].contains("Alvers")) {
-            str = "Klasse Dr. " + Klasse.klassenString[actualKlasse] + " " + hss;
         }
 
         g2d.drawString(str, 10, 26);
@@ -959,11 +940,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             yPos += 30;
         }
         g2d.drawString(duration, xPos - (sWidth / 2), getHeight() - yPos);
-    }
-
-    private String getHighScoreString() {
-
-        return "" + alleKlassen.get(actualKlasse).highScore / 1000.0;
     }
 
     private void drawDurationAtTheEnd(Graphics2D g2d, int xPos, ColorSheme cs) {
@@ -1558,13 +1534,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         int numSchueler = alleKlassen.get(actualKlasse).size();
         int numTasks = numberTasksProSchueler * numSchueler;
 
-        long newHighScore = (long) ((double) finalDeltaT / (double) numTasks);
-
-        if (!debugMode && pinnedName.length() == 0 && newHighScore < alleKlassen.get(actualKlasse).highScore) {
-            alleKlassen.get(actualKlasse).highScore = newHighScore;
-        }
-        shallWriteHighScore = true;
-
         timer.cancel();
     }
 
@@ -1578,40 +1547,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     }
 
-    private void writeHighScores() {
-
-        if (!shallWriteHighScore) {
-            return;
-        }
-
-        pinnedName = "Klasse" + Klasse.klassenString[actualKlasse];
-
-        System.out.println("write high score Klasse: " + pinnedName);
-
-        if (pinnedName.length() > 0) {
-
-            Writer writer;
-            try {
-                String fileName = "klassen/" + pinnedName + "HighScore.txt";
-
-//                System.out.println("fileName: " + fileName);
-
-                writer = new OutputStreamWriter(new FileOutputStream(fileName));
-                writer.append("" + timePerTaskAndStudent);
-                writer.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-        } else {
-
-            try {
-                alleKlassen.get(actualKlasse).writeHighScore();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void setImageForTask() {
 
@@ -1619,9 +1554,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             MathTask task = allMathematicsTasks.get(taskCounter);
             if (task.getOperation() == Operations.multiply) {
                 if (task.number1 > task.number2) {
-                    bgImg = ImageIO.read(imagesMatrix[task.number2][task.number1]);
+                    bgImg = ImageIO.read(imagesMatrixURL[task.number2][task.number1]);
                 } else {
-                    bgImg = ImageIO.read(imagesMatrix[task.number1][task.number2]);
+                    bgImg = ImageIO.read(imagesMatrixURL[task.number1][task.number2]);
                 }
             } else if (task.getOperation() == Operations.divide) {
 
@@ -1629,9 +1564,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int ind2 = task.number2;
 
                 if (ind1 > ind2) {
-                    bgImg = ImageIO.read(imagesMatrix[ind2][ind1]);
+                    bgImg = ImageIO.read(imagesMatrixURL[ind2][ind1]);
                 } else {
-                    bgImg = ImageIO.read(imagesMatrix[ind1][ind2]);
+                    bgImg = ImageIO.read(imagesMatrixURL[ind1][ind2]);
                 }
             }
         } catch (IOException e) {
@@ -1646,36 +1581,104 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         repaint();
     }
 
-    // TODO: make resource
     private void readImages() {
 
-        File folder = new File(MathTrainer.workingDirectory + "images");
-        File[] listOfFiles = folder.listFiles();
+        java.util.List<String> imageNames = getResourceListing("/images");
+
+        // Filter only image files (optional)
+        imageNames.removeIf(name -> !name.toLowerCase().matches(".*\\.(png|jpg|jpeg|gif|bmp)$"));
+
+        System.out.println("Found " + imageNames.size() + " images: " + imageNames);
 
         int counter = 0;
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 10; j++) {
-                imagesMatrix[i][j] = listOfFiles[counter];
-
-                System.out.println(i + " - " + j + " name: " + listOfFiles[counter].getName());
-
-                counter++;
-                if (counter > listOfFiles.length) {
+                if (counter >= imageNames.size()) {
+                    System.out.println("No more images at position [" + i + "][" + j + "]");
                     break;
                 }
+
+                String imageName = imageNames.get(counter);
+                URL imageUrl = getClass().getResource("/images/" + imageName);
+
+                if (imageUrl == null) {
+                    System.err.println("Image not found: " + imageName);
+                    counter++;
+                    continue;
+                }
+
+                // Store URL (change imagesMatrixURL to URL[][])
+                imagesMatrixURL[i][j] = imageUrl;
+
+                System.out.println(i + " - " + j + " loaded: " + imageName);
+
+                counter++;
             }
         }
 
+        // Load background image
         try {
-            bgImg = ImageIO.read(imagesMatrix[0][0]);
-            String name = String.valueOf(imagesMatrix[0][0].getName());
-            System.out.println("readImages - image name: " + name);
-//            URL res = getClass().getResource(name);
-//            System.out.println("URL: " + res);
-//            bgImg = ImageIO.read(res);
+            if (imagesMatrixURL[0][0] != null) {
+                bgImg = ImageIO.read(imagesMatrixURL[0][0]);
+                System.out.println("Background image loaded: " + imagesMatrixURL[0][0].getPath());
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    // 👇 This is the magic method — lists all resources in a folder, works in IDE and JAR
+    private java.util.List<String> getResourceListing(String path) {
+
+        java.util.List<String> result = new ArrayList<>();
+
+        // Remove leading "/" if present
+        if (path.startsWith("/")) {
+            path = path.substring(1);
+        }
+
+        try {
+            Enumeration<URL> resources = getClass().getClassLoader().getResources(path);
+            while (resources.hasMoreElements()) {
+                URL url = resources.nextElement();
+                String protocol = url.getProtocol();
+
+                if ("file".equals(protocol)) {
+                    // Running from IDE / file system
+                    File folder = new File(url.toURI());
+                    if (folder.isDirectory()) {
+                        File[] files = folder.listFiles();
+                        if (files != null) {
+                            for (File file : files) {
+                                if (file.isFile()) {
+                                    result.add(file.getName());
+                                }
+                            }
+                        }
+                    }
+                } else if ("jar".equals(protocol)) {
+                    // Running from JAR
+                    JarURLConnection conn = (JarURLConnection) url.openConnection();
+                    JarFile jarFile = conn.getJarFile();
+                    Enumeration<JarEntry> entries = jarFile.entries();
+
+                    while (entries.hasMoreElements()) {
+                        JarEntry entry = entries.nextElement();
+                        String name = entry.getName();
+                        // Match entries under the given path
+                        if (name.startsWith(path + "/") && !entry.isDirectory()) {
+                            // Extract just the filename
+                            String fileName = name.substring(name.lastIndexOf('/') + 1);
+                            result.add(fileName);
+                        }
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return result;
     }
 
     public String getOperatingSystem() {

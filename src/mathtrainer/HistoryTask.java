@@ -87,7 +87,7 @@ public class HistoryTask {
                     if (parts.length >= 2) {
                         try {
                             tasks.add(new HistoryTask.Vocabulary(parts[0], parts[1]));
-                            System.out.println(parts[0] + " - " + parts[1]);
+                            //System.out.println(parts[0] + " - " + parts[1]);
                         } catch (NumberFormatException e) {
                             System.err.println("Skipping line: " + line);
                         }

@@ -1,20 +1,42 @@
 package mathtrainer;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Klasse extends ArrayList<OneSchueler> {
 
-    public String name = "Nonameklasse";
-    int id;
-    long highScore;
+    public String fileName = "Nonameklasse";
+    int classId;
     static String[] klassenString;
 
     public Klasse() {
         initKlassenId();
     }
 
+    private void readKlasse() {
+
+        fileName = "klassen/Klasse" + klassenString[classId] + ".txt";
+
+        InputStream inputStream = getClass().getResourceAsStream(fileName);
+
+        if (inputStream == null) {
+            System.err.println("❌ File not found: " + fileName);
+            return;
+        }
+
+        // ✅ Read content
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
+            String line;
+            System.out.println("📄 Contents of " + fileName + ":");
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public Klasse(int idIn) {
 
@@ -22,22 +44,18 @@ public class Klasse extends ArrayList<OneSchueler> {
 
         initKlassenId();
 
-        highScore = Long.MAX_VALUE;
+        classId = idIn;
 
-        id = idIn;
+        readKlasse();
 
         File file = null;
-        File fileHighScore = null;
 
-        if (klassenString[id] == null) {
+        if (klassenString[classId] == null) {
             return;
         }
 
-        name = MathTrainer.workingDirectory + "klassen/Klasse" + klassenString[id] + ".txt";
-        file = new File(name);
-
-        String hStr = MathTrainer.workingDirectory + "klassen/Klasse" + klassenString[id] + "HighScore.txt";
-        fileHighScore = new File(hStr);
+        fileName = "klassen/Klasse" + klassenString[classId] + ".txt";
+        file = new File(fileName);
 
         Scanner sc = null;
         try {
@@ -52,27 +70,6 @@ public class Klasse extends ArrayList<OneSchueler> {
                 continue;
             }
             add(new OneSchueler(line));
-        }
-
-        /// read high scores
-        readHighscores(fileHighScore);
-    }
-
-     private void readHighscores(File fileHighScore) {
-        Scanner sc;
-        try {
-            sc = new Scanner(fileHighScore);
-        } catch (FileNotFoundException e) {
-            System.out.println("HighScore file not found.");
-            return;
-        }
-
-        while (sc.hasNextLine()) {
-            String line = sc.nextLine();
-            if (line.length() == 0) {
-                continue;
-            }
-            highScore = Long.parseLong(line);
         }
     }
 
@@ -108,19 +105,6 @@ public class Klasse extends ArrayList<OneSchueler> {
     void print() {
         for (int i = 0; i < size(); i++) {
             get(i).print();
-        }
-    }
-
-    public void writeHighScore() throws IOException {
-
-        File file = null;
-        file = new File(MathTrainer.workingDirectory + "Klasse" + klassenString[id] + "_HighScore.txt");
-
-        Writer writer = new OutputStreamWriter(new FileOutputStream(file, true));
-        try {
-            writer.append("" + highScore + "\n");
-        } finally {
-            writer.close();
         }
     }
 }
