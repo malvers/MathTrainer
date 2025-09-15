@@ -95,6 +95,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         MTools.init("MathTrainerLogDebug.txt", false);
 
+        new TextFileDropTarget(this);
+
         isWindows = getOperatingSystem().contains("Windows");
 
         setFocusable(true);
