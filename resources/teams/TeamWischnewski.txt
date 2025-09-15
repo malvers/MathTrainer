@@ -1,4 +1,3 @@
-/// Test
 Hannah
 Max
 Pia
