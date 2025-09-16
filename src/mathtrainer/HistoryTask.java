@@ -14,35 +14,57 @@ import java.util.List;
 
 public class HistoryTask {
 
-    String name;
+    String Student;
     String question = "Question";
     String answer = "Answer";
-    private final List<Vocabulary> tasks = new ArrayList<>();
+    private static List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public HistoryTask(String nameIn) {
+    public HistoryTask(String nameIn, boolean read) {
 
-        try {
-            //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "history/history.txt"));
-            readTasksFromResource("/history/history.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (read) {
+            try {
+                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "history/history.txt"));
+                readTasksFromResource();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
-        name = nameIn;
+        Student = nameIn;
     }
 
-    public static void nextTask() {
+    public HistoryTask() {
+
+    }
+
+    protected static void nextTask() {
         taskNumber++;
     }
 
-    private static class Vocabulary {
+    protected static void clearTasks() {
+        System.out.println("cearTasks");
+        tasks = new ArrayList<>();
+//        tasks.clear();
+    }
 
-        String english;
-        String german;
+    protected static void addTask(Vocabulary vocabulary) {
+        tasks.add(vocabulary);
+        Collections.shuffle(tasks);
+    }
+
+    protected static List<Vocabulary> getTasks() {
+
+        return tasks;
+    }
+
+    protected static class Vocabulary {
+
+        String question;
+        String answer;
 
         public Vocabulary(String en, String ge) {
-            english = en;
-            german = ge;
+            question = en;
+            answer = ge;
         }
     }
 
@@ -68,11 +90,11 @@ public class HistoryTask {
         Collections.shuffle(tasks);
     }
 
-    private void readTasksFromResource(String resourcePath) throws IOException {
+    private void readTasksFromResource() throws IOException {
 
-        try (InputStream in = MathTrainer.class.getResourceAsStream(resourcePath)) {
+        try (InputStream in = MathTrainer.class.getResourceAsStream("/history/history.txt")) {
             if (in == null) {
-                throw new IOException("Resource not found: " + resourcePath);
+                throw new IOException("Resource not found: " + "/history/history.txt");
             }
 
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
@@ -98,9 +120,9 @@ public class HistoryTask {
         }
     }
 
-    String getTaskString() {
+    String getQuestion() {
 
-        return tasks.get(taskNumber).english;
+        return tasks.get(taskNumber).question;
     }
 
     public void print(int i) {
@@ -109,11 +131,11 @@ public class HistoryTask {
         if (i < 10) {
             space = " ";
         }
-        System.out.println(name + " ->\t" + space + i + " ->\t" + question);
+        System.out.println(Student + " ->\t" + space + i + " ->\t" + question);
     }
 
-    public String getResult() {
-        return tasks.get(taskNumber).german;
+    public String getAnswer() {
+        return tasks.get(taskNumber).answer;
     }
 
     public Color getColor() {

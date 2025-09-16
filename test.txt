@@ -1,0 +1,118 @@
+Steinzeit - Erste Werkzeuge aus Stein: ca. 2,5 Mio. v. Chr.
+Altsteinzeit - Erste Höhlenmalereien: ca. 30.000 v. Chr.
+Ackerbau - Beginn der Landwirtschaft im Fruchtbaren Halbmond: ca. 10.000 v. Chr.
+Rad - Erfindung des Rads in Mesopotamien: ca. 3.500 v. Chr.
+Pyramidenbau - Cheops-Pyramide in Gizeh: ca. 2.560 v. Chr.
+Hammurabi - Gesetzesstele in Babylon: ca. 1.750 v. Chr.
+Trojanischer Krieg - Mythische Eroberung Trojas: ca. 1.200 v. Chr.
+Alphabet - Phönizische Schrift: ca. 1.050 v. Chr.
+Eisenzeit - Verbreitung von Eisenwerkzeugen: ca. 1.000 v. Chr.
+Gründung Roms - Legende um Romulus und Remus: 753 v. Chr.
+Erste Olympische Spiele - Griechenland: 776 v. Chr.
+Römische Republik - Gründung: 509 v. Chr.
+Alexander der Große - Schlacht bei Issos: 333 v. Chr.
+Kaiser Augustus - Beginn des Römischen Kaiserreichs: 27 v. Chr.
+Geburt Christi - Beginn unserer Zeitrechnung: ca. 0
+Christentum - Kreuzigung Jesu: ca. 30
+Hadrianswall - Grenzbefestigung in Britannien: 122
+Konstantin der Große - Toleranzedikt von Mailand: 313
+Teilung des Römischen Reichs - West- und Ostrom: 395
+Hunnen - Schlacht auf den Katalaunischen Feldern: 451
+Untergang des Weströmischen Reichs: 476
+Byzanz - Kaiser Justinian kodifiziert das römische Recht: 529
+Islam - Hedschra Mohammeds nach Medina: 622
+Karl der Große - Kaiserkrönung in Rom: 800
+Wikinger - Überfall auf Lindisfarne: 793
+Otto der Große - Kaiserkrönung: 962
+Kreuzzüge - Erster Kreuzzug: 1096
+Magna Carta - Unterzeichnung in England: 1215
+Marco Polo - Reise nach China: 1271
+Hundertjähriger Krieg - Beginn: 1337
+Schwarzer Tod - Pest in Europa: 1347
+Osmanisches Reich - Eroberung Konstantinopels: 1453
+Gutenberg - Druck der Bibel: 1455
+Kolumbus - Entdeckung Amerikas: 1492
+Luther - Thesenanschlag in Wittenberg: 1517
+Magellan - Erste Weltumseglung abgeschlossen: 1522
+Reformation - Augsburger Religionsfrieden: 1555
+Shakespeare - Theaterstücke in London: 1590er
+Galilei - Fernrohrbeobachtungen: 1609
+Dreißigjähriger Krieg - Beginn: 1618
+Westfälischer Friede - Ende des Dreißigjährigen Kriegs: 1648
+Isaac Newton - Veröffentlichung „Principia Mathematica“: 1687
+Französische Revolution - Sturm auf die Bastille: 1789
+Napoleon - Kaiserkrönung: 1804
+Dampfmaschine - James Watt perfektioniert: 1769
+Industrialisierung - Erste Eisenbahn Stockton–Darlington: 1825
+Darwin - Veröffentlichung „Origin of Species“: 1859
+Telefon - Erfindung durch Alexander Graham Bell: 1876
+Glühbirne - Thomas Edison: 1879
+Reichsgründung - Deutsches Kaiserreich: 1871
+Automobil - Benz Patent-Motorwagen: 1886
+Erste Olympische Spiele der Neuzeit - Athen: 1896
+Radio - Marconi überträgt Funksignal: 1895
+Titanic - Untergang: 1912
+Erster Weltkrieg - Beginn: 1914
+Russische Revolution - Oktoberrevolution: 1917
+Frauenwahlrecht - Deutschland: 1918
+Weimarer Republik - Ausrufung: 1918
+Schwarzer Freitag - Börsencrash: 1929
+Hitler - Machtübernahme: 1933
+Zweiter Weltkrieg - Beginn: 1939
+Holocaust - Beginn systematischer Vernichtung: 1941
+D-Day - Landung in der Normandie: 1944
+Atombombenabwurf - Hiroshima: 1945
+Gründung UNO - San Francisco: 1945
+Computer - ENIAC in Betrieb genommen: 1945
+Marshallplan - Wiederaufbauhilfe für Europa: 1947
+Gründung der Bundesrepublik Deutschland: 1949
+NATO - Gründung: 1949
+Volksrepublik China - Ausrufung durch Mao: 1949
+Koreakrieg - Beginn: 1950
+Tod Stalins - Machtwechsel in der UdSSR: 1953
+Sputnik - Erster Satellit im All: 1957
+Mauerbau - Berlin: 1961
+Kubakrise - Höhepunkt des Kalten Krieges: 1962
+Kennedy - Ermordung in Dallas: 1963
+Vietnamkrieg - US-Eskalation: 1965
+Internet - ARPANET-Start: 1969
+Mondlandung - Neil Armstrong betritt den Mond: 1969
+Apollo 13 - „Houston, we’ve had a problem“: 1970
+E-Mail - Erste Nachricht gesendet: 1971
+Watergate - Skandal um Nixon: 1972
+Fall Saigons - Ende Vietnamkrieg: 1975
+Walkman - Tragbarer Kassettenplayer: 1979
+Solidarnosc - Gründung Gewerkschaft in Polen: 1980
+Chernobyl - Reaktorkatastrophe: 1986
+Perestroika - Gorbatschows Reformen: 1986
+Berliner Mauerfall - Ende der Teilung Deutschlands: 1989
+Nelson Mandela - Freilassung: 1990
+Wiedervereinigung - Deutschland: 1990
+Sowjetunion - Auflösung: 1991
+Jugoslawienkrieg - Beginn: 1991
+SMS - Erste Kurzmitteilung gesendet: 1992
+Maastricht - Vertrag zur EU-Gründung: 1993
+Apartheid - Ende in Südafrika: 1994
+Eurotunnel - Eröffnung: 1994
+Dolly - Erstes geklontes Schaf: 1996
+Hongkong - Übergabe an China: 1997
+Google - Gründung: 1998
+Euro - Einführung als Bargeld: 2002
+9/11 - Terroranschläge in den USA: 2001
+Facebook - Gründung: 2004
+YouTube - Online-Start: 2005
+Twitter - Start: 2006
+iPhone - Vorstellung durch Apple: 2007
+Finanzkrise - Lehman Brothers-Pleite: 2008
+Obama - Wahl zum US-Präsidenten: 2008
+Arabischer Frühling - Beginn in Tunesien: 2010
+Fukushima - Atomkatastrophe: 2011
+Brexit - Volksentscheid in Großbritannien: 2016
+Trump - Wahl zum US-Präsidenten: 2016
+Corona - Beginn der Pandemie: 2019
+Notre-Dame - Brand in Paris: 2019
+Black Lives Matter - Protestwelle: 2020
+US-Kapitol - Sturm durch Demonstranten: 2021
+Russland - Angriffskrieg gegen die Ukraine: 2022
+James-Webb-Teleskop - Erste Bilder veröffentlicht: 2022
+KI - ChatGPT wird veröffentlicht: 2022

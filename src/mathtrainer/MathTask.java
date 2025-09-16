@@ -43,7 +43,7 @@ public class MathTask {
         name = nameIn;
     }
 
-    String getTaskString() {
+    String getQuestion() {
 
         return number1 + sOperator + number2;
     }

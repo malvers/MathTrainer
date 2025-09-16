@@ -31,11 +31,11 @@ public class MyPopup extends JPopupMenu {
 
         /// Teacher
 
-        alvers.addActionListener(e -> mathTrainer.setActualKlasse(0));
+        alvers.addActionListener(e -> mathTrainer.setActualTeam(0));
 
-        wischnewski.addActionListener(e -> mathTrainer.setActualKlasse(1));
+        wischnewski.addActionListener(e -> mathTrainer.setActualTeam(1));
 
-        cool.addActionListener(e -> mathTrainer.setActualKlasse(2));
+        cool.addActionListener(e -> mathTrainer.setActualTeam(2));
 
         /// end Teacher
 

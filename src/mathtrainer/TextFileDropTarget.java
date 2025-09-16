@@ -2,8 +2,6 @@ package mathtrainer;
 
 import mratools.MTools;
 
-import javax.swing.*;
-import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.dnd.*;
 import java.io.*;
@@ -12,9 +10,11 @@ import java.util.List;
 
 public class TextFileDropTarget {
 
-    public TextFileDropTarget(JPanel panel) {
+    private final MathTrainer panel;
+    public TextFileDropTarget(MathTrainer panelIn) {
 
-        // Enable drop target
+        panel = panelIn;
+
         panel.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent dtde) {
@@ -46,14 +46,14 @@ public class TextFileDropTarget {
     }
 
     private void processTextFile(File file) {
-//        System.out.println("\n📄 Reading: " + file.getName());
-//        System.out.println("================================");
 
         try (BufferedReader reader = new BufferedReader(
                 new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
 
             String line;
             int lineNum = 0;
+
+            HistoryTask.clearTasks();
 
             while ((line = reader.readLine()) != null) {
                 lineNum++;
@@ -75,14 +75,14 @@ public class TextFileDropTarget {
                 String col1 = columns[0];
                 String col2 = columns[1];
 
-                MTools.println(col1 + " --- " + col2);
-
-                HistoryTask.tasks.add(new HistoryTask.Vocabulary(col1, col2));
+                // TODO: adjust to subject! !!!!!!
+                HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
             }
 
         } catch (IOException e) {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
         }
+        panel.initHistoryTasks(HistoryTask.getTasks());
     }
 }

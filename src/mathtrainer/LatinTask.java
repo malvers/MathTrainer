@@ -39,12 +39,12 @@ public class LatinTask {
 
     private static class Vocabulary {
 
-        String english;
-        String german;
+        String question;
+        String anser;
 
         public Vocabulary(String en, String ge) {
-            english = en;
-            german = ge;
+            question = en;
+            anser = ge;
         }
     }
 
@@ -101,8 +101,8 @@ public class LatinTask {
     }
 
 
-    String getTaskString() {
-        return tasks.get(taskNumber).english;
+    String getQuestion() {
+        return tasks.get(taskNumber).question;
     }
 
     public void print(int i) {
@@ -114,8 +114,8 @@ public class LatinTask {
         System.out.println(name + " ->\t" + space + i + " ->\t" + question);
     }
 
-    public String getResult() {
-        return tasks.get(taskNumber).german;
+    public String getAnswer() {
+        return tasks.get(taskNumber).anser;
     }
 
     public Color getColor() {

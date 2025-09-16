@@ -18,7 +18,7 @@ public class AllHistoryTasks extends ArrayList<HistoryTask> {
     public void checkForDoubleNames() {
 
         for (int i = 0; i < size() - 1; i++) {
-            if (get(i).name.contentEquals(get(i + 1).name)) {
+            if (get(i).Student.contentEquals(get(i + 1).Student)) {
                 HistoryTask store = get(i);
                 remove(i);
                 add(store);
