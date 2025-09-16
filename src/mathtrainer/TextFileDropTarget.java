@@ -83,6 +83,6 @@ public class TextFileDropTarget {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
         }
-        panel.initHistoryTasks(HistoryTask.getTasks());
+        panel.initHistoryTasks();
     }
 }

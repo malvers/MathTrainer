@@ -1,6 +1,6 @@
 package mathtrainer;
 
-public class OneSchueler {
+public class OneStudent {
 
     public int numberFalseSolutions;
     String name;
@@ -17,7 +17,7 @@ public class OneSchueler {
     int numberRightSolutions;
     boolean anwesend = true;
 
-    public OneSchueler(String nameIn) {
+    public OneStudent(String nameIn) {
         name = nameIn;
         if (nameIn.contentEquals("Michael")) {
             anwesend = false;

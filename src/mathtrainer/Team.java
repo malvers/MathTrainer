@@ -6,7 +6,7 @@ import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
-public class Team extends ArrayList<OneSchueler> {
+public class Team extends ArrayList<OneStudent> {
 
     public String fileName = "no team assigned";
     static String[] teamsString;
@@ -34,7 +34,7 @@ public class Team extends ArrayList<OneSchueler> {
             //System.out.println("📄 Contents of " + fileName + ":");
             while ((line = reader.readLine()) != null) {
                 //System.out.println("line: " + line);
-                add(new OneSchueler(line));
+                add(new OneStudent(line));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -61,7 +61,7 @@ public class Team extends ArrayList<OneSchueler> {
 
         int sum = 0;
         for (int i = 0; i < size(); i++) {
-            OneSchueler osch = getSchueler(i);
+            OneStudent osch = getSchueler(i);
             if (osch.anwesend) {
                 sum += osch.getNumberTasks();
             }
@@ -70,11 +70,11 @@ public class Team extends ArrayList<OneSchueler> {
     }
 
     @Override
-    public OneSchueler get(int index) {
+    public OneStudent get(int index) {
         return getSchueler(index);
     }
 
-    public OneSchueler getSchueler(int index) {
+    public OneStudent getSchueler(int index) {
         return super.get(index);
     }
 
