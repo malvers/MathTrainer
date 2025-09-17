@@ -17,7 +17,7 @@ public class EnglishTask {
     String name;
     String question = "Question";
     String answer = "Answer";
-    private final List<Vocabulary> tasks = new ArrayList<>();
+    private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public EnglishTask(String nameIn, boolean read) {

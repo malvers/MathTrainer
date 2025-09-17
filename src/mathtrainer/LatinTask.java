@@ -17,7 +17,7 @@ public class LatinTask {
     String name;
     String question = "Question";
     String answer = "Answer";
-    private final List<Vocabulary> tasks = new ArrayList<>();
+    private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public LatinTask(String nameIn, boolean read) {
@@ -35,11 +35,15 @@ public class LatinTask {
         name = nameIn;
     }
 
+    protected static void addTask(LatinTask.Vocabulary vocabulary) {
+        tasks.add(vocabulary);
+        Collections.shuffle(tasks);
+    }
     public static void nextTask() {
         taskNumber++;
     }
 
-    private static class Vocabulary {
+    static class Vocabulary {
 
         String question;
         String anser;

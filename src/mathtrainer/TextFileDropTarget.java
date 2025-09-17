@@ -76,11 +76,12 @@ public class TextFileDropTarget {
                 String col1 = columns[0];
                 String col2 = columns[1];
 
-                // TODO: adjust to subject! !!!!!!
                 if (mathTrainer.getTaskType() == TaskTypes.HISTORY) {
                     HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
                 } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
                     EnglishTask.addTask(new EnglishTask.Vocabulary(col1, col2));
+                }else if (mathTrainer.getTaskType() == TaskTypes.LATIN) {
+                    LatinTask.addTask(new LatinTask.Vocabulary(col1, col2));
                 }
             }
 
