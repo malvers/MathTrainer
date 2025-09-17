@@ -20,15 +20,17 @@ public class LatinTask {
     private final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public LatinTask(String nameIn) {
+    public LatinTask(String nameIn, boolean read) {
 
-        try {
-            //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
+        if (read) {
+            try {
+                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
 
-            readTasksFromResource("/latin/latin.txt");
+                readTasksFromResource("/latin/latin.txt");
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         name = nameIn;
     }

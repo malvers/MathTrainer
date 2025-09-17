@@ -20,13 +20,15 @@ public class EnglishTask {
     private final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public EnglishTask(String nameIn) {
+    public EnglishTask(String nameIn, boolean read) {
 
-        try {
-            //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "english/english.txt"));
-            readTasksFromResource("/english/english.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        if (read) {
+            try {
+                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "english/english.txt"));
+                readTasksFromResource("/english/english.txt");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
         name = nameIn;
     }
@@ -35,7 +37,12 @@ public class EnglishTask {
         taskNumber++;
     }
 
-    private static class Vocabulary {
+    protected static void addTask(EnglishTask.Vocabulary vocabulary) {
+        tasks.add(vocabulary);
+        Collections.shuffle(tasks);
+    }
+
+    protected static class Vocabulary {
 
         String question;
         String answer;

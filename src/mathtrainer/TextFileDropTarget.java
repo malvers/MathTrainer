@@ -10,12 +10,13 @@ import java.util.List;
 
 public class TextFileDropTarget {
 
-    private final MathTrainer panel;
+    private final MathTrainer mathTrainer;
+
     public TextFileDropTarget(MathTrainer panelIn) {
 
-        panel = panelIn;
+        mathTrainer = panelIn;
 
-        panel.setDropTarget(new DropTarget() {
+        mathTrainer.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent dtde) {
                 try {
@@ -76,13 +77,23 @@ public class TextFileDropTarget {
                 String col2 = columns[1];
 
                 // TODO: adjust to subject! !!!!!!
-                HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
+                if (mathTrainer.getTaskType() == TaskTypes.HISTORY) {
+                    HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
+                } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
+                    EnglishTask.addTask(new EnglishTask.Vocabulary(col1, col2));
+                }
             }
 
         } catch (IOException e) {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
         }
-        panel.initHistoryTasks();
+        if (mathTrainer.getTaskType() == TaskTypes.HISTORY) {
+            mathTrainer.initHistoryTasks();
+        } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
+            mathTrainer.initEnglishTasks();
+        } else if (mathTrainer.getTaskType() == TaskTypes.LATIN) {
+            mathTrainer.initLatinTasks();
+        }
     }
 }
