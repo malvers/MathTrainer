@@ -15,8 +15,6 @@ import java.util.List;
 public class EnglishTask {
 
     String name;
-    String question = "Question";
-    String answer = "Answer";
     private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
@@ -111,20 +109,7 @@ public class EnglishTask {
         return tasks.get(taskNumber).question;
     }
 
-    public void print(int i) {
-
-        String space = "";
-        if (i < 10) {
-            space = " ";
-        }
-        System.out.println(name + " ->\t" + space + i + " ->\t" + question);
-    }
-
     public String getAnswer() {
         return tasks.get(taskNumber).answer;
-    }
-
-    public Color getColor() {
-        return Color.WHITE;
     }
 }

@@ -1,6 +1,5 @@
 package mathtrainer;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +14,7 @@ import java.util.List;
 public class LatinTask {
 
     String name;
-    String question = "Question";
-    String answer = "Answer";
-    private static final List<Vocabulary> tasks = new ArrayList<>();
+    protected static final ArrayList<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public LatinTask(String nameIn, boolean read) {
@@ -43,14 +40,14 @@ public class LatinTask {
         taskNumber++;
     }
 
-    static class Vocabulary {
+    protected static class Vocabulary {
 
         String question;
-        String anser;
+        String answer;
 
         public Vocabulary(String en, String ge) {
             question = en;
-            anser = ge;
+            answer = ge;
         }
     }
 
@@ -111,20 +108,7 @@ public class LatinTask {
         return tasks.get(taskNumber).question;
     }
 
-    public void print(int i) {
-
-        String space = "";
-        if (i < 10) {
-            space = " ";
-        }
-        System.out.println(name + " ->\t" + space + i + " ->\t" + question);
-    }
-
     public String getAnswer() {
-        return tasks.get(taskNumber).anser;
-    }
-
-    public Color getColor() {
-        return Color.WHITE;
+        return tasks.get(taskNumber).answer;
     }
 }
