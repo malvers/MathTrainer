@@ -1,5 +1,13 @@
 package mathtrainer;
 
+/*
+ TODO:
+ MTools -> windows
+
+
+ */
+
+
 import MyTools.Make;
 import mratools.MTools;
 
@@ -71,7 +79,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private int countDownCounter = -1;
     private int penalty = 0;
-    private boolean drawAufgabe = true;
+    private boolean drawTask = true;
     private final int nextTaskCountDownFrom = 5;
     private final int countDownFrom = 9;
     private int nextTaskCountDown = nextTaskCountDownFrom;
@@ -182,7 +190,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             for (int j = 0; j < team.size(); j++) {
 
-                OneStudent oneStudent = team.getSchueler(j);
+                OneStudent oneStudent = team.getStudent(j);
                 HistoryTask ht = new HistoryTask(oneStudent.name, false);
 
                 allHistoryTasks.add(ht);
@@ -199,7 +207,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             for (int j = 0; j < team.size(); j++) {
 
-                OneStudent oneStudent = team.getSchueler(j);
+                OneStudent oneStudent = team.getStudent(j);
                 EnglishTask ht = new EnglishTask(oneStudent.name, false);
 
                 allEnglishTasks.add(ht);
@@ -216,7 +224,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             for (int j = 0; j < team.size(); j++) {
 
-                OneStudent oneStudent = team.getSchueler(j);
+                OneStudent oneStudent = team.getStudent(j);
                 LatinTask ht = new LatinTask(oneStudent.name, false);
 
                 allLatinTasks.add(ht);
@@ -236,7 +244,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             for (int j = 0; j < team.size(); j++) {
 
-                OneStudent oneStudent = team.getSchueler(j);
+                OneStudent oneStudent = team.getStudent(j);
 
                 //System.out.println("oneStudent: " + oneStudent.name);
 
@@ -253,8 +261,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 allEnglishTasks.add(new EnglishTask(oneStudent.name, true));
                 allHistoryTasks.add(new HistoryTask(oneStudent.name, true));
                 allLatinTasks.add(new LatinTask(oneStudent.name, true));
-
-                //System.out.println("After: allTasks.add()");
             }
         }
 
@@ -265,6 +271,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
         }
 
+        /// TODO: do we need it for all subjects?
         Team klasse = allTeams.get(actualTeam);
 
         for (OneStudent oneStudent : klasse) {
@@ -381,8 +388,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void paint(Graphics g) {
 
-        //super.paint(g);
-
         Graphics2D g2d = (Graphics2D) g;
 
         ColorSheme cs = allColorSchemes.get(colorSchemeId);
@@ -405,8 +410,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         g2d.setColor(cs.fgLight);
+        g2d.setColor(cs.fgDark);
 
-        drawKlasseAndNumberTasks(g2d);
+        drawTeamAndNumberTasks(g2d);
 
         if (drawHelp) {
             drawHelp(g2d, cs);
@@ -420,7 +426,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (drawSchueler) {
             drawStudents(g2d, cs);
-            drawKlasseAndNumberTasks(g2d);
+            drawTeamAndNumberTasks(g2d);
             return;
         }
 
@@ -429,9 +435,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        drawOperations(g2d, cs);
+        if (taskType == TaskTypes.MATHEMATICS) {
+            drawOperations(g2d, cs);
+        }
 
-        if (drawAufgabe) {
+        if (drawTask) {
             drawTasks(g2d, cs);
         }
 
@@ -445,13 +453,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.fillRect(0, 0, getWidth(), getHeight());
     }
 
-    private void drawKlasseAndNumberTasks(Graphics2D g2d) {
+    private void drawTeamAndNumberTasks(Graphics2D g2d) {
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 20));
         g2d.setColor(Color.WHITE);
 
         /// draw number Schueler
-        String str = allTeams.get(actualTeam).size() + " Schüler";
+        String str = allTeams.get(actualTeam).size() + " Students";
 
         if (!pinnedName.isEmpty()) {
             g2d.setColor(Color.RED);
@@ -460,7 +468,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         FontMetrics metrics = g2d.getFontMetrics();
         int width = (int) metrics.getStringBounds(str, g2d).getWidth();
-        g2d.drawString(str, (float) (getWidth() / 2.0 - width / 2.0), 26);
+        //g2d.drawString(str, (float) (getWidth() / 2.0 - width / 2.0), 26);
 
         g2d.setColor(Color.WHITE);
 
@@ -477,8 +485,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString(str, 10, 26);
 
 
+        // TODO: fix number
         g2d.setColor(Color.yellow);
-        str = allTeams.get(actualTeam).getNumberTasks() + " Aufgaben";
+        str = allTeams.get(actualTeam).getNumberTasks() + " Tasks";
         width = (int) metrics.getStringBounds(str, g2d).getWidth();
         int xShift = 10;
         if (isWindows) {
@@ -501,42 +510,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("H   ", 50, ((yShift + yPos * i)));
         g2d.drawString("Help", xShift, yShift + (yPos * i++));
 
-        g2d.drawString("↓", 50, yShift + (yPos * i));
-        g2d.drawString("Start des Trainings", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("Cmd Q", 50, yShift + (yPos * i));
-        g2d.drawString("Quit beendet das Programm", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("ESC", 50, yShift + (yPos * i));
-        g2d.drawString("Zurück zur Hauptseite", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("+ | -", 50, yShift + (yPos * i));
-        g2d.drawString("Erhöht | erniedrigt Aufgaben pro Schüler", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("B", 50, yShift + (yPos * i));
-        g2d.drawString("Zurück auf Beginn", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("E", 50, yShift + (yPos * i));
-        g2d.drawString("Einstellungen - welche Reihen sollen benutzt werden", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("L", 50, yShift + (yPos * i));
-        g2d.drawString("Limit Modus ein/aus", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("M", 50, yShift + (yPos * i));
-        g2d.drawString("Hintergrundmusik ein/aus", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("N", 50, yShift + (yPos * i));
-        g2d.drawString("Name ein/aus", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("S", 50, yShift + (yPos * i));
-        g2d.drawString("Zeigt die Schüler Statistik", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("T | Shift T", 50, yShift + (yPos * i));
-        g2d.drawString("Ändere die Tranzparenz des Bildes (+|-)", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("V | Shift V", 50, yShift + (yPos * i));
-        g2d.drawString("Ändere die Lautstärke (volume) der Hintergrundmusik (+|-)", xShift, yShift + (yPos * i++));
-
         g2d.drawString("5 ", 50, yShift + (yPos * i));
         g2d.drawString("Mathematics", xShift, yShift + (yPos * i++));
 
@@ -549,15 +522,50 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("8", 50, yShift + (yPos * i));
         g2d.drawString("Latin", xShift, yShift + (yPos * i++));
 
+        g2d.drawString("↓", 50, yShift + (yPos * i));
+        g2d.drawString("Start training", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("Cmd Q", 50, yShift + (yPos * i));
+        g2d.drawString("Quit the program", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("ESC", 50, yShift + (yPos * i));
+        g2d.drawString("Back to main page", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("+ | -", 50, yShift + (yPos * i));
+        g2d.drawString("Increase | decrease tasks per student", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("B", 50, yShift + (yPos * i));
+        g2d.drawString("Zurück auf Beginn", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("D", 50, yShift + (yPos * i));
+        g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("L", 50, yShift + (yPos * i));
+        g2d.drawString("Limit mode no/off", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("M", 50, yShift + (yPos * i));
+        g2d.drawString("Hintergrundmusik on/off", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("N", 50, yShift + (yPos * i));
+        g2d.drawString("Name no/off", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("S", 50, yShift + (yPos * i));
+        g2d.drawString("Show statistics students", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("T | Shift T", 50, yShift + (yPos * i));
+        g2d.drawString("Change transparency image (+|-)", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("V | Shift V", 50, yShift + (yPos * i));
+        g2d.drawString("Change volume background music (+|-)", xShift, yShift + (yPos * i++));
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
-        String str = "MathTrainer by Dr. Michael R. Alvers - ©2020-2022 - all rights reserved";
+        String str = "SchoolTrainer by Dr. Michael R. Alvers - ©2020-2025 - all rights reserved";
         Rectangle2D bounds = metrics.getStringBounds(str, g2d);
         g2d.setColor(Color.GRAY);
         g2d.drawString(str, (float) ((double) getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 30);
 
-        drawKlasseAndNumberTasks(g2d);
+        drawTeamAndNumberTasks(g2d);
     }
 
     private void drawSettings(Graphics2D g2d, ColorSheme cs) {
@@ -587,7 +595,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.drawString((i) + str, xIndent, y);
         }
 
-        drawKlasseAndNumberTasks(g2d);
+        drawTeamAndNumberTasks(g2d);
     }
 
     private void drawStudents(Graphics2D g2d, ColorSheme cs) {
@@ -930,7 +938,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setColor(ColorSheme.darkBlue);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        drawKlasseAndNumberTasks(g2d);
+        drawTeamAndNumberTasks(g2d);
 
         int yShift = -40;
 
@@ -1171,7 +1179,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_8 -> setTaskType(TaskTypes.LATIN);
 
 
-            case KeyEvent.VK_A -> drawAufgabe = !drawAufgabe;
+            case KeyEvent.VK_A -> drawTask = !drawTask;
             case KeyEvent.VK_B -> initBeginning();
             case KeyEvent.VK_D -> debugMode = !debugMode;
             case KeyEvent.VK_E -> showSettingsPage();
@@ -1375,8 +1383,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             Team klasse = allTeams.get(actualTeam);
             for (int i = 0; i < klasse.size(); i++) {
-                if (klasse.getSchueler(i).name.contentEquals(allMathematicsTasks.get(taskCounter).name)) {
-                    klasse.getSchueler(i).numberRightSolutions++;
+                if (klasse.getStudent(i).name.contentEquals(allMathematicsTasks.get(taskCounter).name)) {
+                    klasse.getStudent(i).numberRightSolutions++;
                 }
             }
 

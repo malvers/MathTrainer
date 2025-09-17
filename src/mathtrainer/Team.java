@@ -61,9 +61,9 @@ public class Team extends ArrayList<OneStudent> {
 
         int sum = 0;
         for (int i = 0; i < size(); i++) {
-            OneStudent osch = getSchueler(i);
-            if (osch.anwesend) {
-                sum += osch.getNumberTasks();
+            OneStudent oneStudent = getStudent(i);
+            if (oneStudent.anwesend) {
+                sum += oneStudent.getNumberTasks();
             }
         }
         return sum;
@@ -71,16 +71,11 @@ public class Team extends ArrayList<OneStudent> {
 
     @Override
     public OneStudent get(int index) {
-        return getSchueler(index);
+        return getStudent(index);
     }
 
-    public OneStudent getSchueler(int index) {
+    public OneStudent getStudent(int index) {
         return super.get(index);
     }
 
-    void print() {
-        for (int i = 0; i < size(); i++) {
-            get(i).print();
-        }
-    }
 }
