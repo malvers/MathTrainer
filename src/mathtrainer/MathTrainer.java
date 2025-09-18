@@ -150,7 +150,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         initNames(true);
 
-        new RandomNamePicker(allTeams.get(actualTeam).getStudents());
+//        new RandomNamePicker(allTeams.get(actualTeam).getStudents());
+        RandomNamePicker.getInstance(allTeams.get(actualTeam).getStudents());
 
         System.out.println("initNames done ...");
 
@@ -1231,6 +1232,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                         readImages();
                     } else {
                         initNames(false);
+                        //new RandomNamePicker(allTeams.get(actualTeam).getStudents());
+                        RandomNamePicker.getInstance(allTeams.get(actualTeam).getStudents());
                     }
                 }
             }
@@ -1462,6 +1465,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     public void setActualTeam(int i) {
         actualTeam = i;
         initNames(false);
+        //new RandomNamePicker(allTeams.get(actualTeam).getStudents());
+        RandomNamePicker.getInstance(allTeams.get(actualTeam).getStudents());
         initAllTasks(true);
         repaint();
     }

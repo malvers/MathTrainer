@@ -14,44 +14,68 @@ import java.util.Random;
 
 public class RandomNamePicker implements NativeKeyListener {
 
-    private final ArrayList<OneStudent> names;
-    private ArrayList<OneStudent> availableNames; // Pool for current round
+    private static RandomNamePicker instance;
+    private ArrayList<OneStudent> names;
+    private ArrayList<OneStudent> availableNames;
     private final Random random;
     private volatile boolean running = true;
     private static Clip clip;
     private int roundNumber = 1;
+    private static boolean isHookRegistered = false;
 
-    public RandomNamePicker(ArrayList<OneStudent> names) {
-
-        //System.out.println("RandomNamePicker");
-
+    // Private constructor to prevent multiple instances
+    private RandomNamePicker(ArrayList<OneStudent> names) {
         this.names = new ArrayList<>(names);
-        this.availableNames = new ArrayList<>(names); // Copy for available pool
+        this.availableNames = new ArrayList<>(names);
         this.random = new Random();
 
         setupNativeHook();
-        startKeepAlive(); // Start the thread that keeps JVM alive
+        startKeepAlive();
 
         System.out.println("Total students: " + names.size());
         System.out.println("Round 1 started - " + availableNames.size() + " students available");
     }
 
+    // Public method to get the singleton instance
+    public static synchronized RandomNamePicker getInstance(ArrayList<OneStudent> names) {
+        if (instance == null) {
+            instance = new RandomNamePicker(names);
+        } else {
+            instance.updateStudents(names);
+        }
+        return instance;
+    }
+
+    // Method to update students without creating new instance
+    public void updateStudents(ArrayList<OneStudent> newStudents) {
+        this.names.clear();
+        this.names.addAll(newStudents);
+        this.availableNames.clear();
+        this.availableNames.addAll(newStudents);
+        this.roundNumber = 1;
+        System.out.println("Updated student list! Total: " + names.size());
+        System.out.println("Round 1 restarted - " + availableNames.size() + " students available");
+    }
+
     private void setupNativeHook() {
         try {
-            GlobalScreen.registerNativeHook();
+            // Check if already registered
+            if (!GlobalScreen.isNativeHookRegistered()) {
+                GlobalScreen.registerNativeHook();
+                isHookRegistered = true;
+                System.err.println("Registered native hook ...");
+            } else {
+                System.err.println("Native hook already registered.");
+                // Remove any existing listeners to avoid duplicates
+                GlobalScreen.removeNativeKeyListener(this);
+            }
+
             GlobalScreen.addNativeKeyListener(this);
 
             // Add shutdown hook for cleanup
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                try {
-                    GlobalScreen.unregisterNativeHook();
-                    System.out.println("Native hook unregistered.");
-                } catch (NativeHookException e) {
-                    e.printStackTrace();
-                }
+                cleanup();
             }));
-
-            System.err.println("Registered native hook ...");
 
         } catch (NativeHookException e) {
             System.err.println("Failed to register native hook: " + e.getMessage());
@@ -79,8 +103,17 @@ public class RandomNamePicker implements NativeKeyListener {
 
     public void stop() {
         running = false;
+        cleanup();
+    }
+
+    private void cleanup() {
         try {
-            GlobalScreen.unregisterNativeHook();
+            if (GlobalScreen.isNativeHookRegistered()) {
+                GlobalScreen.removeNativeKeyListener(this);
+                GlobalScreen.unregisterNativeHook();
+                isHookRegistered = false;
+                System.out.println("Native hook unregistered.");
+            }
         } catch (NativeHookException e) {
             e.printStackTrace();
         }
@@ -88,9 +121,6 @@ public class RandomNamePicker implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
-
-        //System.out.println("nativeKeyPressed: " + e.getKeyCode());
-
         if (e.getKeyCode() == NativeKeyEvent.VC_9) {
             pickRandomName();
         }
@@ -114,7 +144,6 @@ public class RandomNamePicker implements NativeKeyListener {
     }
 
     protected void pickRandomName() {
-
         if (availableNames.isEmpty()) {
             // Reset the pool when everyone has been picked
             availableNames = new ArrayList<>(names);
@@ -136,7 +165,6 @@ public class RandomNamePicker implements NativeKeyListener {
     }
 
     private static void setAndPlaySound(String name) {
-
         try {
             setSound(name);
             clip.start();
@@ -146,8 +174,6 @@ public class RandomNamePicker implements NativeKeyListener {
     }
 
     private static void setSound(String name) {
-        // Try loading via URL first (works great in JARs!)
-
         String soundName = "sound/" + name + ".wav";
         URL soundUrl = MathTrainer.class.getResource("/" + soundName);
 
@@ -157,12 +183,9 @@ public class RandomNamePicker implements NativeKeyListener {
         }
 
         try {
-            // 🚀 Use URL directly — this works perfectly in JARs!
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundUrl);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            // clip.loop(10); // Uncomment if needed
-
         } catch (UnsupportedAudioFileException e) {
             MTools.println("setSound: Unsupported audio format for: " + name);
             e.printStackTrace();
@@ -176,7 +199,6 @@ public class RandomNamePicker implements NativeKeyListener {
     }
 
     public static void main(String[] args) {
-
         ArrayList<OneStudent> students = new ArrayList<>();
         students.add(new OneStudent("Alice"));
         students.add(new OneStudent("Bob"));
@@ -199,9 +221,14 @@ public class RandomNamePicker implements NativeKeyListener {
         students.add(new OneStudent("Aurora"));
         students.add(new OneStudent("Laura"));
 
-        new RandomNamePicker(students);
+        // Use the singleton pattern
+        RandomNamePicker picker = RandomNamePicker.getInstance(students);
 
         // Main thread can exit immediately - the keep-alive thread keeps JVM running
         System.out.println("Main thread finished, but JVM remains alive...");
+
+        // Example of switching teams later:
+        // ArrayList<OneStudent> otherTeam = getOtherTeamStudents();
+        // RandomNamePicker.getInstance(otherTeam); // This updates the existing instance
     }
 }
