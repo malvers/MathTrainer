@@ -30,11 +30,10 @@ public class Team extends ArrayList<OneStudent> {
 
         // ✅ Read content
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-            String line;
-            //System.out.println("📄 Contents of " + fileName + ":");
-            while ((line = reader.readLine()) != null) {
+            String studentName;
+            while ((studentName = reader.readLine()) != null) {
                 //System.out.println("line: " + line);
-                add(new OneStudent(line));
+                add(new OneStudent(studentName));
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,4 +77,7 @@ public class Team extends ArrayList<OneStudent> {
         return super.get(index);
     }
 
+    public ArrayList<OneStudent> getStudents() {
+        return this;
+    }
 }

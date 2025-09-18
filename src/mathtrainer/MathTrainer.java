@@ -3,10 +3,7 @@ package mathtrainer;
 /*
  TODO:
  MTools -> windows
-
-
  */
-
 
 import MyTools.Make;
 import mratools.MTools;
@@ -90,6 +87,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean drawHighScore = false;
     private boolean showAndPlayName = true;
     protected int taskType = TaskTypes.HISTORY;
+    private RandomNamePicker randomNamePicker;
 
     public MathTrainer() {
 
@@ -151,6 +149,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         System.out.println("readImages done ...");
 
         initNames(true);
+
+        new RandomNamePicker(allTeams.get(actualTeam).getStudents());
 
         System.out.println("initNames done ...");
 
@@ -483,7 +483,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         g2d.drawString(str, 10, 26);
-
 
         // TODO: fix number
         g2d.setColor(Color.yellow);
@@ -1592,9 +1591,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     }
 
-    private static void playStudentName(String schueler) {
+    private static void playStudentName(String student) {
 
-        String name = "sound/" + schueler + ".wav";
+        String name = "sound/" + student + ".wav";
         setAndPlaySound(name);
     }
 
