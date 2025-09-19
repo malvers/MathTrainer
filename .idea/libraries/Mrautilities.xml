@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="Mrautilities">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/../Mrautilities/out/artifacts/Mrautilities_jar/Mrautilities.jar!/" />
+      <root url="jar://$PROJECT_DIR$/../_libraries/Mrautilities.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
