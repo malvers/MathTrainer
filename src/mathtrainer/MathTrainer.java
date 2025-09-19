@@ -116,7 +116,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         initColors();
 
-
         initBeginning();
 
         if (playMusic) {
@@ -381,8 +380,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             taskType = in.readInt();
 
             setTaskType(taskType);
+
             actualTeam = in.readInt();
-            setActualTeam(actualTeam);
+            //setActualTeam(actualTeam);
 
             System.out.println("playMusic: " + playMusic);
 
