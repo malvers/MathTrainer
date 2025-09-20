@@ -8,6 +8,7 @@ package mathtrainer;
  checkboxes in popup for teams
  */
 
+import MyTools.Make;
 import mratools.MTools;
 
 import javax.imageio.ImageIO;
@@ -39,10 +40,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final Series series = new Series(10);
 
     private final AllMathematicsTasks allMathematicsTasks = new AllMathematicsTasks();
-    private final AllMathematicsTasks2 allMathematicsTasks2 = new AllMathematicsTasks2();
     private final AllEnglishTasks allEnglishTasks = new AllEnglishTasks();
     private final AllHistoryTasks allHistoryTasks = new AllHistoryTasks();
-    private final AllLatinTasks allLatinTasks = new AllLatinTasks();
+    private final AllComplexMathTasks allComplexMathTasks = new AllComplexMathTasks();
 
     private final URL[][] imagesMatrixURL = new URL[10][10];
 
@@ -58,7 +58,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final float factorDrawSchueler = 1.4f;
     private float transparency = 0.5f;
 
-    private int actualTeam;
+    protected int actualTeam;
 
     private long timerStart;
     private long deltaT;
@@ -90,6 +90,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean showAndPlayName = true;
     protected int taskType = TaskTypes.MATHEMATICS;
     private BufferedImage laTeXLabel;
+    private Point laTeXPos = new Point();
 
     public MathTrainer() {
 
@@ -110,7 +111,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         Runtime.getRuntime().addShutdownHook(t);
 
-        actualTeam = 0; /// Alvers = 0, Wischnewski = 1
+        actualTeam = Teachers.ALVERS; /// Alvers = 0, Wischnewski = 1
 
         readSettings();
 
@@ -218,9 +219,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    protected void initLatinTasks() {
+    protected void initComplexMathTasks() {
 
-        allLatinTasks.clear();
+        allComplexMathTasks.clear();
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
             Team team = allTeams.get(actualTeam);
@@ -228,26 +229,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             for (int j = 0; j < team.size(); j++) {
 
                 OneStudent oneStudent = team.getStudent(j);
-                LatinTask ht = new LatinTask(oneStudent.name, false);
+                ComplexMathTask ht = new ComplexMathTask(oneStudent.name, false);
 
-                allLatinTasks.add(ht);
-            }
-        }
-    }
-
-    protected void initMathematicsTasks2() {
-
-        allLatinTasks.clear();
-        for (int i = 0; i < numberTasksPerStudent; i++) {
-
-            Team team = allTeams.get(actualTeam);
-
-            for (int j = 0; j < team.size(); j++) {
-
-                OneStudent oneStudent = team.getStudent(j);
-                MathematicsTask2 ht = new MathematicsTask2(oneStudent.name, false);
-
-                allMathematicsTasks2.add(ht);
+                allComplexMathTasks.add(ht);
             }
         }
     }
@@ -257,7 +241,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         allMathematicsTasks.clear();
         allEnglishTasks.clear();
         allHistoryTasks.clear();
-        allLatinTasks.clear();
+        allComplexMathTasks.clear();
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
             Team team = allTeams.get(actualTeam);
@@ -278,10 +262,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int operation = Operations.getRandomOperation();
 
                 allMathematicsTasks.add(new MathTask(oneStudent.name, series, limitedToSelectedSeries, operation));
-                allMathematicsTasks2.add(new MathematicsTask2(oneStudent.name, true));
                 allEnglishTasks.add(new EnglishTask(oneStudent.name, true));
                 allHistoryTasks.add(new HistoryTask(oneStudent.name, true));
-                allLatinTasks.add(new LatinTask(oneStudent.name, true));
+                allComplexMathTasks.add(new ComplexMathTask(oneStudent.name, true));
             }
         }
 
@@ -292,7 +275,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
         }
 
-        /// TODO: do we need it for all subjects?
+        /// TODO: do we need it for all subjects? /////////////////
         Team klasse = allTeams.get(actualTeam);
 
         for (OneStudent oneStudent : klasse) {
@@ -307,6 +290,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
         }
+        /// TODO: END ///////////////////////////////////////////
         Collections.shuffle(allMathematicsTasks);
         allMathematicsTasks.checkForDoubleNames();
 
@@ -400,8 +384,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         return switch (taskType) {
             case TaskTypes.ENGLISH -> "English";
             case TaskTypes.MATHEMATICS -> "Mathematics";
-            case TaskTypes.MATHEMATICS2 -> "Mathematics 2.0";
-            case TaskTypes.LATIN -> "Latin";
+            case TaskTypes.COMPLEXMATH -> "Complex Mathematics";
             case TaskTypes.HISTORY -> "History";
 
             default -> "Unknown";
@@ -480,7 +463,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             drawRunningTime(g2d, getWidth() / 2, cs);
         }
 
-        g2d.drawImage(laTeXLabel, 20, 40, new Color(0.0f, 0.0f, 0.0f, 0.0f), this);
+        Color transparent = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+
+        g2d.drawImage(laTeXLabel, laTeXPos.x, laTeXPos.y, transparent, this);
     }
 
     private void drawTransparentCover(Graphics2D g2d) {
@@ -700,7 +685,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         MathTask mathTask = allMathematicsTasks.get(taskCounter);
         EnglishTask englishTask = allEnglishTasks.get(taskCounter);
         HistoryTask historyTask = allHistoryTasks.get(taskCounter);
-        LatinTask latinTask = allLatinTasks.get(taskCounter);
+        ComplexMathTask complexMathTask = allComplexMathTasks.get(taskCounter);
 
         if (debugMode) {
             g2d.setColor(Color.DARK_GRAY);
@@ -718,15 +703,18 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             if (taskType == TaskTypes.ENGLISH) {
                 aufgabe = englishTask.getQuestion();
+                myDrawString(g2d, aufgabe);
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 aufgabe = mathTask.getQuestion();
+                myDrawString(g2d, aufgabe);
             } else if (taskType == TaskTypes.HISTORY) {
                 aufgabe = historyTask.getQuestion();
-            } else if (taskType == TaskTypes.LATIN) {
-                aufgabe = latinTask.getQuestion();
+                myDrawString(g2d, aufgabe);
+            } else if (taskType == TaskTypes.COMPLEXMATH) {
+                aufgabe = complexMathTask.getQuestion();
+                drawLaTex(g2d, aufgabe);
             }
 
-            myDrawString(g2d, aufgabe);
 
         } else {
 
@@ -734,16 +722,34 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             if (taskType == TaskTypes.ENGLISH) {
                 resultOnDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
+                myDrawString(g2d, resultOnDisplay);
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 resultOnDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
+                myDrawString(g2d, resultOnDisplay);
             } else if (taskType == TaskTypes.HISTORY) {
                 resultOnDisplay = historyTask.getQuestion() + ": " + historyTask.getAnswer();
-            } else if (taskType == TaskTypes.LATIN) {
-                resultOnDisplay = latinTask.getQuestion() + " - " + latinTask.getAnswer();
+                myDrawString(g2d, resultOnDisplay);
+            } else if (taskType == TaskTypes.COMPLEXMATH) {
+                String q = complexMathTask.getQuestion().trim();
+                if (q.endsWith("=\\)")) {
+                    resultOnDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
+                } else {
+                    resultOnDisplay = complexMathTask.getQuestion() + "\\quad" + complexMathTask.getAnswer();
+                }
+                drawLaTex(g2d, resultOnDisplay);
             }
-            myDrawString(g2d, resultOnDisplay);
-
         }
+    }
+
+    private void drawLaTex(Graphics2D g2d, String toLatex) {
+
+        laTeXLabel = Latexer.renderLatexToImage(toLatex, 160);
+
+        int w = laTeXLabel.getWidth();
+        int h = laTeXLabel.getHeight();
+
+        laTeXPos.x = (getWidth() - w) / 2;
+        laTeXPos.y = (getHeight() - h) / 2;
     }
 
     private void myDrawString(Graphics2D g2d, String result) {
@@ -842,7 +848,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (taskCounter >= 0) {
             metrics = g2d.getFontMetrics();
-            String str = "Aufgabe " + (taskCounter + 1);
+            String str = "Problem " + (taskCounter + 1);
             int sWidth = metrics.stringWidth(str);
             g2d.drawString(str, xPos - sWidth / 2, 160);
         }
@@ -1022,7 +1028,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         metrics = g2d.getFontMetrics();
-        String ttt = "Zeit pro Aufgabe pro Schüler";
+        String ttt = "Time per task per student";
         int sWidth = metrics.stringWidth(ttt);
         g2d.setColor(cs.fgLight);
         g2d.drawString(ttt, xPos - (sWidth / 2), yShift + (getHeight() / 2));
@@ -1048,11 +1054,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mousePressed(MouseEvent e) {
 
-        System.out.println("mousy");
-
         if (SwingUtilities.isRightMouseButton(e)) {
-
-            System.out.println("mousy:right");
 
             mathtrainer.MyPopup pop = new mathtrainer.MyPopup(this);
             pop.show(this, e.getX(), e.getY());
@@ -1206,11 +1208,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_2 -> colorSchemeId = 1;
             case KeyEvent.VK_3 -> colorSchemeId = 2;
 
-            case KeyEvent.VK_4 -> setTaskType(TaskTypes.MATHEMATICS2);
+            case KeyEvent.VK_4 -> setTaskType(TaskTypes.COMPLEXMATH);
             case KeyEvent.VK_5 -> setTaskType(TaskTypes.MATHEMATICS);
             case KeyEvent.VK_6 -> setTaskType(TaskTypes.ENGLISH);
             case KeyEvent.VK_7 -> setTaskType(TaskTypes.HISTORY);
-            case KeyEvent.VK_8 -> setTaskType(TaskTypes.LATIN);
 
 
             case KeyEvent.VK_A -> drawTask = !drawTask;
@@ -1279,14 +1280,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         System.out.println("Experimental ...");
 
-        String latex = "\\sqrt{a^2 + b^2} = c";
-        laTeXLabel = Latexer.renderLatexToImage(latex, 80);
-
-
-        //Make.jarAndApp(this.getClass());
+        Make.jarAndApp(this.getClass());
     }
 
-    private void setTaskType(int newType) {
+    void setTaskType(int newType) {
         taskType = newType;
         frame.setTitle(getSubject());
     }
@@ -1397,11 +1394,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (iterationCount % 2 > 0) {
 
-            System.out.println("In Aufgabe ...");
+            System.out.println("In task ...");
 
             EnglishTask.nextTask();
             HistoryTask.nextTask();
-            LatinTask.nextTask();
+            ComplexMathTask.nextTask();
 
             taskCounter++;
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
@@ -1416,7 +1413,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         } else {
 
-            System.out.println("In Ergebnis ...");
+            System.out.println("In result ...");
 
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
                 taskCounter = numberTasksPerStudent;
@@ -1429,7 +1426,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             if (countDown != null) {
-                System.out.println("automated new Aufgabe");
+                System.out.println("automated new task");
                 countDown.cancel();
                 nextTaskIn = new Timer();
                 nextTaskIn.scheduleAtFixedRate(
