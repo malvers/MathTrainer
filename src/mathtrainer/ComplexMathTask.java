@@ -22,8 +22,7 @@ public class ComplexMathTask {
         if (read) {
             try {
                 //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
-
-                readTasksFromResource("/complexmath/complexmath.txt");
+                readTasksFromResource("/complexmath/complexmath3.0.txt");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -101,8 +100,14 @@ public class ComplexMathTask {
                 Collections.shuffle(tasks);
             }
         }
+        print();
     }
 
+    private void print() {
+        for (int i = 0; i < tasks.size(); i++) {
+            System.err.println(getQuestion() + " ::: " + getAnswer());
+        }
+    }
 
     String getQuestion() {
         return tasks.get(taskNumber).question;
