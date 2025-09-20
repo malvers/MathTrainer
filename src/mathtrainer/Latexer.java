@@ -9,29 +9,25 @@ public class Latexer {
     /**
      * Renders a LaTeX formula to a BufferedImage with a transparent background.
      * @param latex The LaTeX string to render
-     * @param fontSize The base font size for rendering
+     * @param fontSizeIn The base font size for rendering
      * @return A BufferedImage containing the rendered formula, or null if rendering failed.
      */
-    public static BufferedImage renderLatexToImage(String latex, float fontSize) {
+    public static BufferedImage renderLatexToImage(String latex, float fontSizeIn, float maxWidth) {
+
+        float fontSize = fontSizeIn;
         Color textColor = Color.orange;
         try {
-            // Parse the formula
+
             TeXFormula formula = new TeXFormula(latex);
-
-            // Create an Icon from the LaTeX
             TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontSize);
-
-            // ##### CRITICAL FIX: Set the color on the icon itself #####
-            icon.setForeground(textColor);
-
-            // Create a transparent image to render into
             BufferedImage image = new BufferedImage(
                     icon.getIconWidth(),
                     icon.getIconHeight(),
-                    BufferedImage.TYPE_INT_ARGB // Crucial: ARGB for transparency
+                    BufferedImage.TYPE_INT_ARGB
             );
-
+            icon.setForeground(textColor);
             Graphics2D g2d = image.createGraphics();
+            g2d = image.createGraphics();
 
             // Enable anti-aliasing for quality
             g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -44,6 +40,41 @@ public class Latexer {
             // Reset composite and paint the icon (it will use the color we set above)
             g2d.setComposite(AlphaComposite.SrcOver);
             icon.paintIcon(null, g2d, 0, 0);
+
+            ///  TODO: why not always orange ???
+            while(icon.getIconWidth() > maxWidth) {
+
+                fontSize -= 10;
+
+                // Parse the formula
+                formula = new TeXFormula(latex);
+
+                // Create an Icon from the LaTeX
+                icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontSize);
+
+                icon.setForeground(textColor);
+
+                // Create a transparent image to render into
+                image = new BufferedImage(
+                        icon.getIconWidth(),
+                        icon.getIconHeight(),
+                        BufferedImage.TYPE_INT_ARGB
+                );
+
+                g2d = image.createGraphics();
+
+                // Enable anti-aliasing for quality
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+
+                // Set the background to transparent
+                g2d.setComposite(AlphaComposite.Clear);
+                g2d.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
+
+                // Reset composite and paint the icon (it will use the color we set above)
+                g2d.setComposite(AlphaComposite.SrcOver);
+                icon.paintIcon(null, g2d, 0, 0);
+            }
 
             g2d.dispose();
             return image;

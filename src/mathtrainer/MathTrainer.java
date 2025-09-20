@@ -743,7 +743,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void drawLaTex(Graphics2D g2d, String toLatex) {
 
-        laTeXLabel = Latexer.renderLatexToImage(toLatex, 160);
+        laTeXLabel = Latexer.renderLatexToImage(toLatex, 160, getWidth() - 100);
 
         int w = laTeXLabel.getWidth();
         int h = laTeXLabel.getHeight();

@@ -100,7 +100,7 @@ public class ComplexMathTask {
                 Collections.shuffle(tasks);
             }
         }
-        print();
+//        print();
     }
 
     private void print() {
