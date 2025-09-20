@@ -80,10 +80,8 @@ public class TextFileDropTarget {
                     HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
                 } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
                     EnglishTask.addTask(new EnglishTask.Vocabulary(col1, col2));
-                } else if (mathTrainer.getTaskType() == TaskTypes.LATIN) {
-                    LatinTask.addTask(new LatinTask.Vocabulary(col1, col2));
-                } else if (mathTrainer.getTaskType() == TaskTypes.MATHEMATICS2) {
-                    MathematicsTask2.addTask(new MathematicsTask2.Vocabulary(col1, col2));
+                } else if (mathTrainer.getTaskType() == TaskTypes.COMPLEXMATH) {
+                    ComplexMathTask.addTask(new ComplexMathTask.Vocabulary(col1, col2));
                 }
             }
 
@@ -95,10 +93,8 @@ public class TextFileDropTarget {
             mathTrainer.initHistoryTasks();
         } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
             mathTrainer.initEnglishTasks();
-        } else if (mathTrainer.getTaskType() == TaskTypes.LATIN) {
-            mathTrainer.initLatinTasks();
-        } else if (mathTrainer.getTaskType() == TaskTypes.MATHEMATICS2) {
-            mathTrainer.initMathematicsTasks2();
+        } else if (mathTrainer.getTaskType() == TaskTypes.COMPLEXMATH) {
+            mathTrainer.initComplexMathTasks();
         }
     }
 }

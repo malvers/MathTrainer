@@ -54,39 +54,4 @@ public class Latexer {
             return null;
         }
     }
-
-    /**
-     * Optional: Overloaded method if you want to specify a custom color
-     */
-    public static BufferedImage renderLatexToImage(String latex, float fontSize, Color textColor) {
-        try {
-            TeXFormula formula = new TeXFormula(latex);
-            TeXIcon icon = formula.createTeXIcon(TeXConstants.STYLE_DISPLAY, fontSize);
-            icon.setForeground(textColor); // Use the provided color
-
-            BufferedImage image = new BufferedImage(
-                    icon.getIconWidth(),
-                    icon.getIconHeight(),
-                    BufferedImage.TYPE_INT_ARGB
-            );
-
-            Graphics2D g2d = image.createGraphics();
-            g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-            g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-
-            g2d.setComposite(AlphaComposite.Clear);
-            g2d.fillRect(0, 0, icon.getIconWidth(), icon.getIconHeight());
-
-            g2d.setComposite(AlphaComposite.SrcOver);
-            icon.paintIcon(null, g2d, 0, 0);
-
-            g2d.dispose();
-            return image;
-
-        } catch (Exception e) {
-            System.err.println("Error rendering LaTeX: " + e.getMessage());
-            e.printStackTrace();
-            return null;
-        }
-    }
 }

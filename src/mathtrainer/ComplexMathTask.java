@@ -11,30 +11,28 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class MathematicsTask2 {
+public class ComplexMathTask {
 
     String name;
     protected static final ArrayList<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public MathematicsTask2(String nameIn, boolean read) {
+    public ComplexMathTask(String nameIn, boolean read) {
 
         if (read) {
             try {
-                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "mathematics/mathematics.txt"));
+                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
 
-                readTasksFromResource("/mathematics/mathematics.latex");
+                readTasksFromResource("/complexmath/complexmath.txt");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
         name = nameIn;
-
-//        print();
     }
 
-    protected static void addTask(MathematicsTask2.Vocabulary vocabulary) {
+    protected static void addTask(ComplexMathTask.Vocabulary vocabulary) {
         tasks.add(vocabulary);
         Collections.shuffle(tasks);
     }
@@ -105,11 +103,6 @@ public class MathematicsTask2 {
         }
     }
 
-    private void print() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println(tasks.get(i).question);
-        }
-    }
 
     String getQuestion() {
         return tasks.get(taskNumber).question;

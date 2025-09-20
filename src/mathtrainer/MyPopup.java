@@ -5,17 +5,19 @@ import javax.swing.*;
 public class MyPopup extends JPopupMenu {
 
     JMenuItem settingsMenu = new JMenuItem("Settings");
-    JMenuItem matheMenu = new JMenuItem("Mathematics");
-    JMenuItem englishMenu = new JMenuItem("English");
-    JMenuItem historyMenu = new JMenuItem("History");
-    JMenuItem latinMenu = new JMenuItem("Latin");
     JMenuItem schuelerMenu = new JMenuItem("Students");
     JMenuItem highScoreMenu = new JMenuItem("High-Score");
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
-    JMenuItem wischnewski = new JMenuItem("Klasse Fr. Wischnewski");
-    JMenuItem alvers = new JMenuItem("Klasse Dr. Alvers");
-    JMenuItem cool = new JMenuItem("Klasse Cool");
+
+    JRadioButton complexMathMenu = new JRadioButton("Complex math [4]");
+    JRadioButton matheMenu = new JRadioButton("Mathematics [5]");
+    JRadioButton englishMenu = new JRadioButton("English [6]");
+    JRadioButton historyMenu = new JRadioButton("History [7]");
+
+    JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
+    JRadioButton wischnewski = new JRadioButton("Team Mrs. Wischnewski");
+    JRadioButton michel = new JRadioButton("Team Mr. Michel");
 
 
     public MyPopup(MathTrainer mathTrainer) {
@@ -30,30 +32,46 @@ public class MyPopup extends JPopupMenu {
         newGameMenu.addActionListener(e -> mathTrainer.initBeginning());
 
         /// Teacher
-
-        alvers.addActionListener(e -> mathTrainer.setActualTeam(0));
-
-        wischnewski.addActionListener(e -> mathTrainer.setActualTeam(1));
-
-        cool.addActionListener(e -> mathTrainer.setActualTeam(2));
-
+        alvers.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.ALVERS);
+            //sleep();
+            this.setVisible(false); // ← Close popup after selection
+        });
+        wischnewski.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.WISCHNEWSKI);
+            //sleep();
+            this.setVisible(false);
+        });
+        michel.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.MICHEL);
+            //sleep();
+            this.setVisible(false);
+        });
         /// end Teacher
 
-        matheMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.MATHEMATICS);
-        englishMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.ENGLISH);
-        historyMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.HISTORY);
-        latinMenu.addActionListener(e -> mathTrainer.taskType = TaskTypes.LATIN);
+        ButtonGroup subjects = new ButtonGroup();
+        subjects.add(matheMenu);
+        subjects.add(englishMenu);
+        subjects.add(historyMenu);
+        subjects.add(complexMathMenu);
 
-        settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
+        selectActiveTaskType(mathTrainer.getTaskType());
 
-        schuelerMenu.addActionListener(e -> mathTrainer.showSchuelerPage());
-
-        highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
-
+        add(complexMathMenu);
         add(matheMenu);
         add(englishMenu);
         add(historyMenu);
-        add(latinMenu);
+
+        matheMenu.addActionListener(e -> {
+            mathTrainer.setTaskType(TaskTypes.MATHEMATICS);
+        });
+        englishMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.ENGLISH));
+        historyMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.HISTORY));
+        complexMathMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.COMPLEXMATH));
+
+        settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
+        schuelerMenu.addActionListener(e -> mathTrainer.showSchuelerPage());
+        highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
 
         add(new Separator());
 
@@ -61,9 +79,16 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
+        ButtonGroup teacher = new ButtonGroup();
+        teacher.add(alvers);
+        teacher.add(wischnewski);
+        teacher.add(michel);
+
+        selectActiveTeam(mathTrainer.actualTeam);
+
         add(alvers);
         add(wischnewski);
-        add(cool);
+        add(michel);
 
         add(new Separator());
 
@@ -79,5 +104,28 @@ public class MyPopup extends JPopupMenu {
         add(schuelerMenu);
         add(settingsMenu);
         add(helpMenu);
+    }
+
+    private void selectActiveTaskType(int activeSubject) {
+        if (activeSubject == TaskTypes.COMPLEXMATH) {
+            complexMathMenu.setSelected(true);
+        } else if (activeSubject == TaskTypes.MATHEMATICS) {
+            matheMenu.setSelected(true);
+        } else if (activeSubject == TaskTypes.ENGLISH) {
+            englishMenu.setSelected(true);
+        }else if (activeSubject == TaskTypes.HISTORY) {
+            historyMenu.setSelected(true);
+        }
+    }
+
+    private void selectActiveTeam(int actualTeam) {
+
+        if (actualTeam == Teachers.ALVERS) {
+            alvers.setSelected(true);
+        } else if (actualTeam == Teachers.WISCHNEWSKI) {
+            wischnewski.setSelected(true);
+        } else if (actualTeam == Teachers.MICHEL) {
+            michel.setSelected(true);
+        }
     }
 }
