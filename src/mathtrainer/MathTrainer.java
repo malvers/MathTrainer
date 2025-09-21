@@ -90,7 +90,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean showAndPlayName = true;
     protected int taskType = TaskTypes.MATHEMATICS;
     private BufferedImage laTeXLabel;
-    private Point laTeXPos = new Point();
+    private final Point laTeXPos = new Point();
+    private final Color transparent = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+    ;
 
     public MathTrainer() {
 
@@ -469,8 +471,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             drawRunningTime(g2d, getWidth() / 2, cs);
         }
 
-        Color transparent = new Color(0.0f, 0.0f, 0.0f, 0.0f);
+        drawLaTexLabel(g2d);
+    }
 
+    private void drawLaTexLabel(Graphics2D g2d) {
+        if (laTeXLabel == null) {
+            return;
+        }
         g2d.drawImage(laTeXLabel, laTeXPos.x, laTeXPos.y, transparent, this);
     }
 
@@ -699,57 +706,72 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.setColor(mathTask.getColor());
         }
 
+        String onDisplay = "";
+
         if (iterationCount % 2 > 0 || iterationCount == 0) {
 
             if (iterationCount == 0) {
                 iterationCount++;
             }
 
-            String aufgabe = "";
-
             if (taskType == TaskTypes.ENGLISH) {
-                aufgabe = englishTask.getQuestion();
-                myDrawString(g2d, aufgabe);
+                onDisplay = englishTask.getQuestion();
             } else if (taskType == TaskTypes.MATHEMATICS) {
-                aufgabe = mathTask.getQuestion();
-                myDrawString(g2d, aufgabe);
+                onDisplay = mathTask.getQuestion();
             } else if (taskType == TaskTypes.DROPPED) {
-                aufgabe = dropTask.getQuestion();
-                myDrawString(g2d, aufgabe);
+                onDisplay = dropTask.getQuestion();
             } else if (taskType == TaskTypes.COMPLEXMATH) {
-                aufgabe = complexMathTask.getQuestion();
-                drawLaTex(g2d, aufgabe);
+                onDisplay = complexMathTask.getQuestion();
+            }
+
+            if (onDisplay.startsWith("\\(")) {
+                String q = complexMathTask.getQuestion().trim();
+                if (q.endsWith("=\\)")) {
+                    onDisplay = complexMathTask.getQuestion();
+                } else {
+                    onDisplay = complexMathTask.getQuestion();
+                }
+                prepareLaTeXLabel(g2d, onDisplay);
+            } else {
+                laTeXLabel = null;
+                myDrawString(g2d, onDisplay);
             }
 
 
         } else {
 
-            String resultOnDisplay = "";
-
             if (taskType == TaskTypes.ENGLISH) {
-                resultOnDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
-                myDrawString(g2d, resultOnDisplay);
+                onDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
             } else if (taskType == TaskTypes.MATHEMATICS) {
-                resultOnDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
-                myDrawString(g2d, resultOnDisplay);
+                onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
-                resultOnDisplay = dropTask.getQuestion() + ": " + dropTask.getAnswer();
-                myDrawString(g2d, resultOnDisplay);
+                onDisplay = dropTask.getQuestion() + " - " + dropTask.getAnswer();
             } else if (taskType == TaskTypes.COMPLEXMATH) {
+                onDisplay = complexMathTask.getQuestion().trim();
+            }
+
+            if (onDisplay.startsWith("\\(")) {
                 String q = complexMathTask.getQuestion().trim();
                 if (q.endsWith("=\\)")) {
-                    resultOnDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
+                    onDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
                 } else {
-                    resultOnDisplay = complexMathTask.getQuestion() + "\\quad" + complexMathTask.getAnswer();
+                    onDisplay = complexMathTask.getQuestion() + "\\quad" + complexMathTask.getAnswer();
                 }
-                drawLaTex(g2d, resultOnDisplay);
+                prepareLaTeXLabel(g2d, onDisplay);
+            } else {
+                laTeXLabel = null;
+                myDrawString(g2d, onDisplay);
             }
         }
     }
 
-    private void drawLaTex(Graphics2D g2d, String toLatex) {
+    private void prepareLaTeXLabel(Graphics2D g2d, String toLatex) {
 
         laTeXLabel = Latexer.renderLatexToImage(toLatex, 160, getWidth() - 100);
+
+        if (laTeXLabel == null) {
+            return;
+        }
 
         int w = laTeXLabel.getWidth();
         int h = laTeXLabel.getHeight();
