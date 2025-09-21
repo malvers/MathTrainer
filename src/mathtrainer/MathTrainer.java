@@ -96,6 +96,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         MTools.init("MathTrainerLogDebug.txt", false);
 
+        setFocusable(true);
+
         new TextFileDropTarget(this);
 
         isWindows = getOperatingSystem().contains("Windows");
@@ -245,6 +247,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         allEnglishTasks.clear();
         allDropTasks.clear();
         allComplexMathTasks.clear();
+
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
             Team team = allTeams.get(actualTeam);
@@ -1098,7 +1101,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
         }
 
-        initAllTasks(false);
+        /// TODO: keep on radar ... why init here ?????
+        //initAllTasks(false);
 
         repaint();
     }
@@ -1150,6 +1154,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mouseEntered(MouseEvent e) {
 
+        boolean f = requestFocusInWindow();
+
+        System.out.println("mouseEntered: " + f);
+        repaint();
     }
 
     @Override
@@ -1694,6 +1702,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     public static void main(String[] args) {
 
         frame = new JFrame();
+        frame.setFocusable(true);
+        frame.setFocusableWindowState(true);
         frame.setLayout(new GridLayout());
         frame.setBounds(0, 0, 1280, 900);
         frame.add(new MathTrainer());

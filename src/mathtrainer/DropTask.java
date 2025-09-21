@@ -15,8 +15,6 @@ import java.util.List;
 public class DropTask {
 
     String Student;
-    String question = "Question";
-    String answer = "Answer";
     private static List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
@@ -42,11 +40,12 @@ public class DropTask {
     }
 
     protected static void clearTasks() {
-        System.out.println("clearTasks");
+        System.out.println("DropTask.clearTasks");
         tasks.clear();
     }
 
     protected static void addTask(Vocabulary vocabulary) {
+        //System.out.println("DropTask.addTasks: " + vocabulary.question + " :: " + vocabulary.answer);
         tasks.add(vocabulary);
         Collections.shuffle(tasks);
     }
@@ -54,6 +53,13 @@ public class DropTask {
     protected static List<Vocabulary> getTasks() {
 
         return tasks;
+    }
+
+    public static void print() {
+
+        for (Vocabulary task : tasks) {
+            System.err.println("print: " + task.question + " :: " + task.answer);
+        }
     }
 
     protected static class Vocabulary {

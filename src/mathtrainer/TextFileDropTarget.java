@@ -86,5 +86,7 @@ public class TextFileDropTarget {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
         }
+
+        //DropTask.print();
     }
 }

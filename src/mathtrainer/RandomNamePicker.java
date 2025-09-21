@@ -120,7 +120,7 @@ public class RandomNamePicker implements NativeKeyListener {
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
 
-        System.err.println(e.getKeyCode() + " meta: " + e.isActionKey());
+        //System.err.println(e.getKeyCode() + " meta: " + e.isActionKey());
 
         if (!action) {
             action = e.isActionKey();
@@ -137,7 +137,7 @@ public class RandomNamePicker implements NativeKeyListener {
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
-        System.out.println("released");
+        //System.out.println("released");
         action = false;
     }
 

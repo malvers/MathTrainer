@@ -105,7 +105,6 @@ public class EnglishTask {
 
 
     String getQuestion() {
-
         return tasks.get(taskNumber).question;
     }
 
