@@ -94,7 +94,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     public MathTrainer() {
 
-        MTools.init("MathTrainerLogDebug.txt", false);
+        MTools.init("SchoolTrainerDebugLog.txt", false);
 
         setFocusable(true);
 
