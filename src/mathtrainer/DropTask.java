@@ -73,7 +73,7 @@ public class DropTask {
 
         for (String line : lines) {
             line = line.trim();
-            if (line.isEmpty()) {
+            if (line.isEmpty() || line.startsWith("//")) {
                 continue;
             }
             String[] parts = line.split("\\s*::\\s*");
@@ -101,7 +101,7 @@ public class DropTask {
 
                 for (String line : lines) {
                     line = line.trim();
-                    if (line.isEmpty()) {
+                    if (line.isEmpty() || line.startsWith("//")) {
                         continue;
                     }
                     String[] parts = line.split("\\s*::\\s*");

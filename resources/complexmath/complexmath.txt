@@ -1,3 +1,10 @@
+// this is a comment
+// a line might be empty
+
+// ⚠️ the format always MUST be:  question :: answer ⚠️
+
+// these are rather complex tasks
+
 \( \sqrt{n} + \sqrt{n} + \sqrt{n} = n \) :: \( n = 9 \)
 \( \sqrt{n} + \sqrt{n} = \sqrt{4n} \) :: \( n = 4 \)
 \( \sqrt{n} + \sqrt{n} + \sqrt{n} + \sqrt{n} = n \) :: \( n = 16 \)
@@ -5,12 +12,14 @@
 \( \sqrt{n} + \sqrt{9n} = 8 \) :: \( n = 4 \)
 \( \sqrt{4n} + \sqrt{n} = 3\sqrt{n} \) :: \( n = 9 \)
 \( \sqrt{n - 1} + \sqrt{n - 1} = 4 \) :: \( n = 5 \)
+
 \( \sqrt{n} + \sqrt{4n} + \sqrt{9n} = 6\sqrt{n} \) :: \( n = 4 \)
 \( \sqrt{n + 8} - \sqrt{n} = 2 \) :: \( n = 1 \)
 \( \sqrt{9n} + \sqrt{n} = 2\sqrt{4n} \) :: \( n = 9 \)
 \( \sqrt{16n} - \sqrt{4n} = 2\sqrt{n} \) :: \( n = 9 \)
 \( \sqrt{n} + \sqrt{25n} = 6\sqrt{n} \) :: \( n = 4 \)
 \( \sqrt{n} + \sqrt{n} = n \) :: \( n = 4 \)
+
 \( \sqrt{n} + \sqrt{n} + \sqrt{n} + \sqrt{n} + \sqrt{n} = n \) :: \( n = 25 \)
 \( \sqrt{n+1} + \sqrt{n+1} = 8 \) :: \( n = 15 \)
 \( \sqrt{n+2} + \sqrt{n+2} = 10 \) :: \( n = 23 \)

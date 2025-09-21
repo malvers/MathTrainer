@@ -59,7 +59,7 @@ public class TextFileDropTarget {
                 lineNum++;
 
                 // Skip empty lines
-                if (line.trim().isEmpty()) {
+                if (line.trim().isEmpty() || line.startsWith("//")) {
                     continue;
                 }
 

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="matheclipse-gpl-2.0.0">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../_libraries/matheclipse-gpl-2.0.0.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

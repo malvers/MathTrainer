@@ -12,5 +12,15 @@
     <orderEntry type="library" name="Make" level="project" />
     <orderEntry type="library" name="Mrautilities" level="project" />
     <orderEntry type="library" name="jlatexmath-1.0.7" level="project" />
+    <orderEntry type="library" name="marytts-client-5.1.2-jar-with-dependencies" level="project" />
+    <orderEntry type="library" name="marytts-runtime-5.1.2-jar-with-dependencies" level="project" />
+    <orderEntry type="library" name="marytts-lang-en-5.1.2" level="project" />
+    <orderEntry type="library" name="voice-cmu-slt-hsmm-5.1.2" level="project" />
+    <orderEntry type="library" name="marytts-lang-de-5.1.2" level="project" />
+    <orderEntry type="library" name="jlatexmath-1.0.8" level="project" />
+    <orderEntry type="library" name="matheclipse-core-2.0.0" level="project" />
+    <orderEntry type="library" name="matheclipse-io-2.0.0" level="project" />
+    <orderEntry type="library" name="matheclipse-gpl-2.0.0" level="project" />
+    <orderEntry type="library" name="gson-2.12.1" level="project" />
   </component>
 </module>

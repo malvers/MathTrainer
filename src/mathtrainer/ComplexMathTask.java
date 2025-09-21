@@ -22,7 +22,7 @@ public class ComplexMathTask {
         if (read) {
             try {
                 //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
-                readTasksFromResource("/complexmath/complexmath.txt");
+                readTasksFromResource("/complexmath/complexmath3.0.txt");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);
@@ -56,7 +56,7 @@ public class ComplexMathTask {
 
         for (String line : lines) {
             line = line.trim();
-            if (line.isEmpty()) {
+            if (line.isEmpty() || line.startsWith("//")) {
                 continue;
             }
             String[] parts = line.split("\\s*::\\s*");
@@ -84,7 +84,7 @@ public class ComplexMathTask {
 
                 for (String line : lines) {
                     line = line.trim();
-                    if (line.isEmpty()) {
+                    if (line.isEmpty()|| line.startsWith("//")) {
                         continue;
                     }
                     String[] parts = line.split("\\s*::\\s*");

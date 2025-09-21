@@ -124,6 +124,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             setAndPlaySound(soundOnDisplay);
             setVolume();
         }
+
+        requestFocus();
     }
 
     public void initBeginning() {
@@ -188,7 +190,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     protected void initAllTasks() {
 
-        System.err.println("initAllTasks");
+        //System.err.println("initAllTasks");
         allMathematicsTasks.clear();
         allEnglishTasks.clear();
         allDropTasks.clear();
@@ -628,7 +630,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        drawNameAndCountDown(g2d, getWidth() / 2);
+        drawStudentNameAndCountDown(g2d, getWidth() / 2);
 
         /// draw numbers 1  &  number 2 & result
 
@@ -799,7 +801,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString(sOperations, xPos, yPos);
     }
 
-    private void drawNameAndCountDown(Graphics2D g2d, int xPos) {
+    private void drawStudentNameAndCountDown(Graphics2D g2d, int xPos) {
 
         FontMetrics metrics;
         // TODO: check why cs.fgLight is not taken
@@ -818,7 +820,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         /// draw Schüler name
 
-        String sName;
+        String str;
         int sw;
         int yPos;
 
@@ -829,43 +831,43 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             //g2d.setColor(cs.fgLight);
             g2d.setColor(Color.WHITE);
             if (!pinnedName.isEmpty()) {
-                sName = pinnedName;
+                str = pinnedName;
             } else {
-                sName = allMathematicsTasks.get(taskCounter).name;
+                str = allMathematicsTasks.get(taskCounter).name;
             }
 
-            sw = metrics.stringWidth(sName);
+            sw = metrics.stringWidth(str);
             yPos = 200;
 
             if (isWindows) {
                 yPos += 50;
             }
-            g2d.drawString(sName, xPos - (sw / 2), getHeight() - yPos);
+            g2d.drawString(str, xPos - (sw / 2), getHeight() - yPos);
+        }
 
-            /// draw count down
+        /// draw count down
 
-            sName = "" + countDownCounter;
-            g2d.setFont(new Font("Arial", Font.PLAIN, 50));
-            metrics = g2d.getFontMetrics();
-            sw = metrics.stringWidth(sName);
-            if (countDownCounter > -1) {
-                int rw = 60;
-                g2d.setColor(Color.CYAN.darker());
-                if (countDownCounter < 4) {
-                    g2d.setColor(Color.ORANGE);
-                }
-                if (countDownCounter < 2) {
-                    g2d.setColor(Color.RED);
-                }
-                yPos = 110;
-
-                if (isWindows) {
-                    yPos += 50;
-                }
-
-                g2d.drawOval(getWidth() / 2 - rw / 2, getHeight() - yPos - 48, rw, rw);
-                g2d.drawString(sName, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
+        str = "" + countDownCounter;
+        g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+        metrics = g2d.getFontMetrics();
+        sw = metrics.stringWidth(str);
+        if (countDownCounter > -1) {
+            int rw = 60;
+            g2d.setColor(Color.CYAN.darker());
+            if (countDownCounter < 4) {
+                g2d.setColor(Color.ORANGE);
             }
+            if (countDownCounter < 2) {
+                g2d.setColor(Color.RED);
+            }
+            yPos = 110;
+
+            if (isWindows) {
+                yPos += 50;
+            }
+
+            g2d.drawOval(getWidth() / 2 - rw / 2, getHeight() - yPos - 48, rw, rw);
+            g2d.drawString(str, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
         }
     }
 
@@ -1108,7 +1110,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     @Override
     public void mouseEntered(MouseEvent e) {
 
-        requestFocusInWindow();
+        requestFocus();
         repaint();
     }
 
@@ -1168,7 +1170,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_2 -> setTaskType(TaskTypes.MATHEMATICS);
             case KeyEvent.VK_3 -> setTaskType(TaskTypes.ENGLISH);
             case KeyEvent.VK_4 -> setTaskType(TaskTypes.DROPPED);
-
 
             case KeyEvent.VK_A -> drawTask = !drawTask;
             case KeyEvent.VK_B -> initBeginning();
@@ -1332,7 +1333,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 timer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
-//                        System.out.println( "running:" );
+                        //ystem.out.println( "running:" );
                         repaint();
                     }
                 }, 0, 200);
@@ -1347,7 +1348,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         if (nextTaskIn != null) {
-            //System.out.println("handleDown() - nextTask != null");
+            System.out.println("handleDown() - nextTask != null");
             nextTaskIn.cancel();
         }
 
@@ -1373,6 +1374,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 playStudentName(allMathematicsTasks.get(taskCounter).name);
             }
 
+            String q = allComplexMathTasks.get(taskCounter).getQuestion();
+            System.out.println("q: " + q);
+            WolframAlphaSolver.getSolutions(q);
 
         } else {
 
@@ -1390,7 +1394,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             if (countDown != null) {
 //                System.out.println("automated new task");
-//                countDown.cancel();
+                countDown.cancel();
                 nextTaskIn = new Timer();
                 nextTaskIn.scheduleAtFixedRate(
                         new TimerTask() {
@@ -1399,7 +1403,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                                 nextTaskCountDown--;
                                 if (nextTaskCountDown == 0) {
                                     this.cancel();
-                                    System.out.println("should start automatically");
+                                    //System.out.println("should start automatically");
                                     /// TODO: not thread safe
 //                                    handleDown();
                                     nextTaskCountDown = nextTaskCountDownFrom;
