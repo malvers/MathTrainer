@@ -135,11 +135,9 @@ public class RandomNamePicker implements NativeKeyListener {
             pickRandomName();
         }
 
-        // Escape key to exit
         if (e.getKeyCode() == NativeKeyEvent.VC_ESCAPE) {
-            System.out.println("Escape pressed - shutting down...");
+            System.err.println("Escape pressed - stopping native hook ...");
             stop();
-            System.exit(0);
         }
     }
 
