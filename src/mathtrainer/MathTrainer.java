@@ -45,14 +45,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     BufferedImage bgImg = null;
 
-    private final int fontSizeSchueler = 26;
+    private final int fontSizeStudent = 26;
     private int numberTasksPerStudent = 3;
     private int colorSchemeId = 0;
     private int fontSizeNumbers = 180;
     private int taskCounter = 0;
     private int iterationCount = 0;
 
-    private final float factorDrawSchueler = 1.4f;
+    private final float factorDrawStudent = 1.4f;
     private float transparency = 0.5f;
 
     protected int actualTeam;
@@ -89,7 +89,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage laTeXLabel;
     private final Point laTeXPos = new Point();
     private final Color transparent = new Color(0.0f, 0.0f, 0.0f, 0.0f);
-    private final String copyright = " - Copyright® bei Dr. Michael R. Alvers 2000-2025";
+    private final String copyright = "SchoolTrainer by Dr. Michael R. Alvers - ©2020-2025 - all rights reserved";
 
     public MathTrainer() {
 
@@ -178,8 +178,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         allTeams.clear();
 
         new Team();
-        for (int klassenId = 0; klassenId < Team.teamsString.length; klassenId++) {
-            allTeams.add(new Team(klassenId));
+        for (int teamId = 0; teamId < Team.teamsString.length; teamId++) {
+            allTeams.add(new Team(teamId));
         }
         if (shuffle) {
             Collections.shuffle(allTeams.get(actualTeam));
@@ -225,9 +225,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         /// TODO: do we need it for all subjects? /////////////////
-        Team klasse = allTeams.get(actualTeam);
+        Team team = allTeams.get(actualTeam);
 
-        for (OneStudent oneStudent : klasse) {
+        for (OneStudent oneStudent : team) {
 
             for (MathTask allTask : allMathematicsTasks) {
 
@@ -296,7 +296,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             int w = in.readInt();
             int h = in.readInt();
             frame.setBounds(x, y, w, h);
-            frame.setTitle(getStringTaskType() + copyright);
+            frame.setTitle(getStringTaskType() + " - " + copyright);
             colorSchemeId = in.readInt();
             numberTasksPerStudent = in.readInt();
             if (numberTasksPerStudent < 2) {
@@ -428,7 +428,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setFont(new Font("Arial", Font.PLAIN, 20));
         g2d.setColor(Color.WHITE);
 
-        /// draw number Schueler
+        /// draw number students
         String str = allTeams.get(actualTeam).size() + " Students";
 
         if (!pinnedName.isEmpty()) {
@@ -469,13 +469,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.setColor(ColorSheme.darkBlue);
         g2d.fillRect(0, 0, getWidth(), getHeight());
-        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeSchueler));
+        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeStudent));
         g2d.setColor(cs.fgDark);
 
         int yShift = 40;
         int xShift = 360;
         int i = 1;
-        float yPos = factorDrawSchueler * fontSizeSchueler;
+        float yPos = factorDrawStudent * fontSizeStudent;
         g2d.drawString("H   ", 50, ((yShift + yPos * i)));
         g2d.drawString("Help", xShift, yShift + (yPos * i++));
 
@@ -535,10 +535,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
-        String str = "SchoolTrainer by Dr. Michael R. Alvers - ©2020-2025 - all rights reserved";
-        Rectangle2D bounds = metrics.getStringBounds(str, g2d);
+        Rectangle2D bounds = metrics.getStringBounds(copyright, g2d);
         g2d.setColor(Color.GRAY);
-        g2d.drawString(str, (float) ((double) getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 30);
+        g2d.drawString(copyright, (float) ((double) getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 30);
 
         drawTeamAndNumberTasks(g2d);
     }
@@ -548,7 +547,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setColor(ColorSheme.darkBlue);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeSchueler));
+        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeStudent));
         g2d.setColor(cs.fgDark);
 
         int xIndent = 160;
@@ -559,14 +558,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             g2d.setColor(colorStore);
 
-            var y = yShift + factorDrawSchueler * fontSizeSchueler * (i - 2);
+            var y = yShift + factorDrawStudent * fontSizeStudent * (i - 2);
             if (series.get(i)) {
                 g2d.drawString("✓  ", 50, y);
             } else {
                 g2d.setColor(cs.fgLight);
             }
 
-            String str = "er Reihe";
+            String str = "er series";
             g2d.drawString((i) + str, xIndent, y);
         }
 
@@ -578,7 +577,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setColor(ColorSheme.darkBlue);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeSchueler));
+        g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeStudent));
         g2d.setColor(cs.fgDark);
 
         int xIndent = 160;
@@ -591,9 +590,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             g2d.setColor(colorStore);
             if (kl.get(i).anwesend) {
-                g2d.drawString("✅  ", 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
+                g2d.drawString("✅  ", 50, yShift + factorDrawStudent * fontSizeStudent * i);
             } else {
-                g2d.drawString("❌  ", 50, yShift + factorDrawSchueler * fontSizeSchueler * i);
+                g2d.drawString("❌  ", 50, yShift + factorDrawStudent * fontSizeStudent * i);
                 g2d.setColor(cs.fgLight);
             }
 
@@ -601,7 +600,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (name.contentEquals(pinnedName)) {
                 g2d.setColor(Color.RED);
             }
-            g2d.drawString(name, xIndent, yShift + factorDrawSchueler * fontSizeSchueler * i);
+            g2d.drawString(name, xIndent, yShift + factorDrawStudent * fontSizeStudent * i);
             int num = kl.get(i).getNumberTasks();
             String str = "" + num;
             if (num < 10) {
@@ -612,13 +611,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 continue;
             }
 
-            g2d.drawString(str, 500, yShift + factorDrawSchueler * fontSizeSchueler * i);
+            g2d.drawString(str, 500, yShift + factorDrawStudent * fontSizeStudent * i);
             num = kl.get(i).numberRightSolutions;
             str = "" + num;
             if (num < 10) {
                 str = "  " + str;
             }
-            g2d.drawString(str, 800, yShift + factorDrawSchueler * fontSizeSchueler * i);
+            g2d.drawString(str, 800, yShift + factorDrawStudent * fontSizeStudent * i);
         }
     }
 
@@ -945,7 +944,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         drawGesamtzeitTeam(g2d, cs, xPos, yShift);
 
-        drawZeitProSchueler(g2d, cs, xPos, yShift);
+        drawTimePerTaskAndStudent(g2d, cs, xPos, yShift);
     }
 
     private void drawGesamtzeitTeam(Graphics2D g2d, ColorSheme cs, int xPos, int yShift) {
@@ -983,7 +982,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString(duration, xPos - (sWidth / 2), yShift + (getHeight() / 2 - 120));
     }
 
-    private void drawZeitProSchueler(Graphics2D g2d, ColorSheme cs, int xPos, int yShift) {
+    private void drawTimePerTaskAndStudent(Graphics2D g2d, ColorSheme cs, int xPos, int yShift) {
 
         FontMetrics metrics;
 
@@ -1028,7 +1027,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         double yPos = e.getY();
 
-        int id = (int) ((yPos - (fontSizeSchueler)) / (factorDrawSchueler * fontSizeSchueler));
+        int id = (int) ((yPos - (fontSizeStudent)) / (factorDrawStudent * fontSizeStudent));
 
         if (id >= allTeams.get(actualTeam).size()) {
             return;
@@ -1188,7 +1187,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_M -> toggleMusicOnOff();
             case KeyEvent.VK_N -> showAndPlayName = !showAndPlayName;
             case KeyEvent.VK_P -> allMathematicsTasks.print();
-            case KeyEvent.VK_S -> showSchuelerPage();
+            case KeyEvent.VK_S -> showStudentsPage();
             case KeyEvent.VK_X -> handleExperimental();
             case KeyEvent.VK_T -> {
                 if (e.isShiftDown()) {
@@ -1249,7 +1248,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     void setTaskType(int newType) {
         taskType = newType;
-        frame.setTitle(getStringTaskType() + copyright);
+        frame.setTitle(getStringTaskType() + " - " + copyright);
     }
 
     void showSettingsPage() {
@@ -1260,7 +1259,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         repaint();
     }
 
-    void showSchuelerPage() {
+    void showStudentsPage() {
         drawSettings = false;
         drawHelp = false;
         drawStudents = !drawStudents;
@@ -1382,10 +1381,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
                 taskCounter = numberTasksPerStudent;
             }
-            Team klasse = allTeams.get(actualTeam);
-            for (int i = 0; i < klasse.size(); i++) {
-                if (klasse.getStudent(i).name.contentEquals(allMathematicsTasks.get(taskCounter).name)) {
-                    klasse.getStudent(i).numberRightSolutions++;
+            Team team = allTeams.get(actualTeam);
+            for (int i = 0; i < team.size(); i++) {
+                if (team.getStudent(i).name.contentEquals(allMathematicsTasks.get(taskCounter).name)) {
+                    team.getStudent(i).numberRightSolutions++;
                 }
             }
 

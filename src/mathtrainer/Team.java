@@ -12,7 +12,7 @@ public class Team extends ArrayList<OneStudent> {
     static String[] teamsString;
 
     public Team() {
-        initKlassenId();
+        initTeamId();
     }
 
     private void readTeams(int classId) {
@@ -44,12 +44,12 @@ public class Team extends ArrayList<OneStudent> {
 
         super(16);
 
-        initKlassenId();
+        initTeamId();
 
         readTeams(classId);
     }
 
-    private void initKlassenId() {
+    private void initTeamId() {
         teamsString = new String[3]; // adjust if person is added
         teamsString[0] = "Alvers";
         teamsString[1] = "Wischnewski";

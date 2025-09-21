@@ -5,7 +5,7 @@ import javax.swing.*;
 public class MyPopup extends JPopupMenu {
 
     JMenuItem settingsMenu = new JMenuItem("Settings");
-    JMenuItem schuelerMenu = new JMenuItem("Students");
+    JMenuItem studentsMenu = new JMenuItem("Students");
     JMenuItem highScoreMenu = new JMenuItem("High-Score");
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
@@ -67,7 +67,7 @@ public class MyPopup extends JPopupMenu {
         complexMathMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.COMPLEXMATH));
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
-        schuelerMenu.addActionListener(e -> mathTrainer.showSchuelerPage());
+        studentsMenu.addActionListener(e -> mathTrainer.showStudentsPage());
         highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
 
         add(new Separator());
@@ -97,7 +97,7 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         add(highScoreMenu);
-        add(schuelerMenu);
+        add(studentsMenu);
         add(settingsMenu);
         add(helpMenu);
     }
