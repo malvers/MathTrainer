@@ -10,13 +10,9 @@ import java.util.List;
 
 public class TextFileDropTarget {
 
-    private final MathTrainer mathTrainer;
-
     public TextFileDropTarget(MathTrainer panelIn) {
 
-        mathTrainer = panelIn;
-
-        mathTrainer.setDropTarget(new DropTarget() {
+        panelIn.setDropTarget(new DropTarget() {
             @Override
             public synchronized void drop(DropTargetDropEvent dtde) {
                 try {

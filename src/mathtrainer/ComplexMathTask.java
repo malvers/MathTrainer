@@ -22,7 +22,7 @@ public class ComplexMathTask {
         if (read) {
             try {
                 //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
-                readTasksFromResource("/complexmath/complexmath3.0.txt");
+                readTasksFromResource("/complexmath/complexmath.txt");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

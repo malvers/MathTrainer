@@ -2,7 +2,6 @@ package mathtrainer;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
-import com.github.kwhat.jnativehook.NativeInputEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import mratools.MTools;
@@ -12,7 +11,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 import static mathtrainer.MathTrainer.getOperatingSystem;
 
@@ -157,10 +155,6 @@ public class RandomNamePicker implements NativeKeyListener {
 
         OneStudent randomStudent = availableNames.remove(random.nextInt(availableNames.size()));
         setAndPlaySound(randomStudent.name);
-
-//        System.out.println("\nSelected: " + randomStudent.name);
-//        System.out.println("Round: " + roundNumber);
-//        System.out.println("Students left this round: " + availableNames.size());
 
         if (availableNames.isEmpty()) {
             System.out.println("--- Round " + roundNumber + " completed! ---");

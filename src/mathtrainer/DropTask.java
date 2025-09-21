@@ -15,7 +15,7 @@ import java.util.List;
 public class DropTask {
 
     String Student;
-    private static List<Vocabulary> tasks = new ArrayList<>();
+    private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public DropTask(String nameIn, boolean read) {
@@ -29,10 +29,6 @@ public class DropTask {
             }
         }
         Student = nameIn;
-    }
-
-    public DropTask() {
-
     }
 
     protected static void nextTask() {
@@ -51,12 +47,10 @@ public class DropTask {
     }
 
     protected static List<Vocabulary> getTasks() {
-
         return tasks;
     }
 
     public static void print() {
-
         for (Vocabulary task : tasks) {
             System.err.println("print: " + task.question + " :: " + task.answer);
         }

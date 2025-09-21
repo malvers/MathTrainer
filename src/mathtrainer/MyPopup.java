@@ -10,20 +10,19 @@ public class MyPopup extends JPopupMenu {
     JMenuItem helpMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
 
-    JRadioButton complexMathMenu = new JRadioButton("Complex math [4]");
-    JRadioButton matheMenu = new JRadioButton("Mathematics [5]");
-    JRadioButton englishMenu = new JRadioButton("English [6]");
-    JRadioButton historyMenu = new JRadioButton("Dropped [7]");
+    JRadioButton complexMathMenu = new JRadioButton("Complex math [1]");
+    JRadioButton matheMenu = new JRadioButton("Mathematics [2]");
+    JRadioButton englishMenu = new JRadioButton("English [3]");
+    JRadioButton historyMenu = new JRadioButton("Dropped [4]");
 
     JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
-    JRadioButton wischnewski = new JRadioButton("Team Mrs. Wischnewski");
+    JRadioButton wischnewski = new JRadioButton("Team Ms. Wischnewski");
     JRadioButton michel = new JRadioButton("Team Mr. Michel");
-
 
     public MyPopup(MathTrainer mathTrainer) {
 
         helpMenu.addActionListener(e -> {
-            mathTrainer.drawSchueler = false;
+            mathTrainer.drawStudents = false;
             mathTrainer.drawSettings = false;
             mathTrainer.drawHelp = !mathTrainer.drawHelp;
             mathTrainer.repaint();
@@ -62,9 +61,7 @@ public class MyPopup extends JPopupMenu {
         add(englishMenu);
         add(historyMenu);
 
-        matheMenu.addActionListener(e -> {
-            mathTrainer.setTaskType(TaskTypes.MATHEMATICS);
-        });
+        matheMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.MATHEMATICS));
         englishMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.ENGLISH));
         historyMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.DROPPED));
         complexMathMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.COMPLEXMATH));
@@ -94,7 +91,6 @@ public class MyPopup extends JPopupMenu {
 
         JCheckBox cb = new JCheckBox("Sound on/off");
         cb.setSelected(mathTrainer.playMusic);
-        System.out.println("playMusic: " + mathTrainer.playMusic);
         add(cb);
         cb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
 
