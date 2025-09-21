@@ -1199,13 +1199,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
 
-            case KeyEvent.VK_SPACE -> {
-                if (clip.isRunning()) {
-                    clip.stop();
-                } else {
-                    clip.start();
-                }
-            }
+//            case KeyEvent.VK_SPACE -> {
+//                if (clip.isRunning()) {
+//                    clip.stop();
+//                } else {
+//                    clip.start();
+//                }
+//            }
 
             case KeyEvent.VK_1 -> colorSchemeId = 0;
             case KeyEvent.VK_2 -> colorSchemeId = 1;
