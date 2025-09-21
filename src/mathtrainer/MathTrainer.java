@@ -41,7 +41,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private final AllMathematicsTasks allMathematicsTasks = new AllMathematicsTasks();
     private final AllEnglishTasks allEnglishTasks = new AllEnglishTasks();
-    private final AllHistoryTasks allHistoryTasks = new AllHistoryTasks();
+    private final AllDropTasks allDropTasks = new AllDropTasks();
     private final AllComplexMathTasks allComplexMathTasks = new AllComplexMathTasks();
 
     private final URL[][] imagesMatrixURL = new URL[10][10];
@@ -185,9 +185,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    protected void initHistoryTasks() {
+    protected void initDropTasks() {
 
-        allHistoryTasks.clear();
+        System.err.println("initDropTasks");
+        allDropTasks.clear();
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
             Team team = allTeams.get(actualTeam);
@@ -195,10 +196,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             for (int j = 0; j < team.size(); j++) {
 
                 OneStudent oneStudent = team.getStudent(j);
-                HistoryTask ht = new HistoryTask(oneStudent.name, false);
+                DropTask ht = new DropTask(oneStudent.name, false);
 
-                allHistoryTasks.add(ht);
+                allDropTasks.add(ht);
             }
+            //allDropTasks.print();
         }
     }
 
@@ -238,9 +240,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     protected void initAllTasks(boolean shuffle) {
 
+        System.err.println("initAllTasks");
         allMathematicsTasks.clear();
         allEnglishTasks.clear();
-        allHistoryTasks.clear();
+        allDropTasks.clear();
         allComplexMathTasks.clear();
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
@@ -263,7 +266,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
                 allMathematicsTasks.add(new MathTask(oneStudent.name, series, limitedToSelectedSeries, operation));
                 allEnglishTasks.add(new EnglishTask(oneStudent.name, true));
-                allHistoryTasks.add(new HistoryTask(oneStudent.name, true));
+                allDropTasks.add(new DropTask(oneStudent.name, true));
                 allComplexMathTasks.add(new ComplexMathTask(oneStudent.name, true));
             }
         }
@@ -385,7 +388,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case TaskTypes.ENGLISH -> "English";
             case TaskTypes.MATHEMATICS -> "Mathematics";
             case TaskTypes.COMPLEXMATH -> "Complex Mathematics";
-            case TaskTypes.HISTORY -> "History";
+            case TaskTypes.DROPPED -> "Dropped";
 
             default -> "Unknown";
         };
@@ -529,6 +532,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("H   ", 50, ((yShift + yPos * i)));
         g2d.drawString("Help", xShift, yShift + (yPos * i++));
 
+        g2d.drawString("4 ", 50, yShift + (yPos * i));
+        g2d.drawString("Complex Mathematics", xShift, yShift + (yPos * i++));
+
         g2d.drawString("5 ", 50, yShift + (yPos * i));
         g2d.drawString("Mathematics", xShift, yShift + (yPos * i++));
 
@@ -536,10 +542,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("English", xShift, yShift + (yPos * i++));
 
         g2d.drawString("7", 50, yShift + (yPos * i));
-        g2d.drawString("History", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("8", 50, yShift + (yPos * i));
-        g2d.drawString("Latin", xShift, yShift + (yPos * i++));
+        g2d.drawString("Dropped", xShift, yShift + (yPos * i++));
 
         g2d.drawString("↓", 50, yShift + (yPos * i));
         g2d.drawString("Start training", xShift, yShift + (yPos * i++));
@@ -684,7 +687,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         MathTask mathTask = allMathematicsTasks.get(taskCounter);
         EnglishTask englishTask = allEnglishTasks.get(taskCounter);
-        HistoryTask historyTask = allHistoryTasks.get(taskCounter);
+        DropTask dropTask = allDropTasks.get(taskCounter);
         ComplexMathTask complexMathTask = allComplexMathTasks.get(taskCounter);
 
         if (debugMode) {
@@ -707,8 +710,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 aufgabe = mathTask.getQuestion();
                 myDrawString(g2d, aufgabe);
-            } else if (taskType == TaskTypes.HISTORY) {
-                aufgabe = historyTask.getQuestion();
+            } else if (taskType == TaskTypes.DROPPED) {
+                aufgabe = dropTask.getQuestion();
                 myDrawString(g2d, aufgabe);
             } else if (taskType == TaskTypes.COMPLEXMATH) {
                 aufgabe = complexMathTask.getQuestion();
@@ -726,8 +729,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 resultOnDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
                 myDrawString(g2d, resultOnDisplay);
-            } else if (taskType == TaskTypes.HISTORY) {
-                resultOnDisplay = historyTask.getQuestion() + ": " + historyTask.getAnswer();
+            } else if (taskType == TaskTypes.DROPPED) {
+                resultOnDisplay = dropTask.getQuestion() + ": " + dropTask.getAnswer();
                 myDrawString(g2d, resultOnDisplay);
             } else if (taskType == TaskTypes.COMPLEXMATH) {
                 String q = complexMathTask.getQuestion().trim();
@@ -1211,7 +1214,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_4 -> setTaskType(TaskTypes.COMPLEXMATH);
             case KeyEvent.VK_5 -> setTaskType(TaskTypes.MATHEMATICS);
             case KeyEvent.VK_6 -> setTaskType(TaskTypes.ENGLISH);
-            case KeyEvent.VK_7 -> setTaskType(TaskTypes.HISTORY);
+            case KeyEvent.VK_7 -> setTaskType(TaskTypes.DROPPED);
 
 
             case KeyEvent.VK_A -> drawTask = !drawTask;
@@ -1397,7 +1400,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             System.out.println("In task ...");
 
             EnglishTask.nextTask();
-            HistoryTask.nextTask();
+            DropTask.nextTask();
             ComplexMathTask.nextTask();
 
             taskCounter++;
@@ -1602,7 +1605,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         return result;
     }
 
-    public String getOperatingSystem() {
+    public static String getOperatingSystem() {
         return System.getProperty("os.name");
     }
 

@@ -13,7 +13,7 @@ public class MyPopup extends JPopupMenu {
     JRadioButton complexMathMenu = new JRadioButton("Complex math [4]");
     JRadioButton matheMenu = new JRadioButton("Mathematics [5]");
     JRadioButton englishMenu = new JRadioButton("English [6]");
-    JRadioButton historyMenu = new JRadioButton("History [7]");
+    JRadioButton historyMenu = new JRadioButton("Dropped [7]");
 
     JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
     JRadioButton wischnewski = new JRadioButton("Team Mrs. Wischnewski");
@@ -66,7 +66,7 @@ public class MyPopup extends JPopupMenu {
             mathTrainer.setTaskType(TaskTypes.MATHEMATICS);
         });
         englishMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.ENGLISH));
-        historyMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.HISTORY));
+        historyMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.DROPPED));
         complexMathMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.COMPLEXMATH));
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
@@ -113,7 +113,7 @@ public class MyPopup extends JPopupMenu {
             matheMenu.setSelected(true);
         } else if (activeSubject == TaskTypes.ENGLISH) {
             englishMenu.setSelected(true);
-        }else if (activeSubject == TaskTypes.HISTORY) {
+        }else if (activeSubject == TaskTypes.DROPPED) {
             historyMenu.setSelected(true);
         }
     }

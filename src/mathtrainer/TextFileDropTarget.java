@@ -48,13 +48,16 @@ public class TextFileDropTarget {
 
     private void processTextFile(File file) {
 
+        System.err.println("processTextFile: " + file);
+
         try (BufferedReader reader = new BufferedReader(
+
                 new InputStreamReader(new FileInputStream(file), StandardCharsets.UTF_8))) {
 
             String line;
             int lineNum = 0;
 
-            HistoryTask.clearTasks();
+            DropTask.clearTasks();
 
             while ((line = reader.readLine()) != null) {
                 lineNum++;
@@ -65,36 +68,23 @@ public class TextFileDropTarget {
                 }
 
                 // Split by whitespace (space, tab, etc.)
-                String[] columns = line.trim().split(":", 2); // Limit 2 parts max (in case there are extra colons)
+                String[] columns = line.trim().split("\\s*::\\s*", 2); // Limit 2 parts max (in case there are extra colons)
 
                 if (columns.length < 2) {
-                    MTools.println("⚠️  Line " + lineNum + ": Not enough columns: \"" + line + "\"");
+                    System.err.println("⚠️  Line " + lineNum + ": Not enough columns: \"" + line + "\"");
                     continue;
                 }
-
+                //System.err.println("parts: " + columns[0] + "-::-" + columns[1]);
                 // Take first two columns (ignore extra ones)
                 String col1 = columns[0];
                 String col2 = columns[1];
 
-                if (mathTrainer.getTaskType() == TaskTypes.HISTORY) {
-                    HistoryTask.addTask(new HistoryTask.Vocabulary(col1, col2));
-                } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
-                    EnglishTask.addTask(new EnglishTask.Vocabulary(col1, col2));
-                } else if (mathTrainer.getTaskType() == TaskTypes.COMPLEXMATH) {
-                    ComplexMathTask.addTask(new ComplexMathTask.Vocabulary(col1, col2));
-                }
+                DropTask.addTask(new DropTask.Vocabulary(col1, col2));
             }
 
         } catch (IOException e) {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
-        }
-        if (mathTrainer.getTaskType() == TaskTypes.HISTORY) {
-            mathTrainer.initHistoryTasks();
-        } else if (mathTrainer.getTaskType() == TaskTypes.ENGLISH) {
-            mathTrainer.initEnglishTasks();
-        } else if (mathTrainer.getTaskType() == TaskTypes.COMPLEXMATH) {
-            mathTrainer.initComplexMathTasks();
         }
     }
 }

@@ -59,7 +59,7 @@ public class ComplexMathTask {
             if (line.isEmpty()) {
                 continue;
             }
-            String[] parts = line.split("\\s*-\\s*");
+            String[] parts = line.split("\\s*::\\s*");
             if (parts.length >= 2) {
                 try {
                     tasks.add(new Vocabulary(parts[0], parts[1]));
@@ -87,7 +87,7 @@ public class ComplexMathTask {
                     if (line.isEmpty()) {
                         continue;
                     }
-                    String[] parts = line.split("\\s*:\\s*");
+                    String[] parts = line.split("\\s*::\\s*");
                     if (parts.length >= 2) {
                         try {
                             tasks.add(new Vocabulary(parts[0], parts[1]));

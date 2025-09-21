@@ -12,6 +12,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Random;
 
+import static mathtrainer.MathTrainer.getOperatingSystem;
+
 public class RandomNamePicker implements NativeKeyListener {
 
     private static RandomNamePicker instance;
@@ -22,6 +24,7 @@ public class RandomNamePicker implements NativeKeyListener {
     private static Clip clip;
     private int roundNumber = 1;
     private static boolean isHookRegistered = false;
+    private boolean action = false;
 
     // Private constructor to prevent multiple instances
     private RandomNamePicker(ArrayList<OneStudent> names) {
@@ -29,8 +32,10 @@ public class RandomNamePicker implements NativeKeyListener {
         this.availableNames = new ArrayList<>(names);
         this.random = new Random();
 
-        setupNativeHook();
-        startKeepAlive();
+        if (!getOperatingSystem().contains("Windows")) {
+            setupNativeHook();
+            startKeepAlive();
+        }
 
         System.out.println("Total students: " + names.size());
         System.out.println("Round 1 started - " + availableNames.size() + " students available");
@@ -121,7 +126,12 @@ public class RandomNamePicker implements NativeKeyListener {
 
     @Override
     public void nativeKeyPressed(NativeKeyEvent e) {
-        if (e.getKeyCode() == NativeKeyEvent.VC_9) {
+
+        if (!action) {
+            action = e.isActionKey();
+        }
+        System.err.println(e.getKeyCode() + " meta: " + action);
+        if (e.getKeyCode() == NativeKeyEvent.VC_SPACE && action) {
             pickRandomName();
         }
 
@@ -135,7 +145,7 @@ public class RandomNamePicker implements NativeKeyListener {
 
     @Override
     public void nativeKeyReleased(NativeKeyEvent nativeKeyEvent) {
-        // Not used but required by interface
+        action = false;
     }
 
     @Override

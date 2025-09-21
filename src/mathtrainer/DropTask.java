@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HistoryTask {
+public class DropTask {
 
     String Student;
     String question = "Question";
@@ -20,7 +20,7 @@ public class HistoryTask {
     private static List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public HistoryTask(String nameIn, boolean read) {
+    public DropTask(String nameIn, boolean read) {
 
         if (read) {
             try {
@@ -33,7 +33,7 @@ public class HistoryTask {
         Student = nameIn;
     }
 
-    public HistoryTask() {
+    public DropTask() {
 
     }
 
@@ -42,9 +42,8 @@ public class HistoryTask {
     }
 
     protected static void clearTasks() {
-        System.out.println("cearTasks");
-        tasks = new ArrayList<>();
-//        tasks.clear();
+        System.out.println("clearTasks");
+        tasks.clear();
     }
 
     protected static void addTask(Vocabulary vocabulary) {
@@ -77,7 +76,7 @@ public class HistoryTask {
             if (line.isEmpty()) {
                 continue;
             }
-            String[] parts = line.split("\\s*:\\s*");
+            String[] parts = line.split("\\s*::\\s*");
             if (parts.length >= 2) {
                 try {
                     tasks.add(new Vocabulary(parts[0], parts[1]));
@@ -105,11 +104,10 @@ public class HistoryTask {
                     if (line.isEmpty()) {
                         continue;
                     }
-                    String[] parts = line.split("\\s*:\\s*");
+                    String[] parts = line.split("\\s*::\\s*");
                     if (parts.length >= 2) {
                         try {
-                            tasks.add(new HistoryTask.Vocabulary(parts[0], parts[1]));
-                            //System.out.println(parts[0] + " - " + parts[1]);
+                            tasks.add(new DropTask.Vocabulary(parts[0], parts[1]));
                         } catch (NumberFormatException e) {
                             System.err.println("Skipping line: " + line);
                         }
@@ -121,17 +119,7 @@ public class HistoryTask {
     }
 
     String getQuestion() {
-
         return tasks.get(taskNumber).question;
-    }
-
-    public void print(int i) {
-
-        String space = "";
-        if (i < 10) {
-            space = " ";
-        }
-        System.out.println(Student + " ->\t" + space + i + " ->\t" + question);
     }
 
     public String getAnswer() {
