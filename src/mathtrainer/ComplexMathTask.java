@@ -21,8 +21,8 @@ public class ComplexMathTask {
 
         if (read) {
             try {
-                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "latin/latin.txt"));
-                readTasksFromResource("/complexmath/complexmath3.0.txt");
+                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "###"));
+                readTasksFromResource("/complexmath/Squareroots.txt");
 
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -29,7 +29,8 @@ public class WolframAlphaSolver {
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
-            System.out.println("Response Code: " + responseCode);
+
+            //System.out.println("Response Code: " + responseCode);
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -50,23 +51,32 @@ public class WolframAlphaSolver {
                 JsonObject queryResult = jsonObject.getAsJsonObject("queryresult");
                 JsonArray pods = queryResult.getAsJsonArray("pods");
 
+                if (pods == null) {
+                    System.err.println("pods == null");
+                    return;
+                }
+
                 // Loop through all the pods to find the "Solution" or "Results" one
                 for (int i = 0; i < pods.size(); i++) {
                     JsonObject pod = pods.get(i).getAsJsonObject();
                     String title = pod.get("title").getAsString();
 
                     if (title.contains("Solution") || title.contains("Result")) {
-                        // We found a potential solution pod
+
                         JsonArray subpods = pod.getAsJsonArray("subpods");
-                        if (subpods.size() > 0) {
+
+                        if (!subpods.isEmpty()) {
+
                             //System.out.println("Pod Title: " + title); // Show what pod was found
 
                             for (int j = 0; j < subpods.size(); j++) {
                                 JsonObject subpod = subpods.get(j).getAsJsonObject();
                                 String plaintext = subpod.get("plaintext").getAsString();
-                                // Print the plaintext content of each subpod
-                                if (!plaintext.isEmpty()) {
-                                    System.out.println("Solution found: " + plaintext);
+
+                                if (title.contains("Result") && !plaintext.isEmpty()) {
+                                    System.out.println("Solution for: \\( " + plaintext + " \\)");
+                                } else {
+                                    System.out.println("Solution " + (j+1) + ":   \\( " + plaintext + " \\)");
                                 }
                             }
                         }
