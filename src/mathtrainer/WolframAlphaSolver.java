@@ -7,6 +7,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -15,13 +17,27 @@ import com.google.gson.JsonArray;
 public class WolframAlphaSolver {
 
     public static void main(String[] args) {
-        getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
+
+        List<String> solutions = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
+        solutions = getSolutions("\\( 2x = 10 \\)");
+
+        if (solutions == null) {
+            System.err.println("No solutions found");
+            System.exit(-1);
+        }
+        System.out.println("Found " + (solutions.size() - 1) + " solutions for: " + solutions.getFirst());
+
+        for (int i = 1; i < solutions.size(); i++) {
+            System.out.println("Solution " + i + ": " + solutions.get(i));
+        }
     }
 
-    protected static void getSolutions(String task) {
+    protected static List<String> getSolutions(String task) {
+        List<String> solutions = new ArrayList<>();
+
         try {
             String equation = URLEncoder.encode(task, StandardCharsets.UTF_8);
-            String appId = "THWHXPV8RL"; // Replace with your actual App ID
+            String appId = "THWHXPV8RL"; // my personal App ID
             String urlStr = "https://api.wolframalpha.com/v2/query?input=" + equation + "&appid=" + appId + "&output=json";
 
             URL url = new URL(urlStr);
@@ -29,8 +45,6 @@ public class WolframAlphaSolver {
             conn.setRequestMethod("GET");
 
             int responseCode = conn.getResponseCode();
-
-            //System.out.println("Response Code: " + responseCode);
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -53,7 +67,7 @@ public class WolframAlphaSolver {
 
                 if (pods == null) {
                     System.err.println("pods == null");
-                    return;
+                    return null;
                 }
 
                 // Loop through all the pods to find the "Solution" or "Results" one
@@ -62,21 +76,16 @@ public class WolframAlphaSolver {
                     String title = pod.get("title").getAsString();
 
                     if (title.contains("Solution") || title.contains("Result")) {
-
                         JsonArray subpods = pod.getAsJsonArray("subpods");
 
                         if (!subpods.isEmpty()) {
-
-                            //System.out.println("Pod Title: " + title); // Show what pod was found
-
                             for (int j = 0; j < subpods.size(); j++) {
                                 JsonObject subpod = subpods.get(j).getAsJsonObject();
                                 String plaintext = subpod.get("plaintext").getAsString();
 
-                                if (title.contains("Result") && !plaintext.isEmpty()) {
-                                    System.out.println("Solution for: \\( " + plaintext + " \\)");
-                                } else {
-                                    System.out.println("Solution " + (j+1) + ":   \\( " + plaintext + " \\)");
+                                if (!plaintext.isEmpty()) {
+                                    String latexSolution = "\\(" + plaintext + "\\)";
+                                    solutions.add(latexSolution);
                                 }
                             }
                         }
@@ -97,5 +106,7 @@ public class WolframAlphaSolver {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        return solutions;
     }
 }

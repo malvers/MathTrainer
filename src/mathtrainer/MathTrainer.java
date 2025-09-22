@@ -18,6 +18,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.JarURLConnection;
 import java.net.URL;
+import java.util.List;
 import java.util.Timer;
 import java.util.*;
 import java.util.jar.JarEntry;
@@ -1374,10 +1375,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 playStudentName(allMathematicsTasks.get(taskCounter).name);
             }
 
-            String q = allComplexMathTasks.get(taskCounter).getQuestion();
-            System.out.println("q: " + q);
-            WolframAlphaSolver.getSolutions(q);
+            String task = allComplexMathTasks.get(taskCounter).getQuestion();
 
+            List<String> solutions = WolframAlphaSolver.getSolutions(task);
+            System.out.println("Found " + solutions.size() + " solutions for: " + solutions.getFirst());
+
+            for (int i = 1; i < solutions.size(); i++) {
+                System.out.println("Solution " + i + ": " + solutions.get(i));
+            }
         } else {
 
             //System.out.println("In result ...");
