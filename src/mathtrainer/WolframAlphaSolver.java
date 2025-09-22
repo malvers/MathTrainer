@@ -1,5 +1,6 @@
 package mathtrainer;
 
+import java.io.IOException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -17,27 +18,39 @@ import com.google.gson.JsonArray;
 public class WolframAlphaSolver {
 
     public static void main(String[] args) {
-        // Test both formats - both should work!
-        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
-        List<String> solutions2 = getSolutions("2x = 10");
-        List<String> solutions3 = getSolutions("x^2 - 4 = 0");
 
-        System.out.println("Solutions for \\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\):");
+        try {
+            ComplexMathTask.readTasksFromResource("/complexmath/ComplexEquations.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        ArrayList<ComplexMathTask.Vocabulary> tasks = ComplexMathTask.getTasks();
+
+        System.out.println("Number tasks: " + tasks.size());
+        for (int i = 0; i < tasks.size(); i++) {
+            ComplexMathTask.Vocabulary task = tasks.get(i);
+            System.out.println();
+            System.out.println(i + ". task: " + task.question);
+            List<String> solutions = getSolutions(task.question);
+            solutions.forEach(System.out::println);
+        }
+
+//        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
+        List<String> solutions1 = getSolutions("\\( \\sqrt{4n + 5} = 5 \\)");
         solutions1.forEach(System.out::println);
-
-        System.out.println("\nSolutions for 2x = 10:");
-        solutions2.forEach(System.out::println);
-
-        System.out.println("\nSolutions for x^2 - 4 = 0:");
-        solutions3.forEach(System.out::println);
     }
 
     protected static List<String> getSolutions(String task) {
         List<String> solutions = new ArrayList<>();
 
         try {
-            // Just encode the task as-is - WolframAlpha can handle LaTeX notation!
-            String equation = URLEncoder.encode(task, StandardCharsets.UTF_8);
+            // Remove LaTeX delimiters for WolframAlpha compatibility
+            String cleanedTask = task;
+
+            // Remove \( and \) delimiters but preserve LaTeX math commands
+            cleanedTask = cleanedTask.replace("\\(", "").replace("\\)", "").trim();
+
+            String equation = URLEncoder.encode(cleanedTask, StandardCharsets.UTF_8);
             String appId = "THWHXPV8RL"; // Replace with your actual App ID
             String urlStr = "https://api.wolframalpha.com/v2/query?input=" + equation + "&appid=" + appId + "&output=json";
 
@@ -65,14 +78,14 @@ public class WolframAlphaSolver {
                 // Check if the query was successful
                 boolean success = queryResult.get("success").getAsBoolean();
                 if (!success) {
-                    System.err.println("WolframAlpha could not understand the query: " + task);
+                    System.err.println("WolframAlpha could not understand the query: " + cleanedTask);
                     return solutions;
                 }
 
                 JsonArray pods = queryResult.getAsJsonArray("pods");
 
                 if (pods == null) {
-                    System.err.println("No pods found for: " + task);
+                    System.err.println("No pods found for: " + cleanedTask);
                     return solutions;
                 }
 

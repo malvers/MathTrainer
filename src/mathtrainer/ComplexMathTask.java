@@ -39,6 +39,11 @@ public class ComplexMathTask {
         taskNumber++;
     }
 
+    public static ArrayList<Vocabulary> getTasks() {
+
+        return tasks;
+    }
+
     protected static class Vocabulary {
 
         String question;
@@ -72,7 +77,7 @@ public class ComplexMathTask {
         Collections.shuffle(tasks);
     }
 
-    private void readTasksFromResource(String resourcePath) throws IOException {
+    protected static void readTasksFromResource(String resourcePath) throws IOException {
 
         try (InputStream in = MathTrainer.class.getResourceAsStream(resourcePath)) {
             if (in == null) {
