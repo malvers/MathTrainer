@@ -29,6 +29,7 @@ public class MyPopup extends JPopupMenu {
         });
 
         newGameMenu.addActionListener(e -> mathTrainer.initBeginning());
+        newGameMenu.addActionListener(e -> mathTrainer.toggleCountDownOn());
 
         /// Teacher
         alvers.addActionListener(e -> {
@@ -56,6 +57,10 @@ public class MyPopup extends JPopupMenu {
 
         selectActiveTaskType(mathTrainer.getTaskType());
 
+        add(newGameMenu);
+
+        add(new Separator());
+
         add(complexMathMenu);
         add(matheMenu);
         add(englishMenu);
@@ -72,10 +77,6 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
-        add(newGameMenu);
-
-        add(new Separator());
-
         ButtonGroup teacher = new ButtonGroup();
         teacher.add(alvers);
         teacher.add(wischnewski);
@@ -89,17 +90,22 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
-        JCheckBox cb = new JCheckBox("Sound on/off");
-        cb.setSelected(mathTrainer.playMusic);
-        add(cb);
-        cb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
-
-        add(new Separator());
-
         add(highScoreMenu);
         add(studentsMenu);
         add(settingsMenu);
         add(helpMenu);
+
+        add(new Separator());
+
+        JCheckBox scb = new JCheckBox("Sound on/off");
+        scb.setSelected(mathTrainer.playMusic);
+        add(scb);
+        scb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
+
+        JCheckBox ccb = new JCheckBox("Countdown on/off");
+        ccb.setSelected(mathTrainer.getCountDownOn());
+        ccb.addActionListener(e -> mathTrainer.toggleCountDownOn());
+        add(ccb);
     }
 
     private void selectActiveTaskType(int activeSubject) {

@@ -66,7 +66,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private String pinnedName = "";
 
     private boolean timeStartIsRested = false;
-    public boolean drawStudents = false;
+    protected boolean drawStudents = false;
     private boolean showDuration = false;
     private boolean beginning = true;
     public boolean drawHelp = false;
@@ -78,7 +78,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private int penalty = 0;
     private boolean drawTask = true;
     private final int nextTaskCountDownFrom = 5;
-    private final int countDownFrom = 9;
+    private final int countDownFrom = 10;
     private int nextTaskCountDown = nextTaskCountDownFrom;
     private Timer nextTaskIn;
     private float soundVolume = 1.0f;
@@ -93,6 +93,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final String copyright = "SchoolTrainer by Dr. Michael R. Alvers - ©2020-2025 - all rights reserved";
     private BufferedImage solutionImg;
     private boolean wolframMode = true;
+    private boolean countDownOn = true;
 
     public MathTrainer() {
 
@@ -113,7 +114,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         Runtime.getRuntime().addShutdownHook(t);
 
-        actualTeam = Teachers.ALVERS; /// Alvers = 0, Wischnewski = 1
+        actualTeam = Teachers.ALVERS;
 
         readSettings();
 
@@ -127,6 +128,19 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         requestFocus();
+
+        repaintEverySecondTimer();
+    }
+
+    private void repaintEverySecondTimer() {
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                //System.out.println("tick");
+                repaint();
+            }
+        }, 0, 1000);
     }
 
     public void initBeginning() {
@@ -150,30 +164,29 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDown.cancel();
         }
 
-//        readImagesOld();
         readImages();
 
-        System.out.println("readImages done ...");
+        System.out.println("readImages done ..." + drawStudents);
 
         initNames(true);
 
 //        new RandomNamePicker(allTeams.get(actualTeam).getStudents());
         RandomNamePicker.getInstance(allTeams.get(actualTeam).getStudents());
 
-        System.out.println("initNames done ...");
+        System.out.println("initNames done ..." + drawStudents);
 
         initAllTasks();
 
-        System.out.println("initAllTasks done ...");
+        System.out.println("initAllTasks done ..." + drawStudents);
 
         setImageForTask();
 
-        System.out.println("setImageForTask done ...");
+        System.out.println("setImageForTask done ..." + drawStudents);
 
         timer = new Timer();
         resetTimerStart();
 
-        System.out.println("ready to go ...\n\n");
+        System.out.println("ready to go ..." + drawStudents);
     }
 
     private void initNames(boolean shuffle) {
@@ -280,6 +293,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             os.writeInt(taskType);
             os.writeInt(actualTeam);
+            os.writeBoolean(countDownOn);
+            os.writeBoolean(drawStudents);
 
             os.close();
             f.close();
@@ -318,6 +333,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             setTaskType(taskType);
 
             actualTeam = in.readInt();
+            countDownOn = in.readBoolean();
+            drawStudents = in.readBoolean();
 
             in.close();
             f.close();
@@ -519,11 +536,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("B", 50, yShift + (yPos * i));
         g2d.drawString("Zurück auf Beginn", xShift, yShift + (yPos * i++));
 
+        g2d.drawString("C", 50, yShift + (yPos * i));
+        g2d.drawString("Count down on/off", xShift, yShift + (yPos * i++));
+
         g2d.drawString("D", 50, yShift + (yPos * i));
         g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos * i++));
 
         g2d.drawString("E", 50, yShift + (yPos * i));
-        g2d.drawString("Show selected series (math only)", xShift, yShift + (yPos * i++));
+        g2d.drawString("Show selected series (1 x 1 only)", xShift, yShift + (yPos * i++));
 
         g2d.drawString("L", 50, yShift + (yPos * i));
         g2d.drawString("Limit mode no/off", xShift, yShift + (yPos * i++));
@@ -640,7 +660,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         drawStudentNameAndCountDown(g2d, getWidth() / 2);
 
-        /// draw numbers 1  &  number 2 & result
+        /// question and answer
 
         g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeNumbers));
 
@@ -695,6 +715,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             if (onDisplay.startsWith("\\(")) {
                 String q = complexMathTask.getQuestion().trim();
+                q = q.replace("= \\)","=\\)");
                 if (q.endsWith("=\\)")) {
                     onDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
                 } else {
@@ -851,32 +872,34 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 yPos += 50;
             }
             g2d.drawString(str, xPos - (sw / 2), getHeight() - yPos);
+
+            /// draw count down
+
+            str = "" + countDownCounter;
+            g2d.setFont(new Font("Arial", Font.PLAIN, 50));
+            metrics = g2d.getFontMetrics();
+            sw = metrics.stringWidth(str);
+            if (countDownCounter > -1) {
+                int rw = 68;
+                g2d.setColor(Color.CYAN.darker());
+                if (countDownCounter < 4) {
+                    g2d.setColor(Color.ORANGE);
+                }
+                if (countDownCounter < 2) {
+                    g2d.setColor(Color.RED);
+                }
+                yPos = 110;
+
+                if (isWindows) {
+                    yPos += 50;
+                }
+
+                g2d.drawRect(getWidth() / 2 - rw / 2 + 1, getHeight() - yPos - rw / 2 - 19, rw, rw);
+                g2d.drawString(str, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
+            }
         }
 
-        /// draw count down
 
-        str = "" + countDownCounter;
-        g2d.setFont(new Font("Arial", Font.PLAIN, 50));
-        metrics = g2d.getFontMetrics();
-        sw = metrics.stringWidth(str);
-        if (countDownCounter > -1) {
-            int rw = 60;
-            g2d.setColor(Color.CYAN.darker());
-            if (countDownCounter < 4) {
-                g2d.setColor(Color.ORANGE);
-            }
-            if (countDownCounter < 2) {
-                g2d.setColor(Color.RED);
-            }
-            yPos = 110;
-
-            if (isWindows) {
-                yPos += 50;
-            }
-
-            g2d.drawOval(getWidth() / 2 - rw / 2, getHeight() - yPos - 48, rw, rw);
-            g2d.drawString(str, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
-        }
     }
 
     private void drawSchoolIsCool(Graphics2D g2d, ColorSheme cs, int xPos) {
@@ -940,6 +963,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         if (isWindows) {
             yPos += 30;
         }
+        ///  draw time center bottom
         g2d.drawString(duration, xPos - (sWidth / 2), getHeight() - yPos);
     }
 
@@ -1181,6 +1205,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             case KeyEvent.VK_A -> drawTask = !drawTask;
             case KeyEvent.VK_B -> initBeginning();
+            case KeyEvent.VK_C -> countDownOn =!countDownOn;
             case KeyEvent.VK_D -> debugMode = !debugMode;
             case KeyEvent.VK_E -> showSettingsPage();
             case KeyEvent.VK_H -> {
@@ -1332,16 +1357,18 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             if (taskCounter == 0 && !timeStartIsRested) {
 
-                countDown = new MyCountDown(this, countDownFrom);
-                timeStartIsRested = true;
-                resetTimerStart();
-                timer.scheduleAtFixedRate(new TimerTask() {
-                    @Override
-                    public void run() {
-                        //ystem.out.println( "running:" );
-                        repaint();
-                    }
-                }, 0, 200);
+                if (countDownOn) {
+                    countDown = new MyCountDown(this, countDownFrom);
+                    timeStartIsRested = true;
+                    resetTimerStart();
+                    timer.scheduleAtFixedRate(new TimerTask() {
+                        @Override
+                        public void run() {
+                            //ystem.out.println( "running:" );
+                            repaint();
+                        }
+                    }, 0, 200);
+                }
             }
             playStudentName(allMathematicsTasks.get(taskCounter).name);
             return true;
@@ -1375,7 +1402,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
                 handleFinished();
             }
-            countDown = new MyCountDown(this, countDownFrom);
+            if (countDownOn) {
+                countDown = new MyCountDown(this, countDownFrom);
+            }
             setImageForTask();
             if (showAndPlayName) {
                 playStudentName(allMathematicsTasks.get(taskCounter).name);
@@ -1444,6 +1473,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             solutionImg = Latexer.renderLatexToImage(solutions.get(i), 20, 200);
         }
+        repaint();
     }
 
     private void handleFinished() {
@@ -1681,7 +1711,16 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         return taskType;
     }
 
-    /// main for testing
+    public void toggleCountDownOn() {
+        countDownOn = !countDownOn;
+        System.err.println("countDownOn: " + countDownOn);
+    }
+
+    public boolean getCountDownOn() {
+        return countDownOn;
+    }
+
+    /// main for testing ///////////////////////////////////////////////
 
     public static void main(String[] args) {
 

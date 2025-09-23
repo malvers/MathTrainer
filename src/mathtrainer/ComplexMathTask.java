@@ -41,7 +41,7 @@ public class ComplexMathTask {
         taskNumber++;
     }
 
-    public static ArrayList<Vocabulary> getTasks() {
+    protected static ArrayList<Vocabulary> getTasks() {
 
         return tasks;
     }
