@@ -745,11 +745,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (taskType == TaskTypes.ENGLISH) {
                 onDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
             } else if (taskType == TaskTypes.MATHEMATICS) {
-                onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
+                onDisplay = mathTask.getQuestion() + " ? " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
-                onDisplay = dropTask.getQuestion() + "   " + dropTask.getAnswer();
+                onDisplay = getProperLatex(dropTask);
             } else if (taskType == TaskTypes.COMPLEXMATH) {
-                onDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
+                onDisplay = getProperLatex(dropTask);
             }
 
             if (onDisplay.startsWith("\\(")) {
@@ -760,6 +760,29 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 myDrawString(g2d, onDisplay);
             }
         }
+    }
+
+    private static String getProperLatex(DropTask dropTask) {
+
+        String q = dropTask.getQuestion();
+
+        String space;
+        q = q.replace("= \\)", "=\\)");
+        ///  no LaTeX math
+        if (!q.startsWith("\\(")) {
+            //System.err.println("no LaTeX");
+            return q + " " + dropTask.getAnswer();
+        }
+
+        //System.out.println("q1: " + q);
+        if (q.endsWith("=\\)")) {
+            //System.out.println("q2: " + q);
+            space = "\\;";
+        } else {
+            space = "\\quad";
+        }
+
+        return q + space + dropTask.getAnswer();
     }
 
     private void prepareLaTeXLabel(String toLatex) {

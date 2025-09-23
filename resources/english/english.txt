@@ -1,388 +1,388 @@
-Of course! Here is the list formatted with " :: " as the separator.
+Of course! Here is the list formatted with " :: - " as the separator.
 
-work :: arbeiten
-play :: spielen
-go :: gehen
-come :: kommen
-eat :: essen
-drink :: trinken
-sleep :: schlafen
-read :: lesen
-write :: schreiben
-speak :: sprechen
-say :: sagen
-see :: sehen
-hear :: hören
-think :: denken
-know :: wissen
-want :: wollen
-need :: brauchen
-love :: lieben
-like :: mögen
-live :: leben
-make :: machen
-take :: nehmen
-give :: geben
-get :: bekommen
-ask :: fragen
-answer :: antworten
-find :: finden
-understand :: verstehen
-learn :: lernen
-open :: öffnen
-close :: schließen
-begin :: beginnen
-end :: enden
-help :: helfen
-wait :: warten
-stay :: bleiben
-leave :: verlassen
-call :: rufen
-show :: zeigen
-look :: schauen
-watch :: beobachten
-listen :: zuhören
-move :: bewegen
-run :: rennen
-walk :: laufen
-sit :: sitzen
-stand :: stehen
-buy :: kaufen
-sell :: verkaufen
-pay :: bezahlen
-bring :: bringen
-carry :: tragen
-hold :: halten
-cut :: schneiden
-put :: legen
-drive :: fahren
-ride :: reiten
-swim :: schwimmen
-fly :: fliegen
-house :: Haus
-home :: Zuhause
-room :: Zimmer
-living room :: Wohnzimmer
-kitchen :: Küche
-bathroom :: Badezimmer
-bedroom :: Schlafzimmer
-bed :: Bett
-chair :: Stuhl
-table :: Tisch
-door :: Tür
-window :: Fenster
-floor :: Boden
-wall :: Wand
-roof :: Dach
-garden :: Garten
-lamp :: Lampe
-light :: Licht
-clock :: Uhr
-phone :: Telefon
-computer :: Computer
-book :: Buch
-pen :: Stift
-paper :: Papier
-bag :: Tasche
-clothes :: Kleidung
-shirt :: Hemd
-pants :: Hose
-shoes :: Schuhe
-hat :: Hut
-coat :: Mantel
-food :: Essen
-bread :: Brot
-butter :: Butter
-cheese :: Käse
-milk :: Milch
-water :: Wasser
-coffee :: Kaffee
-tea :: Tee
-sugar :: Zucker
-salt :: Salz
-meat :: Fleisch
-fish :: Fisch
-egg :: Ei
-apple :: Apfel
-banana :: Banane
-orange :: Orange
-grape :: Traube
-lemon :: Zitrone
-potato :: Kartoffel
-tomato :: Tomate
-carrot :: Karotte
-rice :: Reis
-soup :: Suppe
-cake :: Kuchen
-ice cream :: Eis
-day :: Tag
-night :: Nacht
-morning :: Morgen
-evening :: Abend
-week :: Woche
-month :: Monat
-year :: Jahr
-time :: Zeit
-hour :: Stunde
-minute :: Minute
-second :: Sekunde
-yesterday :: gestern
-today :: heute
-tomorrow :: morgen
-spring :: Frühling
-summer :: Sommer
-autumn :: Herbst
-winter :: Winter
-man :: Mann
-woman :: Frau
-child :: Kind
-boy :: Junge
-girl :: Mädchen
-father :: Vater
-mother :: Mutter
-parents :: Eltern
-son :: Sohn
-daughter :: Tochter
-brother :: Bruder
-sister :: Schwester
-friend :: Freund
-family :: Familie
-people :: Leute
-person :: Person
-teacher :: Lehrer
-student :: Schüler
-doctor :: Arzt
-nurse :: Krankenschwester
-police :: Polizei
-fireman :: Feuerwehrmann
-driver :: Fahrer
-worker :: Arbeiter
-farmer :: Bauer
-shop :: Geschäft
-store :: Laden
-market :: Markt
-money :: Geld
-price :: Preis
-cheap :: billig
-expensive :: teuer
-rich :: reich
-poor :: arm
-big :: groß
-small :: klein
-long :: lang
-short :: kurz
-new :: neu
-old :: alt
-young :: jung
-good :: gut
-bad :: schlecht
-happy :: glücklich
-sad :: traurig
-hot :: heiß
-cold :: kalt
-warm :: warm
-cool :: kühl
-fast :: schnell
-slow :: langsam
-strong :: stark
-weak :: schwach
-beautiful :: schön
-ugly :: hässlich
-easy :: einfach
-hard :: schwer
-right :: richtig
-wrong :: falsch
-high :: hoch
-low :: niedrig
-near :: nah
-far :: weit
-first :: erste
-last :: letzte
-one :: eins
-two :: zwei
-three :: drei
-four :: vier
-five :: fünf
-six :: sechs
-seven :: sieben
-eight :: acht
-nine :: neun
-ten :: zehn
-eleven :: elf
-twelve :: zwölf
-thirteen :: dreizehn
-fourteen :: vierzehn
-fifteen :: fünfzehn
-twenty :: zwanzig
-thirty :: dreißig
-forty :: vierzig
-fifty :: fünfzig
-hundred :: hundert
-thousand :: tausend
-red :: rot
-blue :: blau
-green :: grün
-yellow :: gelb
-black :: schwarz
-white :: weiß
-brown :: braun
-gray :: grau
-dog :: Hund
-cat :: Katze
-bird :: Vogel
-fish :: Fisch
-cow :: Kuh
-horse :: Pferd
-pig :: Schwein
-sheep :: Schaf
-chicken :: Huhn
-mouse :: Maus
-rabbit :: Kaninchen
-tree :: Baum
-flower :: Blume
-grass :: Gras
-leaf :: Blatt
-forest :: Wald
-mountain :: Berg
-river :: Fluss
-lake :: See
-sea :: Meer
-ocean :: Ozean
-sky :: Himmel
-sun :: Sonne
-moon :: Mond
-star :: Stern
-earth :: Erde
-fire :: Feuer
-air :: Luft
-wind :: Wind
-rain :: Regen
-snow :: Schnee
-ice :: Eis
-stone :: Stein
-sand :: Sand
-school :: Schule
-class :: Klasse
-lesson :: Unterricht
-homework :: Hausaufgabe
-exam :: Prüfung
-book :: Buch
-pen :: Stift
-pencil :: Bleistift
-eraser :: Radiergummi
-bag :: Tasche
-table :: Tisch
-chair :: Stuhl
-window :: Fenster
-door :: Tür
-university :: Universität
-question :: Frage
-answer :: Antwort
-travel :: reisen
-trip :: Reise
-holiday :: Urlaub
-ticket :: Ticket
-train :: Zug
-bus :: Bus
-car :: Auto
-plane :: Flugzeug
-ship :: Schiff
-bike :: Fahrrad
-road :: Straße
-street :: Straße
-bridge :: Brücke
-station :: Bahnhof
-airport :: Flughafen
-hotel :: Hotel
-room :: Zimmer
-key :: Schlüssel
-map :: Karte
-country :: Land
-city :: Stadt
-village :: Dorf
-capital :: Hauptstadt
-world :: Welt
-language :: Sprache
-word :: Wort
-sentence :: Satz
-letter :: Buchstabe
-number :: Zahl
-name :: Name
-yes :: ja
-no :: nein
-please :: bitte
-thanks :: danke
-sorry :: Entschuldigung
-hello :: hallo
-hi :: hi
-goodbye :: auf Wiedersehen
-good :: gut
-morning :: Morgen
-evening :: Abend
-night :: Nacht
-how :: wie
-what :: was
-where :: wo
-when :: wann
-who :: wer
-why :: warum
-because :: weil
-and :: und
-or :: oder
-but :: aber
-if :: wenn
-with :: mit
-without :: ohne
-in :: in
-on :: auf
-under :: under
-over :: über
-between :: zwischen
-before :: vor
-after :: nach
-near :: nahe
-far :: weit
-here :: hier
-there :: dort
-always :: immer
-often :: oft
-sometimes :: manchmal
-never :: nie
-now :: jetzt
-soon :: bald
-later :: später
-again :: wieder
-already :: schon
-together :: zusammen
-alone :: allein
-each :: jeder
-all :: alle
-many :: viele
-few :: wenige
-some :: einige
-none :: keine
-much :: viel
-little :: wenig
-this :: dies
-that :: das
-these :: diese
-those :: jene
-I :: ich
-you :: du / Sie
-he :: er
-she :: sie
-it :: es
-we :: wir
-they :: sie
-my :: mein
-your :: dein / Ihr
-his :: sein
-her :: ihr
-its :: sein
-our :: unser
-their :: ihr
-me :: mich / mir
-him :: ihn / ihm
-her :: sie / ihr
-us :: uns
-them :: sie / ihnen
+work :: - arbeiten
+play :: - spielen
+go :: - gehen
+come :: - kommen
+eat :: - essen
+drink :: - trinken
+sleep :: - schlafen
+read :: - lesen
+write :: - schreiben
+speak :: - sprechen
+say :: - sagen
+see :: - sehen
+hear :: - hören
+think :: - denken
+know :: - wissen
+want :: - wollen
+need :: - brauchen
+love :: - lieben
+like :: - mögen
+live :: - leben
+make :: - machen
+take :: - nehmen
+give :: - geben
+get :: - bekommen
+ask :: - fragen
+answer :: - antworten
+find :: - finden
+understand :: - verstehen
+learn :: - lernen
+open :: - öffnen
+close :: - schließen
+begin :: - beginnen
+end :: - enden
+help :: - helfen
+wait :: - warten
+stay :: - bleiben
+leave :: - verlassen
+call :: - rufen
+show :: - zeigen
+look :: - schauen
+watch :: - beobachten
+listen :: - zuhören
+move :: - bewegen
+run :: - rennen
+walk :: - laufen
+sit :: - sitzen
+stand :: - stehen
+buy :: - kaufen
+sell :: - verkaufen
+pay :: - bezahlen
+bring :: - bringen
+carry :: - tragen
+hold :: - halten
+cut :: - schneiden
+put :: - legen
+drive :: - fahren
+ride :: - reiten
+swim :: - schwimmen
+fly :: - fliegen
+house :: - Haus
+home :: - Zuhause
+room :: - Zimmer
+living room :: - Wohnzimmer
+kitchen :: - Küche
+bathroom :: - Badezimmer
+bedroom :: - Schlafzimmer
+bed :: - Bett
+chair :: - Stuhl
+table :: - Tisch
+door :: - Tür
+window :: - Fenster
+floor :: - Boden
+wall :: - Wand
+roof :: - Dach
+garden :: - Garten
+lamp :: - Lampe
+light :: - Licht
+clock :: - Uhr
+phone :: - Telefon
+computer :: - Computer
+book :: - Buch
+pen :: - Stift
+paper :: - Papier
+bag :: - Tasche
+clothes :: - Kleidung
+shirt :: - Hemd
+pants :: - Hose
+shoes :: - Schuhe
+hat :: - Hut
+coat :: - Mantel
+food :: - Essen
+bread :: - Brot
+butter :: - Butter
+cheese :: - Käse
+milk :: - Milch
+water :: - Wasser
+coffee :: - Kaffee
+tea :: - Tee
+sugar :: - Zucker
+salt :: - Salz
+meat :: - Fleisch
+fish :: - Fisch
+egg :: - Ei
+apple :: - Apfel
+banana :: - Banane
+orange :: - Orange
+grape :: - Traube
+lemon :: - Zitrone
+potato :: - Kartoffel
+tomato :: - Tomate
+carrot :: - Karotte
+rice :: - Reis
+soup :: - Suppe
+cake :: - Kuchen
+ice cream :: - Eis
+day :: - Tag
+night :: - Nacht
+morning :: - Morgen
+evening :: - Abend
+week :: - Woche
+month :: - Monat
+year :: - Jahr
+time :: - Zeit
+hour :: - Stunde
+minute :: - Minute
+second :: - Sekunde
+yesterday :: - gestern
+today :: - heute
+tomorrow :: - morgen
+spring :: - Frühling
+summer :: - Sommer
+autumn :: - Herbst
+winter :: - Winter
+man :: - Mann
+woman :: - Frau
+child :: - Kind
+boy :: - Junge
+girl :: - Mädchen
+father :: - Vater
+mother :: - Mutter
+parents :: - Eltern
+son :: - Sohn
+daughter :: - Tochter
+brother :: - Bruder
+sister :: - Schwester
+friend :: - Freund
+family :: - Familie
+people :: - Leute
+person :: - Person
+teacher :: - Lehrer
+student :: - Schüler
+doctor :: - Arzt
+nurse :: - Krankenschwester
+police :: - Polizei
+fireman :: - Feuerwehrmann
+driver :: - Fahrer
+worker :: - Arbeiter
+farmer :: - Bauer
+shop :: - Geschäft
+store :: - Laden
+market :: - Markt
+money :: - Geld
+price :: - Preis
+cheap :: - billig
+expensive :: - teuer
+rich :: - reich
+poor :: - arm
+big :: - groß
+small :: - klein
+long :: - lang
+short :: - kurz
+new :: - neu
+old :: - alt
+young :: - jung
+good :: - gut
+bad :: - schlecht
+happy :: - glücklich
+sad :: - traurig
+hot :: - heiß
+cold :: - kalt
+warm :: - warm
+cool :: - kühl
+fast :: - schnell
+slow :: - langsam
+strong :: - stark
+weak :: - schwach
+beautiful :: - schön
+ugly :: - hässlich
+easy :: - einfach
+hard :: - schwer
+right :: - richtig
+wrong :: - falsch
+high :: - hoch
+low :: - niedrig
+near :: - nah
+far :: - weit
+first :: - erste
+last :: - letzte
+one :: - eins
+two :: - zwei
+three :: - drei
+four :: - vier
+five :: - fünf
+six :: - sechs
+seven :: - sieben
+eight :: - acht
+nine :: - neun
+ten :: - zehn
+eleven :: - elf
+twelve :: - zwölf
+thirteen :: - dreizehn
+fourteen :: - vierzehn
+fifteen :: - fünfzehn
+twenty :: - zwanzig
+thirty :: - dreißig
+forty :: - vierzig
+fifty :: - fünfzig
+hundred :: - hundert
+thousand :: - tausend
+red :: - rot
+blue :: - blau
+green :: - grün
+yellow :: - gelb
+black :: - schwarz
+white :: - weiß
+brown :: - braun
+gray :: - grau
+dog :: - Hund
+cat :: - Katze
+bird :: - Vogel
+fish :: - Fisch
+cow :: - Kuh
+horse :: - Pferd
+pig :: - Schwein
+sheep :: - Schaf
+chicken :: - Huhn
+mouse :: - Maus
+rabbit :: - Kaninchen
+tree :: - Baum
+flower :: - Blume
+grass :: - Gras
+leaf :: - Blatt
+forest :: - Wald
+mountain :: - Berg
+river :: - Fluss
+lake :: - See
+sea :: - Meer
+ocean :: - Ozean
+sky :: - Himmel
+sun :: - Sonne
+moon :: - Mond
+star :: - Stern
+earth :: - Erde
+fire :: - Feuer
+air :: - Luft
+wind :: - Wind
+rain :: - Regen
+snow :: - Schnee
+ice :: - Eis
+stone :: - Stein
+sand :: - Sand
+school :: - Schule
+class :: - Klasse
+lesson :: - Unterricht
+homework :: - Hausaufgabe
+exam :: - Prüfung
+book :: - Buch
+pen :: - Stift
+pencil :: - Bleistift
+eraser :: - Radiergummi
+bag :: - Tasche
+table :: - Tisch
+chair :: - Stuhl
+window :: - Fenster
+door :: - Tür
+university :: - Universität
+question :: - Frage
+answer :: - Antwort
+travel :: - reisen
+trip :: - Reise
+holiday :: - Urlaub
+ticket :: - Ticket
+train :: - Zug
+bus :: - Bus
+car :: - Auto
+plane :: - Flugzeug
+ship :: - Schiff
+bike :: - Fahrrad
+road :: - Straße
+street :: - Straße
+bridge :: - Brücke
+station :: - Bahnhof
+airport :: - Flughafen
+hotel :: - Hotel
+room :: - Zimmer
+key :: - Schlüssel
+map :: - Karte
+country :: - Land
+city :: - Stadt
+village :: - Dorf
+capital :: - Hauptstadt
+world :: - Welt
+language :: - Sprache
+word :: - Wort
+sentence :: - Satz
+letter :: - Buchstabe
+number :: - Zahl
+name :: - Name
+yes :: - ja
+no :: - nein
+please :: - bitte
+thanks :: - danke
+sorry :: - Entschuldigung
+hello :: - hallo
+hi :: - hi
+goodbye :: - auf Wiedersehen
+good :: - gut
+morning :: - Morgen
+evening :: - Abend
+night :: - Nacht
+how :: - wie
+what :: - was
+where :: - wo
+when :: - wann
+who :: - wer
+why :: - warum
+because :: - weil
+and :: - und
+or :: - oder
+but :: - aber
+if :: - wenn
+with :: - mit
+without :: - ohne
+in :: - in
+on :: - auf
+under :: - under
+over :: - über
+between :: - zwischen
+before :: - vor
+after :: - nach
+near :: - nahe
+far :: - weit
+here :: - hier
+there :: - dort
+always :: - immer
+often :: - oft
+sometimes :: - manchmal
+never :: - nie
+now :: - jetzt
+soon :: - bald
+later :: - später
+again :: - wieder
+already :: - schon
+together :: - zusammen
+alone :: - allein
+each :: - jeder
+all :: - alle
+many :: - viele
+few :: - wenige
+some :: - einige
+none :: - keine
+much :: - viel
+little :: - wenig
+this :: - dies
+that :: - das
+these :: - diese
+those :: - jene
+I :: - ich
+you :: - du / Sie
+he :: - er
+she :: - sie
+it :: - es
+we :: - wir
+they :: - sie
+my :: - mein
+your :: - dein / Ihr
+his :: - sein
+her :: - ihr
+its :: - sein
+our :: - unser
+their :: - ihr
+me :: - mich / mir
+him :: - ihn / ihm
+her :: - sie / ihr
+us :: - uns
+them :: - sie / ihnen
