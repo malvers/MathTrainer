@@ -441,7 +441,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             int xPos = (getWidth() - solutionImg.getWidth()) / 2;
             int yPos = (getHeight() - solutionImg.getHeight()) / 2;
 
-            g2d.drawImage(solutionImg, xPos, yPos + 140, transparent, this);
+            g2d.drawImage(solutionImg, xPos, yPos + 160, transparent, this);
         }
     }
 
@@ -731,7 +731,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void prepareLaTeXLabel(String toLatex) {
 
-        laTeXLabel = Latexer.renderLatexToImage(toLatex, 160, getWidth() - 100);
+        laTeXLabel = Latexer.renderLatexToImage(toLatex, 160, getWidth() - 100, Color.ORANGE);
 
         if (laTeXLabel == null) {
             return;
@@ -1447,7 +1447,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDownCounter = -1;
 
             if (wolframMode) {
-                solutionImg = Latexer.renderLatexToImage("Thinking \\,...", 20, 200);
+                solutionImg = Latexer.renderLatexToImage("Thinking \\,...", 20, 200, Color.LIGHT_GRAY);
                 new Thread(() -> {
                     wolframCalling();
                 }).start();
@@ -1469,9 +1469,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         for (int i = 0; i < solutions.size(); i++) {
             //MTools.println("Solution " + i + ": " + solutions.get(i));
-            System.out.println("Solution " + i + ": " + solutions.get(i));
-
-            solutionImg = Latexer.renderLatexToImage(solutions.get(i), 20, 200);
+            String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
+            System.out.println("Solution " + i + ": " + properLatex);
+            solutionImg = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
         }
         repaint();
     }

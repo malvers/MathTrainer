@@ -12,10 +12,9 @@ public class Latexer {
      * @param fontSizeIn The base font size for rendering
      * @return A BufferedImage containing the rendered formula, or null if rendering failed.
      */
-    public static BufferedImage renderLatexToImage(String latex, float fontSizeIn, float maxWidth) {
+    public static BufferedImage renderLatexToImage(String latex, float fontSizeIn, float maxWidth, Color textColor) {
 
         float fontSize = fontSizeIn;
-        Color textColor = Color.orange;
         try {
 
             TeXFormula formula = new TeXFormula(latex);
