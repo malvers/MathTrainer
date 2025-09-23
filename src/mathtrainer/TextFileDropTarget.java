@@ -10,15 +10,20 @@ import java.util.List;
 
 public class TextFileDropTarget {
 
-    public TextFileDropTarget(MathTrainer panelIn) {
+    private final MathTrainer mathTrainer;
+    public TextFileDropTarget(MathTrainer mathTrainerIn) {
 
-        panelIn.setDropTarget(new DropTarget() {
+        mathTrainer = mathTrainerIn;
+
+        mathTrainer.setDropTarget(new DropTarget() {
+
             @Override
             public synchronized void drop(DropTargetDropEvent dtde) {
+                DropTask.clearTasks();
+
                 try {
                     dtde.acceptDrop(DnDConstants.ACTION_COPY);
 
-                    // Check if it's a file list
                     if (dtde.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
                         @SuppressWarnings("unchecked")
                         List<File> droppedFiles = (List<File>) dtde.getTransferable()
@@ -32,13 +37,12 @@ public class TextFileDropTarget {
                             }
                         }
                     }
-
                     dtde.dropComplete(true);
                 } catch (Exception e) {
                     e.printStackTrace();
                     dtde.dropComplete(false);
                 }
-            }
+             }
         });
     }
 
@@ -52,8 +56,6 @@ public class TextFileDropTarget {
 
             String line;
             int lineNum = 0;
-
-            DropTask.clearTasks();
 
             while ((line = reader.readLine()) != null) {
                 lineNum++;
@@ -82,7 +84,5 @@ public class TextFileDropTarget {
             System.err.println("❌ Error reading file: " + file.getName());
             e.printStackTrace();
         }
-
-        //DropTask.print();
-    }
+     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 
 public class DropTask {
 
-    String Student;
+    protected static String student;
     private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
@@ -28,7 +28,11 @@ public class DropTask {
                 throw new RuntimeException(e);
             }
         }
-        Student = nameIn;
+        student = nameIn;
+    }
+
+    public DropTask(String nameIn) {
+        student = nameIn;
     }
 
     protected static void nextTask() {
@@ -37,6 +41,7 @@ public class DropTask {
 
     protected static void clearTasks() {
         System.out.println("DropTask.clearTasks");
+        taskNumber = 0;
         tasks.clear();
     }
 
@@ -50,9 +55,9 @@ public class DropTask {
         return tasks;
     }
 
-    public static void print() {
+    public static void print(String hint) {
         for (Vocabulary task : tasks) {
-            System.err.println("print: " + task.question + " :: " + task.answer);
+            System.err.println(hint + task.question + " :: " + task.answer);
         }
     }
 
@@ -119,6 +124,9 @@ public class DropTask {
     }
 
     String getQuestion() {
+        if (taskNumber >= tasks.size()) {
+            taskNumber = 0;
+        }
         return tasks.get(taskNumber).question;
     }
 

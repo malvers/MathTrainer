@@ -200,9 +200,43 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
+    protected void initDropTasks() {
+
+        allDropTasks.clear();
+
+        List<DropTask.Vocabulary> dropTasks = DropTask.getTasks();
+
+        int dropTaskCount = 0;
+
+        for (int i = 0; i < numberTasksPerStudent; i++) {
+
+            Team team = allTeams.get(actualTeam);
+
+            for (int j = 0; j < team.size(); j++) {
+
+                OneStudent oneStudent = team.getStudent(j);
+
+                //System.out.println("oneStudent: " + oneStudent.name);
+
+                if (!oneStudent.anwesend) {
+                    System.out.println("nicht anwesend ...");
+                    continue;
+                }
+
+                DropTask dropTask = new DropTask(oneStudent.name);
+                allDropTasks.add(dropTask);
+            }
+        }
+        DropTask.print("after init - ");
+    }
+
+    protected void printAllDropTasks() {
+        allDropTasks.print();
+    }
+
     protected void initAllTasks() {
 
-        //System.err.println("initAllTasks");
+        System.err.println("initAllTasks");
         allMathematicsTasks.clear();
         allEnglishTasks.clear();
         allDropTasks.clear();
@@ -695,7 +729,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             if (onDisplay.startsWith("\\(")) {
-                onDisplay = complexMathTask.getQuestion();
+                if (taskType == TaskTypes.COMPLEXMATH) {
+                    onDisplay = complexMathTask.getQuestion();
+                } else if (taskType == TaskTypes.DROPPED) {
+                    onDisplay = dropTask.getQuestion();
+                }
                 prepareLaTeXLabel(onDisplay);
             } else {
                 laTeXLabel = null;
@@ -709,20 +747,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
-                onDisplay = dropTask.getQuestion() + " - " + dropTask.getAnswer();
+                onDisplay = dropTask.getQuestion() + "   " + dropTask.getAnswer();
             } else if (taskType == TaskTypes.COMPLEXMATH) {
-                onDisplay = complexMathTask.getQuestion().trim();
+                onDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
             }
 
             if (onDisplay.startsWith("\\(")) {
-                String q = complexMathTask.getQuestion().trim();
-                q = q.replace("= \\)", "=\\)");
-                if (q.endsWith("=\\)")) {
-                    onDisplay = complexMathTask.getQuestion() + "\\;" + complexMathTask.getAnswer();
-                } else {
-                    onDisplay = complexMathTask.getQuestion() + "\\quad" + complexMathTask.getAnswer();
-                }
                 prepareLaTeXLabel(onDisplay);
+
             } else {
                 laTeXLabel = null;
                 myDrawString(g2d, onDisplay);
@@ -841,7 +873,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (taskCounter >= 0) {
             metrics = g2d.getFontMetrics();
-            String str = "Problem " + (taskCounter + 1);
+            String str = "Task " + (taskCounter + 1);
             int sWidth = metrics.stringWidth(str);
             g2d.drawString(str, xPos - sWidth / 2, 160);
         }
@@ -1243,7 +1275,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 System.out.println("soundVolume: " + soundVolume);
                 setVolume();
             }
-            case KeyEvent.VK_Z -> {}
+            case KeyEvent.VK_Z -> {
+                DropTask.print("z");
+            }
 
             // Handle special cases with modifiers
             default -> {
@@ -1382,9 +1416,15 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             solutionImg = null;
 
-            EnglishTask.nextTask();
-            DropTask.nextTask();
-            ComplexMathTask.nextTask();
+            if (taskType == TaskTypes.ENGLISH) {
+                EnglishTask.nextTask();
+            } else if (taskType == TaskTypes.DROPPED) {
+                DropTask.nextTask();
+                System.out.println("next drop task");
+            } else if (taskType == TaskTypes.COMPLEXMATH) {
+                ComplexMathTask.nextTask();
+                System.out.println("next complex task");
+            }
 
             taskCounter++;
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
