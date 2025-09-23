@@ -6,7 +6,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,8 +18,16 @@ public class WolframAlphaSolver {
 
     public static void main(String[] args) {
 
+        checkFile("/complexmath/Roots.txt");
+
+//        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
+//        List<String> solutions1 = getSolutions("\\( \\sqrt{4n} + \\sqrt{9n} = 5\\sqrt{n} \\)");
+//        solutions1.forEach(System.out::println);
+    }
+
+    private static void checkFile(String fileName) {
         try {
-            ComplexMathTask.readTasksFromResource("/complexmath/ComplexEquations.txt");
+            ComplexMathTask.readTasksFromResource(fileName);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -32,26 +39,25 @@ public class WolframAlphaSolver {
             System.out.println();
             System.out.println(i + ". task: " + task.question);
             List<String> solutions = getSolutions(task.question);
-            solutions.forEach(System.out::println);
-        }
 
-//        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
-        List<String> solutions1 = getSolutions("\\( \\sqrt{4n + 5} = 5 \\)");
-        solutions1.forEach(System.out::println);
+            for (int j = 0; j < solutions.size(); j++) {
+                String sol = solutions.get(j);
+                String cleanSolution = task.answer.replace("( ", "(");
+                cleanSolution = cleanSolution.replace(" \\)", "\\)");
+                System.out.println("s: " + sol.trim());
+                System.out.println("a: " + cleanSolution.trim());
+            }
+
+        }
     }
 
     protected static List<String> getSolutions(String task) {
         List<String> solutions = new ArrayList<>();
 
         try {
-            // Remove LaTeX delimiters for WolframAlpha compatibility
-            String cleanedTask = task;
-
-            // Remove \( and \) delimiters but preserve LaTeX math commands
-            cleanedTask = cleanedTask.replace("\\(", "").replace("\\)", "").trim();
-
+            String cleanedTask = task.replace("\\(", "").replace("\\)", "").trim();
             String equation = URLEncoder.encode(cleanedTask, StandardCharsets.UTF_8);
-            String appId = "THWHXPV8RL"; // Replace with your actual App ID
+            String appId = "THWHXPV8RL";
             String urlStr = "https://api.wolframalpha.com/v2/query?input=" + equation + "&appid=" + appId + "&output=json";
 
             URL url = new URL(urlStr);
@@ -70,12 +76,10 @@ public class WolframAlphaSolver {
                 reader.close();
 
                 String jsonResponse = response.toString();
-
                 Gson gson = new Gson();
                 JsonObject jsonObject = gson.fromJson(jsonResponse, JsonObject.class);
                 JsonObject queryResult = jsonObject.getAsJsonObject("queryresult");
 
-                // Check if the query was successful
                 boolean success = queryResult.get("success").getAsBoolean();
                 if (!success) {
                     System.err.println("WolframAlpha could not understand the query: " + cleanedTask);
@@ -83,13 +87,11 @@ public class WolframAlphaSolver {
                 }
 
                 JsonArray pods = queryResult.getAsJsonArray("pods");
-
                 if (pods == null) {
                     System.err.println("No pods found for: " + cleanedTask);
                     return solutions;
                 }
 
-                // Look for solution pods with more comprehensive titles
                 for (int i = 0; i < pods.size(); i++) {
                     JsonObject pod = pods.get(i).getAsJsonObject();
                     String title = pod.get("title").getAsString().toLowerCase();
@@ -99,16 +101,18 @@ public class WolframAlphaSolver {
                             title.contains("solve") || title.contains("answer")) {
 
                         JsonArray subpods = pod.getAsJsonArray("subpods");
-
                         if (subpods != null && !subpods.isEmpty()) {
                             for (int j = 0; j < subpods.size(); j++) {
                                 JsonObject subpod = subpods.get(j).getAsJsonObject();
                                 String plaintext = subpod.get("plaintext").getAsString();
 
                                 if (!plaintext.isEmpty()) {
-                                    // Format as LaTeX for consistency
-                                    String latexSolution = "\\(" + plaintext + "\\)";
-                                    solutions.add(latexSolution);
+                                    if (plaintext.equalsIgnoreCase("true")) {
+                                        //solutions.add("\\(True \\, for \\, ∀ \\, n ≥ 0\\)");
+                                        solutions.add("\\( \\forall n \\geq 0 \\)");//
+                                    } else {
+                                        solutions.add("\\(" + plaintext + "\\)");
+                                    }
                                 }
                             }
                         }
@@ -117,14 +121,6 @@ public class WolframAlphaSolver {
 
             } else {
                 System.out.println("API request failed with response code: " + responseCode);
-                InputStream errorStream = conn.getErrorStream();
-                if (errorStream != null) {
-                    BufferedReader errorReader = new BufferedReader(new InputStreamReader(errorStream));
-                    String errorLine;
-                    while ((errorLine = errorReader.readLine()) != null) {
-                        System.err.println("Error: " + errorLine);
-                    }
-                }
             }
         } catch (Exception e) {
             System.err.println("Error processing task: " + task);

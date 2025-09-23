@@ -91,12 +91,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final Point laTeXPos = new Point();
     private final Color transparent = new Color(0.0f, 0.0f, 0.0f, 0.0f);
     private final String copyright = "SchoolTrainer by Dr. Michael R. Alvers - ©2020-2025 - all rights reserved";
+    private BufferedImage solutionImg;
+    private boolean wolframMode = true;
 
     public MathTrainer() {
 
         MTools.init("SchoolTrainerDebugLog.txt", false);
-
-        setFocusable(true);
 
         new TextFileDropTarget(this);
 
@@ -419,6 +419,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
         g2d.drawImage(laTeXLabel, laTeXPos.x, laTeXPos.y, transparent, this);
+        if (solutionImg != null) {
+
+            int xPos = (getWidth() - solutionImg.getWidth()) / 2;
+            int yPos = (getHeight() - solutionImg.getHeight()) / 2;
+
+            g2d.drawImage(solutionImg, xPos, yPos + 140, transparent, this);
+        }
     }
 
     private void drawTransparentCover(Graphics2D g2d) {
@@ -1200,10 +1207,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 System.out.println("transparency: " + transparency);
             }
             case KeyEvent.VK_W -> {
-                if (clip.isOpen() || clip.isRunning()) {
-                    clip.stop();
-                }
-                setAndPlaySound("/sound/Jeopardy.wav");
+                wolframMode = !wolframMode;
             }
             case KeyEvent.VK_V -> {
                 if (e.isShiftDown()) {
@@ -1361,6 +1365,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             //System.out.println("In task ...");
 
+            solutionImg = null;
+
             EnglishTask.nextTask();
             DropTask.nextTask();
             ComplexMathTask.nextTask();
@@ -1375,14 +1381,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 playStudentName(allMathematicsTasks.get(taskCounter).name);
             }
 
-            String task = allComplexMathTasks.get(taskCounter).getQuestion();
-
-            List<String> solutions = WolframAlphaSolver.getSolutions(task);
-            System.out.println("Found " + solutions.size() + " solutions for: " + solutions.getFirst());
-
-            for (int i = 1; i < solutions.size(); i++) {
-                System.out.println("Solution " + i + ": " + solutions.get(i));
-            }
         } else {
 
             //System.out.println("In result ...");
@@ -1418,9 +1416,34 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 );
             }
             countDownCounter = -1;
+
+            if (wolframMode) {
+                solutionImg = Latexer.renderLatexToImage("Thinking \\,...", 20, 200);
+                new Thread(() -> {
+                    wolframCalling();
+                }).start();
+            }
+
         }
 
         return false;
+    }
+
+    private void wolframCalling() {
+
+        String task = allComplexMathTasks.get(taskCounter).getQuestion();
+
+        List<String> solutions = WolframAlphaSolver.getSolutions(task);
+
+        //MTools.println("Found " + solutions.size() + " solutions for: " + task);
+        System.out.println("Found " + solutions.size() + " solutions for:" + task);
+
+        for (int i = 0; i < solutions.size(); i++) {
+            //MTools.println("Solution " + i + ": " + solutions.get(i));
+            System.out.println("Solution " + i + ": " + solutions.get(i));
+
+            solutionImg = Latexer.renderLatexToImage(solutions.get(i), 20, 200);
+        }
     }
 
     private void handleFinished() {
