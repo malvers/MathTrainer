@@ -200,40 +200,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    protected void initDropTasks() {
-
-        allDropTasks.clear();
-
-        List<DropTask.Vocabulary> dropTasks = DropTask.getTasks();
-
-        int dropTaskCount = 0;
-
-        for (int i = 0; i < numberTasksPerStudent; i++) {
-
-            Team team = allTeams.get(actualTeam);
-
-            for (int j = 0; j < team.size(); j++) {
-
-                OneStudent oneStudent = team.getStudent(j);
-
-                //System.out.println("oneStudent: " + oneStudent.name);
-
-                if (!oneStudent.anwesend) {
-                    System.out.println("nicht anwesend ...");
-                    continue;
-                }
-
-                DropTask dropTask = new DropTask(oneStudent.name);
-                allDropTasks.add(dropTask);
-            }
-        }
-        DropTask.print("after init - ");
-    }
-
-    protected void printAllDropTasks() {
-        allDropTasks.print();
-    }
-
     protected void initAllTasks() {
 
         System.err.println("initAllTasks");
@@ -272,7 +238,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             Collections.shuffle(oneStudent);
         }
 
-        /// TODO: do we need it for all subjects? /////////////////
+        /// do we need it for all subjects? /////////////////
         Team team = allTeams.get(actualTeam);
 
         for (OneStudent oneStudent : team) {
@@ -287,7 +253,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
         }
-        /// TODO: END ///////////////////////////////////////////
+        /////////////////////////////////////////////////////
         Collections.shuffle(allMathematicsTasks);
         allMathematicsTasks.checkForDoubleNames();
 
@@ -513,7 +479,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.drawString(str, 10, 26);
 
-        // TODO: fix number
         g2d.setColor(Color.yellow);
         str = allTeams.get(actualTeam).getNumberTasks() + " Tasks";
         width = (int) metrics.getStringBounds(str, g2d).getWidth();
@@ -745,7 +710,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (taskType == TaskTypes.ENGLISH) {
                 onDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
             } else if (taskType == TaskTypes.MATHEMATICS) {
-                onDisplay = mathTask.getQuestion() + " ? " + mathTask.getResult();
+                onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
                 onDisplay = getProperLatex(dropTask);
             } else if (taskType == TaskTypes.COMPLEXMATH) {
@@ -889,9 +854,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private void drawStudentNameAndCountDown(Graphics2D g2d, int xPos) {
 
         FontMetrics metrics;
-        // TODO: check why cs.fgLight is not taken
-//        g2d.setColor(cs.fgLight);
-        g2d.setColor(Color.WHITE);
+        g2d.setColor(Color.LIGHT_GRAY);
         g2d.setFont(new Font("Arial", Font.PLAIN, 90));
 
         if (taskCounter >= 0) {
@@ -912,9 +875,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         if (drawAndPlayStudentName) {
 
             metrics = g2d.getFontMetrics();
-            // TODO: check why cs.fgLight is not taken
-            //g2d.setColor(cs.fgLight);
-            g2d.setColor(Color.WHITE);
+            g2d.setColor(Color.LIGHT_GRAY);
             if (!pinnedName.isEmpty()) {
                 str = pinnedName;
             } else {
@@ -1145,9 +1106,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
         }
 
-        /// TODO: keep on radar ... why init here ?????
-        //initAllTasks(false);
-
         repaint();
     }
 
@@ -1298,9 +1256,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 System.out.println("soundVolume: " + soundVolume);
                 setVolume();
             }
-            case KeyEvent.VK_Z -> {
-                DropTask.print("z");
-            }
+            case KeyEvent.VK_Z -> DropTask.print("z");
 
             // Handle special cases with modifiers
             default -> {
@@ -1443,10 +1399,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 EnglishTask.nextTask();
             } else if (taskType == TaskTypes.DROPPED) {
                 DropTask.nextTask();
-                System.out.println("next drop task");
             } else if (taskType == TaskTypes.COMPLEXMATH) {
                 ComplexMathTask.nextTask();
-                System.out.println("next complex task");
             }
 
             taskCounter++;
@@ -1486,8 +1440,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                                 nextTaskCountDown--;
                                 if (nextTaskCountDown == 0) {
                                     this.cancel();
-                                    //System.out.println("should start automatically");
-                                    /// TODO: not thread safe
 //                                    handleDown();
                                     nextTaskCountDown = nextTaskCountDownFrom;
                                 }

@@ -40,7 +40,6 @@ public class DropTask {
     }
 
     protected static void clearTasks() {
-        System.out.println("DropTask.clearTasks");
         taskNumber = 0;
         tasks.clear();
     }
