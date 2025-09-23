@@ -40,7 +40,6 @@ public class Latexer {
             g2d.setComposite(AlphaComposite.SrcOver);
             icon.paintIcon(null, g2d, 0, 0);
 
-            ///  TODO: why not always orange ???
             while(icon.getIconWidth() > maxWidth) {
 
                 fontSize -= 10;

@@ -6,8 +6,7 @@ public class MyPopup extends JPopupMenu {
 
     JMenuItem settingsMenu = new JMenuItem("Settings");
     JMenuItem studentsMenu = new JMenuItem("Students");
-    JMenuItem highScoreMenu = new JMenuItem("High-Score");
-    JMenuItem helpMenu = new JMenuItem("Help");
+    JMenuItem helpingMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
 
     JRadioButton complexMathMenu = new JRadioButton("Complex math [1]");
@@ -21,7 +20,7 @@ public class MyPopup extends JPopupMenu {
 
     public MyPopup(MathTrainer mathTrainer) {
 
-        helpMenu.addActionListener(e -> {
+        helpingMenu.addActionListener(e -> {
             mathTrainer.drawStudents = false;
             mathTrainer.drawSettings = false;
             mathTrainer.drawHelp = !mathTrainer.drawHelp;
@@ -73,7 +72,6 @@ public class MyPopup extends JPopupMenu {
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
         studentsMenu.addActionListener(e -> mathTrainer.showStudentsPage());
-        highScoreMenu.addActionListener(e -> mathTrainer.showHighScorePage());
 
         add(new Separator());
 
@@ -90,10 +88,9 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
-        add(highScoreMenu);
         add(studentsMenu);
         add(settingsMenu);
-        add(helpMenu);
+        add(helpingMenu);
 
         add(new Separator());
 
@@ -106,6 +103,11 @@ public class MyPopup extends JPopupMenu {
         ccb.setSelected(mathTrainer.getCountDownOn());
         ccb.addActionListener(e -> mathTrainer.toggleCountDownOn());
         add(ccb);
+
+        JCheckBox ncb = new JCheckBox("Student name on/off");
+        ncb.setSelected(mathTrainer.getDrawStudenNames());
+        ncb.addActionListener(e -> mathTrainer.toggleDrawStudentName());
+        add(ncb);
     }
 
     private void selectActiveTaskType(int activeSubject) {

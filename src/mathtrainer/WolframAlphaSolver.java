@@ -18,7 +18,7 @@ public class WolframAlphaSolver {
 
     public static void main(String[] args) {
 
-        checkFile("/complexmath/Roots.txt");
+        checkFile("/complexmath/Roots2.0.txt");
 
 //        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
 //        List<String> solutions1 = getSolutions("\\( \\sqrt{4n} + \\sqrt{9n} = 5\\sqrt{n} \\)");
@@ -40,8 +40,7 @@ public class WolframAlphaSolver {
             System.out.println(i + ". task: " + task.question);
             List<String> solutions = getSolutions(task.question);
 
-            for (int j = 0; j < solutions.size(); j++) {
-                String sol = solutions.get(j);
+            for (String sol : solutions) {
                 String cleanSolution = task.answer.replace("( ", "(");
                 cleanSolution = cleanSolution.replace(" \\)", "\\)");
                 System.out.println("s: " + sol.trim());
@@ -108,7 +107,6 @@ public class WolframAlphaSolver {
 
                                 if (!plaintext.isEmpty()) {
                                     if (plaintext.equalsIgnoreCase("true")) {
-                                        //solutions.add("\\(True \\, for \\, ∀ \\, n ≥ 0\\)");
                                         solutions.add("\\( \\forall n \\geq 0 \\)");//
                                     } else {
                                         solutions.add("\\(" + plaintext + "\\)");
