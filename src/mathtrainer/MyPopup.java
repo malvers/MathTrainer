@@ -16,7 +16,7 @@ public class MyPopup extends JPopupMenu {
 
     JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
     JRadioButton wischnewski = new JRadioButton("Team Ms. Wischnewski");
-    JRadioButton michel = new JRadioButton("Team Mr. Michel");
+    JRadioButton michel = new JRadioButton("Team Flexi");
 
     public MyPopup(MathTrainer mathTrainer) {
 
@@ -100,7 +100,7 @@ public class MyPopup extends JPopupMenu {
         scb.addActionListener(e -> mathTrainer.toggleMusicOnOff());
 
         JCheckBox ccb = new JCheckBox("Countdown on/off");
-        ccb.setSelected(mathTrainer.getCountDownOn());
+        ccb.setSelected(mathTrainer.getCountDownMode());
         ccb.addActionListener(e -> mathTrainer.toggleCountDownOn());
         add(ccb);
 

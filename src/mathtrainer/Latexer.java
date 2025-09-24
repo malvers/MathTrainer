@@ -2,18 +2,23 @@ package mathtrainer;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
+
 import org.scilab.forge.jlatexmath.*;
 
 public class Latexer {
 
     /**
      * Renders a LaTeX formula to a BufferedImage with a transparent background.
-     * @param latex The LaTeX string to render
+     *
+     * @param latex      The LaTeX string to render
      * @param fontSizeIn The base font size for rendering
      * @return A BufferedImage containing the rendered formula, or null if rendering failed.
      */
     public static BufferedImage renderLatexToImage(String latex, float fontSizeIn, float maxWidth, Color textColor) {
 
+        if (!latex.startsWith("\\(")) {
+            return null;
+        }
         float fontSize = fontSizeIn;
         try {
 
@@ -40,7 +45,7 @@ public class Latexer {
             g2d.setComposite(AlphaComposite.SrcOver);
             icon.paintIcon(null, g2d, 0, 0);
 
-            while(icon.getIconWidth() > maxWidth) {
+            while (icon.getIconWidth() > maxWidth) {
 
                 fontSize -= 10;
 

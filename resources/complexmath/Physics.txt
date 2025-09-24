@@ -1,0 +1,66 @@
+
+Was ist die Einheit der Spannung? :: - Volt (V)
+Was ist die Einheit des Widerstands? :: - Ohm (Ω)
+Was ist die Einheit der Leistung? :: - Watt (W)
+Was ist die Einheit der Energie? :: - Joule (J)
+Was ist die Einheit der Kraft? :: - Newton (N)
+Was ist die Einheit der Arbeit? :: - Joule (J)
+Was ist die Einheit der Frequenz? :: - Hertz (Hz)
+Was ist die Einheit der Ladung? :: - Coulomb (C)
+Was ist die Einheit der Kapazität? :: - Farad (F)
+Was ist die Einheit der Induktivität? :: - Henry (H)
+Was ist die Einheit des Drucks? :: - Pascal (Pa)
+Was ist die Einheit der Temperatur (SI)? :: - Kelvin (K)
+Was ist die Einheit der Lichtstärke? :: - Candela (cd)
+Was ist die Einheit der Stoffmenge? :: - Mol (mol)
+Was ist die Einheit der Zeit? :: - Sekunde (s)
+Was ist die Einheit der Masse? :: - Kilogramm (kg)
+Was ist die Einheit der Länge? :: - Meter (m)
+Was ist die Einheit der Masse? :: - Kilogramm (kg)
+Was ist die Einheit der Geschwindigkeit? :: - Meter pro Sekunde (m/s)
+Was ist die Einheit der Beschleunigung? :: - Meter pro Sekunde² (m/s²)
+Was ist die Einheit des Drehmoments? :: - Newtonmeter (Nm)
+
+Wer entdeckte die Elektronen? :: - J.J. Thomson
+Wer entdeckte die Radioaktivität? :: - Henri Becquerel
+Wer formulierte die Relativitätstheorie? :: - Albert Einstein
+Wer entdeckte die Röntgenstrahlen? :: - Wilhelm Conrad Röntgen
+
+Was ist die Lichtgeschwindigkeit im Vakuum? :: - 299.792.458 m/s
+Was ist die Erdbeschleunigung? :: - 9,81 m/s²
+
+Was besagt das Ohmsche Gesetz? :: - U = R × I
+Was besagt das Newtonsche Gravitationsgesetz? :: - F = G × (m₁×m₂)/r²
+Was besagt der Energieerhaltungssatz? :: - Energie bleibt konstant
+Was besagt der Impulserhaltungssatz? :: - Impuls bleibt konstant
+Was besagt der Drehimpulserhaltungssatz? :: - Drehimpuls bleibt konstant
+
+Was ist ein elektrischer Leiter? :: - Material das Strom leitet
+Was ist ein Isolator? :: - Material das Strom nicht leitet
+Was ist ein Halbleiter? :: - Material mit leitenden Eigenschaften
+Was ist die Dichte? :: - Masse pro Volumen
+
+Was ist kinetische Energie? :: - Energie der Bewegung
+Was ist potentielle Energie? :: - gespeicherte Energie
+Was ist Wärmeenergie? :: - thermische Energie
+Was ist elektrische Energie? :: - Energie des Stroms
+Was ist chemische Energie? :: - Energie in chemischen Bindungen
+
+Was ist eine Serienschaltung? :: - Verbraucher hintereinander
+Was ist eine Parallelschaltung? :: - Verbraucher parallel
+Was ist der Wirkungsgrad? :: - Nutzen durch Aufwand
+Was ist die Frequenz? :: - Schwingungen pro Sekunde
+Was ist die Wellenlänge? :: - Abstand zweier Wellenberge
+
+Was ist Reflexion? :: - Zurückwerfen von Wellen
+Was ist Refraktion? :: - Brechung von Wellen
+Was ist Diffusion? :: - Vermischung von Teilchen
+Was ist Konvektion? :: - Wärmetransport durch Strömung
+Was ist Wärmeleitung? :: - Wärmetransport durch Berührung
+
+Was ist ein Photon? :: - Lichtteilchen
+Was ist ein Elektron? :: - Negatives Elementarteilchen
+Was ist ein Proton? :: - Positives Elementarteilchen
+Was ist ein Neutron? :: - Neutrales Elementarteilchen
+Aus was besteht ein Atom? :: - Protonen und Neutronen (Kern), Elektronen (Hülle)
+Nicht verzagen ... :: Alvers fragen!

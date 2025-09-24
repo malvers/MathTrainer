@@ -1,0 +1,47 @@
+Was ist die Einheit der elektrischen Feldstärke? :: - Volt pro Meter (V/m)
+Was ist die Einheit der magnetischen Flussdichte? :: - Tesla (T)
+Was ist die Einheit des magnetischen Flusses? :: - Weber (Wb)
+Was ist die Einheit der elektrischen Leitfähigkeit? :: - Siemens (S)
+Was ist die Einheit des Drehimpulses? :: - Kilogramm Meter² pro Sekunde (kg·m²/s)
+
+Was ist die Einheit der Wärmekapazität? :: - Joule pro Kelvin (J/K)
+Was ist die Einheit der spezifischen Wärmekapazität? :: - Joule pro Kilogramm Kelvin (J/(kg·K))
+Was ist die Einheit der Wärmeleitfähigkeit? :: - Watt pro Meter Kelvin (W/(m·K))
+Was ist die Einheit der Viskosität? :: - Pascalsekunde (Pa·s)
+Was ist die Einheit der Oberflächenspannung? :: - Newton pro Meter (N/m)
+
+Was ist die Einheit der Beleuchtungsstärke? :: - Lux (lx)
+Was ist die Einheit des Lichtstroms? :: - Lumen (lm)
+Was ist die Einheit der Radioaktivität? :: - Becquerel (Bq)
+Was ist die Einheit der Strahlendosis? :: - Gray (Gy)
+Was ist die Einheit der Äquivalentdosis? :: - Sievert (Sv)
+
+Was ist die Einheit der Frequenz in der Akustik? :: - Hertz (Hz)
+Was ist die Einheit des Schalldrucks? :: - Pascal (Pa)
+Was ist die Einheit der Schallintensität? :: - Watt pro Quadratmeter (W/m²)
+Was ist die Einheit des elektrischen Widerstands? :: - Ohm (Ω)
+Was ist die Einheit der elektrischen Suszeptibilität? :: - dimensionslos
+
+Was ist die Einheit der Permeabilität? :: - Henry pro Meter (H/m)
+Was ist die Einheit der Permittivität? :: - Farad pro Meter (F/m)
+Was ist die Einheit der Kraftstoffeffizienz? :: - Liter pro 100 Kilometer (l/100km)
+Was ist die Einheit des Blutdrucks? :: - Millimeter Quecksilbersäule (mmHg)
+Was ist die Einheit der Härte (Material)? :: - dimensionslos (verschiedene Skalen)
+
+Was ist die Einheit der Winkelgeschwindigkeit? :: - Radiant pro Sekunde (rad/s)
+Was ist die Einheit des Raumwinkels? :: - Steradiant (sr)
+Was ist die Einheit der Aktivität (Kernphysik)? :: - Becquerel (Bq)
+Was ist die Einheit der Ionendosis? :: - Coulomb pro Kilogramm (C/kg)
+Was ist die Einheit der elektrischen Polarisation? :: - Coulomb pro Quadratmeter (C/m²)
+
+Was ist die Einheit des Massenträgheitsmoments? :: - Kilogramm Meter² (kg·m²)
+Was ist die Einheit der Dosisleistung? :: - Gray pro Sekunde (Gy/s)
+Was ist die Einheit der magnetischen Feldstärke? :: - Ampere pro Meter (A/m)
+Was ist die Einheit der magnetischen Polarisation? :: - Tesla (T)
+Was ist die Einheit der elektrischen Flussdichte? :: - Coulomb pro Quadratmeter (C/m²)
+
+Was ist die Einheit der Reaktanz? :: - Ohm (Ω)
+Was ist die Einheit der Impedanz? :: - Ohm (Ω)
+Was ist die Einheit der Admittanz? :: - Siemens (S)
+Was ist die Einheit des Blindleitwerts? :: - Siemens (S)
+Was ist die Einheit der Phasenverschiebung? :: - Radiant (rad) oder Grad (°)

@@ -31,6 +31,7 @@ public class TextFileDropTarget {
 
                         for (File file : droppedFiles) {
                             if (file.getName().toLowerCase().endsWith(".txt")) {
+                                mathTrainer.setDroppedFile(file.getName());
                                 processTextFile(file);
                             } else {
                                 MTools.println("❌ Ignored non-txt file: " + file.getName());
