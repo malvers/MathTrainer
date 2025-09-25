@@ -95,7 +95,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage solutionLabel;
     private boolean wolframMode = true;
     private boolean countDownMode = true;
-    private String droppedFile = "nothing dropped";
+    private String droppedFileName = "nothing dropped";
 
     public MathTrainer() {
 
@@ -188,6 +188,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         timer = new Timer();
         resetTimerStart();
 
+        laTeXLabel = null;
         System.out.println("ready to go ...");
     }
 
@@ -352,7 +353,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case TaskTypes.ENGLISH -> "English";
             case TaskTypes.MATHEMATICS -> "Mathematics";
             case TaskTypes.COMPLEXMATH -> "Complex Mathematics";
-            case TaskTypes.DROPPED -> "Drop your file here ...";
+            case TaskTypes.DROPPED -> {
+                if (droppedFileName.contains("nothing")) {
+                    yield "Drop your file here ...";
+                } else {
+                    int first = droppedFileName.indexOf('.');
+                    yield droppedFileName.substring(0, first);
+                }
+            }
             default -> "Unknown";
         };
     }
@@ -666,7 +674,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         if (taskType == TaskTypes.DROPPED) {
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
             g2d.setColor(Color.GRAY);
-            toRender = "Dropped: " + droppedFile;
+            toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
         }
 
         myDrawString(g2d, toRender, 80);
@@ -962,7 +970,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (localURL.getPath().contains("smiley")) {
                 smileyURL = localURL;
             }
-            
+
             if (localURL.getPath().contains(lStr + ".png")) {
                 found = true;
                 break;
@@ -1494,9 +1502,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             countDownCounter = -1;
 
-            if (taskType == TaskTypes.COMPLEXMATH ||
-                    taskType == TaskTypes.DROPPED
-                            && wolframMode) {
+            if (taskType == TaskTypes.COMPLEXMATH && wolframMode) {
                 solutionLabel = Latexer.renderLatexToImage("Thinking \\,...", 20, 200, Color.LIGHT_GRAY);
                 new Thread(this::wolframCalling).start();
             }
@@ -1827,7 +1833,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         frame.setVisible(true);
     }
 
-    public void setDroppedFile(String name) {
-        droppedFile = name;
+    public void setDroppedFileName(String name) {
+        droppedFileName = name;
     }
 }
