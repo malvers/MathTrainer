@@ -18,7 +18,7 @@ public class WolframAlphaSolver {
 
     public static void main(String[] args) {
 
-        checkFile("/complexmath/Roots2.0.txt");
+        checkFile("/tasks/Roots2.0.txt");
 
 //        List<String> solutions1 = getSolutions("\\( \\sqrt{n} + \\sqrt{n} + \\sqrt{n} + \\sqrt{n} = n \\)");
 //        List<String> solutions1 = getSolutions("\\( \\sqrt{4n} + \\sqrt{9n} = 5\\sqrt{n} \\)");

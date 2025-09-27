@@ -3,9 +3,11 @@ package mathtrainer;
 /*
  TODO:
  MTools -> windows
+
+ sk_27db7a41af907eadeaa4aa21a3689d66112efd0cfd0f28f0
+
  */
 
-import MyTools.Make;
 import mratools.MTools;
 
 import javax.imageio.ImageIO;
@@ -573,6 +575,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.drawString("W | Shift V", 50, yShift + (yPos * i));                      //++
         g2d.drawString("Toggle thinking mode (complex math only)", xShift, yShift + (yPos * i));
+
+        g2d.drawString("Z", 50, yShift + (yPos * i));                      //++
+        g2d.drawString("Sound check (developer only)", xShift, yShift + (yPos * i));
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
@@ -1339,7 +1344,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         System.out.println("Experimental ...");
 
-        Make.jarAndApp(this.getClass());
+        soundCheck();
+
+//        String theText = "Unsere Schule is coooool!";
+//        GoogleTTS.ttsMP3(theText, "de-DE", "google-tts.mp3");
+//        GoogleTTS.ttsWAV(theText, "de-DE", "resources/sound/google-tts.wav");
+        //Make.jarAndApp(this.getClass());
     }
 
     void setTaskType(int newType) {
@@ -1424,7 +1434,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     }, 0, 200);
                 }
             }
-            playStudentName(allMathematicsTasks.get(taskCounter).name);
+            setAndPlaySound(allMathematicsTasks.get(taskCounter).name);
             return true;
         }
 
@@ -1465,7 +1475,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             setImageForTask();
             if (drawAndPlayStudentName) {
-                playStudentName(allMathematicsTasks.get(taskCounter).name);
+                setAndPlaySound(allMathematicsTasks.get(taskCounter).name);
             }
 
         } else {
@@ -1643,7 +1653,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             String photoName = photNames.get(counter);
 
-            System.out.println("photo: " + photoName);
+            //System.out.println("photo: " + photoName);
 
             URL imageUrl = getClass().getResource("/photos/TeamAlvers" + "/" + photoName);
             photosURL.add(imageUrl);
@@ -1736,12 +1746,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     }
 
-    private static void playStudentName(String student) {
-
-        String name = "sound/" + student + ".wav";
-        setAndPlaySound(name);
-    }
-
     private static void setAndPlaySound(String name) {
 
         try {
@@ -1752,12 +1756,16 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    private static void setSound(String name) {
+    private static void setSound(String student) {
         // Try loading via URL first (works great in JARs!)
-        URL soundUrl = MathTrainer.class.getResource("/" + name);
+
+        String resource = "/sound/" + student + ".wav";
+        URL soundUrl = MathTrainer.class.getResource(resource);
 
         if (soundUrl == null) {
-            MTools.println("setSound: resource not found: " + name);
+            System.err.println("setSound - resource not found: " + resource);
+            String out = "resources" + resource;
+            GoogleTTS.ttsWAV(student, "de-DE", out);
             return;
         }
 
@@ -1766,17 +1774,49 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundUrl);
             clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-            // clip.loop(10); // Uncomment if needed
+            //clip.loop(10);
 
         } catch (UnsupportedAudioFileException e) {
-            MTools.println("setSound: Unsupported audio format for: " + name);
+            MTools.println("setSound: Unsupported audio format for: " + student);
             e.printStackTrace();
         } catch (IOException e) {
-            MTools.println("setSound: IO error loading: " + name);
+            MTools.println("setSound: IO error loading: " + student);
             e.printStackTrace();
         } catch (LineUnavailableException e) {
-            MTools.println("setSound: Audio line unavailable for: " + name);
+            MTools.println("setSound: Audio line unavailable for: " + student);
             e.printStackTrace();
+        }
+    }
+
+    private void soundCheck() {
+
+        int count = 0;
+        for (Team team : allTeams) {
+
+            System.out.println("Team: " + team.fileName);
+
+            for (OneStudent student : team) {
+
+                System.out.println((++count) + " name " + student.name);
+
+                String resource = "/sound/" + student.name + ".wav";
+                URL soundUrl = MathTrainer.class.getResource(resource);
+
+                if (soundUrl == null) {
+                    System.out.println("❌ setSound - resource not found: " + resource);
+                    String out = "resources" + resource;
+                    boolean b = GoogleTTS.ttsWAV(student.name, "de-DE", out);
+                    if(b)System.out.println("✅ Sound created successfully \uD83C\uDFB5");
+                }
+            }
+        }
+    }
+
+    private static void sleep(int duration) {
+        try {
+            Thread.sleep(duration);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
     }
 

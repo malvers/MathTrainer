@@ -22,5 +22,6 @@
     <orderEntry type="library" name="matheclipse-io-2.0.0" level="project" />
     <orderEntry type="library" name="matheclipse-gpl-2.0.0" level="project" />
     <orderEntry type="library" name="gson-2.12.1" level="project" />
+    <orderEntry type="library" name="json-20230227" level="project" />
   </component>
 </module>

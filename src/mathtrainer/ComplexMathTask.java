@@ -22,7 +22,7 @@ public class ComplexMathTask {
         if (read) {
             try {
                 //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "###"));
-                readTasksFromResource("/complexmath/Roots2.0.txt");
+                readTasksFromResource("/tasks/Roots2.0.txt");
 //                readTasksFromResource("/complexmath/Roots.txt");
 //                readTasksFromResource("/complexmath/ComplexEquations.txt");
 
