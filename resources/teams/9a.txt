@@ -2,9 +2,9 @@ Willem
 Ferris
 Avelina
 Sophia-Elaine
-Mariella Elisa
+Mariella
 Aliya
-Frances Caroline
+Frances
 Maria
 Antonia
 Leia
@@ -16,12 +16,39 @@ Valentina
 Anton
 Mila
 Mika
-Ella Ida
-Hendrik Elias
+Ella
+Hendrik
 Benjamin
 Friederike
 Sophia
 Sophia Anja
 Keira
 Friedrich
-Lorenz Amadeus
+Lorenz
+// 9b 2025
+Linus
+Greta
+Helene
+Anna
+Theodor
+Phil
+Tom
+Dean
+Felix
+Adele Berit
+Pius Elias
+Vincent
+Anna
+Franz
+Josef
+Hannah
+Heidi-Maria
+Marie
+Lina
+Pauline
+Helene
+Alissa
+Constantin
+Luis
+Jeremy
+Moritz

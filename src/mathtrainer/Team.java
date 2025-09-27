@@ -32,7 +32,9 @@ public class Team extends ArrayList<OneStudent> {
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             String studentName;
             while ((studentName = reader.readLine()) != null) {
-                //System.out.println("line: " + line);
+                if (studentName.startsWith("//")) {
+                    continue;
+                }
                 add(new OneStudent(studentName));
             }
         } catch (IOException e) {
