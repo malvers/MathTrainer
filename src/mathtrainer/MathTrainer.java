@@ -515,19 +515,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("Loop color scheme", xShift, yShift + (yPos * i++));
 
         g2d.drawString("1 ", 50, yShift + (yPos * i));
-        g2d.drawString("Complex mathematics", xShift, yShift + (yPos * i++));
+        g2d.drawString("Dropped files are take", xShift, yShift + (yPos * i++));
 
         g2d.drawString("2 ", 50, yShift + (yPos * i));
         g2d.drawString("Mathematics", xShift, yShift + (yPos * i++));
 
-        g2d.drawString("3 ", 50, yShift + (yPos * i));
-        g2d.drawString("English", xShift, yShift + (yPos * i++));
-
-        g2d.drawString("4", 50, yShift + (yPos * i));
-        g2d.drawString("Dropped files are taken", xShift, yShift + (yPos * i++));
-
         g2d.drawString("↓", 50, yShift + (yPos * i));
-        g2d.drawString("Start training", xShift, yShift + (yPos * i++));
+        g2d.drawString("Next task", xShift, yShift + (yPos * i++));
 
         g2d.drawString("Cmd Q", 50, yShift + (yPos * i));
         g2d.drawString("Quit the program", xShift, yShift + (yPos * i++));
@@ -571,11 +565,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("V | Shift V", 50, yShift + (yPos * i));
         g2d.drawString("Change volume background music (+|-)", xShift, yShift + (yPos * i++));
 
-        g2d.drawString("W | Shift V", 50, yShift + (yPos * i));                      //++
-        g2d.drawString("Toggle thinking mode (complex math only)", xShift, yShift + (yPos * i));
+        g2d.drawString("W", 50, yShift + (yPos * i));
+        g2d.drawString("Toggle thinking/wolfram mode", xShift, yShift + (yPos * i++));
 
         g2d.drawString("Z", 50, yShift + (yPos * i));                      //++
-        g2d.drawString("Sound check (developer only)", xShift, yShift + (yPos * i));
+        g2d.drawString("Check if all names have sounds - developer only)", xShift, yShift + (yPos * i));
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
@@ -1547,23 +1541,35 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         return false;
     }
 
-    ///  TODO: adopt ///
     private void wolframCalling() {
 
-//        String task = allDropTasks.get(taskCounter).getQuestion();
-//
-//        List<String> solutions = WolframAlphaSolver.getSolutions(task);
-//
-//        //MTools.println("Found " + solutions.size() + " solutions for: " + task);
-//        System.out.println("Found " + solutions.size() + " solutions for:" + task);
-//
-//        for (int i = 0; i < solutions.size(); i++) {
-//            //MTools.println("Solution " + i + ": " + solutions.get(i));
-//            String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
-//            System.out.println("Solution " + i + ": " + properLatex);
-//            solutionLabel = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
-//        }
-//        repaint();
+        String question = allDropTasks.get(taskCounter).getQuestion();
+
+        if (checkIfLatex(question)) {
+            return;
+        }
+
+        System.out.println("\nquestion: " + question);
+
+        List<String> solutions = WolframAlphaSolver.getSolutions(question);
+
+        //MTools.println("Found " + solutions.size() + " solutions for: " + question);
+        System.out.println("Found " + solutions.size() + " solutions for:" + question);
+
+        for (int i = 0; i < solutions.size(); i++) {
+            //MTools.println("Solution " + i + ": " + solutions.get(i));
+            String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
+            System.out.println("Solution " + i + ": " + properLatex);
+            solutionLabel = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
+        }
+        repaint();
+    }
+
+    private boolean checkIfLatex(String question) {
+        if (!question.startsWith("\\(")) {
+            return true;
+        }
+        return false;
     }
 
     private void handleFinished() {
