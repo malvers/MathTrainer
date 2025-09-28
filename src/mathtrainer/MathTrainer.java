@@ -234,7 +234,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int operation = Operations.getRandomOperation();
 
                 allMathematicsTasks.add(new MathTask(oneStudent.name, series, limitedToSelectedSeries, operation));
-                allDropTasks.add(new DropTask(oneStudent.name, true));
+                allDropTasks.add(new DropTask(oneStudent.name));
             }
         }
 
@@ -675,6 +675,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         String toRender = getStringTaskType();
 
         if (taskType == TaskTypes.DROPPED) {
+            if (droppedFileName.contains("nothing dropped")) {
+                return;
+            }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
             g2d.setColor(Color.GRAY);
             toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
@@ -1306,7 +1309,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
 
-            case KeyEvent.VK_SPACE ->{}
+            case KeyEvent.VK_SPACE -> {
+            }
 
             case KeyEvent.VK_0 -> loopColorScheme();
 
@@ -1434,6 +1438,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         drawSettings = false;
         drawStudents = false;
         drawHelp = false;
+
+        if (droppedFileName.contains("nothing dropped")) {
+            return false;
+        }
 
         if (beginning) {
 

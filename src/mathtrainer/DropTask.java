@@ -18,19 +18,6 @@ public class DropTask {
     private static final List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
-    public DropTask(String nameIn, boolean read) {
-
-        if (read) {
-            try {
-                //readTasksFromFile(Path.of(MathTrainer.workingDirectory + "history/history.txt"));
-                readTasksFromResource();
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        student = nameIn;
-    }
-
     public DropTask(String nameIn) {
         student = nameIn;
     }
