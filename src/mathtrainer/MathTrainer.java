@@ -1276,13 +1276,14 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             case KeyEvent.VK_RIGHT -> handleWrong();
 
-            case KeyEvent.VK_DOWN, 34 -> {
+            ///  34 = arrow down
+            case KeyEvent.VK_DOWN, 34, KeyEvent.VK_SPACE -> {
                 if (handleNextTask()) {
                     return;
                 }
             }
-
-            case 93 -> { // PLUS
+            // 93 = PLUS
+            case 93 -> {
                 if (e.isShiftDown()) {
                     fontSizeNumbers += 5;
                 } else {
@@ -1290,8 +1291,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     initAllTasks();
                 }
             }
-
-            case 47 -> { // MINUS
+            // 47 = bMINUS
+            case 47 -> {
                 if (e.isShiftDown()) {
                     fontSizeNumbers -= 5;
                 } else {
@@ -1301,9 +1302,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     }
                     initAllTasks();
                 }
-            }
-
-            case KeyEvent.VK_SPACE -> {
             }
 
             case KeyEvent.VK_0 -> loopColorScheme();
@@ -1549,27 +1547,20 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        System.out.println("\nquestion: " + question);
-
         List<String> solutions = WolframAlphaSolver.getSolutions(question);
 
-        //MTools.println("Found " + solutions.size() + " solutions for: " + question);
         System.out.println("Found " + solutions.size() + " solutions for:" + question);
 
         for (int i = 0; i < solutions.size(); i++) {
-            //MTools.println("Solution " + i + ": " + solutions.get(i));
+            System.out.println("Solution    " + i + ": " + solutions.get(i));
             String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
-            System.out.println("Solution " + i + ": " + properLatex);
             solutionLabel = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
         }
         repaint();
     }
 
     private boolean checkIfLatex(String question) {
-        if (!question.startsWith("\\(")) {
-            return true;
-        }
-        return false;
+        return !question.startsWith("\\(");
     }
 
     private void handleFinished() {
