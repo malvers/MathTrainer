@@ -8,6 +8,7 @@ package mathtrainer;
 
  */
 
+import MyTools.Make;
 import mratools.MTools;
 
 import javax.imageio.ImageIO;
@@ -98,6 +99,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean wolframMode = true;
     private boolean countDownMode = true;
     private String droppedFileName = "nothing dropped";
+    private boolean questionPlayed = false;
+    private boolean playQuestion = false;
 
     public MathTrainer() {
 
@@ -567,6 +570,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("S", 50, yShift + (yPos * i));
         g2d.drawString("Show statistics students", xShift, yShift + (yPos * i++));
 
+        g2d.drawString("Q", 50, yShift + (yPos * i));
+        g2d.drawString("Toggle play question", xShift, yShift + (yPos * i++));
+
         g2d.drawString("T | Shift T", 50, yShift + (yPos * i));
         g2d.drawString("Change transparency image (+|-)", xShift, yShift + (yPos * i++));
 
@@ -705,6 +711,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (iterationCount % 2 > 0 || iterationCount == 0) {
 
+            ///  question
+
             if (iterationCount == 0) {
                 iterationCount++;
             }
@@ -717,6 +725,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 onDisplay = dropTask.getQuestion();
             } else if (taskType == TaskTypes.COMPLEXMATH) {
                 onDisplay = complexMathTask.getQuestion();
+            }
+
+            if (!questionPlayed && playQuestion) {
+                sleep(1111);
+                playSoundDirect(onDisplay);
+                questionPlayed = true;
             }
 
             if (onDisplay.startsWith("\\(")) {
@@ -733,8 +747,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         } else {
 
+            /// answer
+
+            questionPlayed = false;
+
             if (taskType == TaskTypes.ENGLISH) {
-                onDisplay = englishTask.getQuestion() + " - " + englishTask.getAnswer();
+                onDisplay = englishTask.getQuestion() + " " + englishTask.getAnswer();
             } else if (taskType == TaskTypes.MATHEMATICS) {
                 onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
@@ -750,6 +768,38 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 laTeXLabel = null;
                 myDrawString(g2d, onDisplay, getHeight() / 2);
             }
+        }
+    }
+
+    public void playSoundDirect(String text) {
+        try {
+            byte[] audioBytes = GoogleTTS.textToSpeechBytes(text, "en-US", "LINEAR16");
+            if (audioBytes == null) {
+                return;
+            }
+
+            // Skip WAV header (usually 44 bytes for PCM WAV)
+            int headerSize = 44;
+            if (audioBytes.length > headerSize) {
+                byte[] pureAudio = new byte[audioBytes.length - headerSize];
+                System.arraycopy(audioBytes, headerSize, pureAudio, 0, pureAudio.length);
+                audioBytes = pureAudio;
+            }
+
+            ByteArrayInputStream bais = new ByteArrayInputStream(audioBytes);
+            AudioFormat format = new AudioFormat(24000, 16, 1, true, false);
+            AudioInputStream audioInputStream = new AudioInputStream(bais, format,
+                    audioBytes.length / format.getFrameSize());
+
+            clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+
+            // Small delay before start can help
+            Thread.sleep(10);
+            clip.start();
+
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1244,6 +1294,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 //        System.out.println("key: " + e.getKeyCode() + " shift: " + e.isShiftDown());
 
         switch (e.getKeyCode()) {
+
             case KeyEvent.VK_ESCAPE -> handleEscape();
 
             case KeyEvent.VK_RIGHT -> handleWrong();
@@ -1275,8 +1326,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
             }
 
-            case KeyEvent.VK_SPACE -> {
-            }
+            case KeyEvent.VK_SPACE ->{}
 
             case KeyEvent.VK_0 -> loopColorScheme();
 
@@ -1301,7 +1351,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             case KeyEvent.VK_M -> toggleMusicOnOff();
             case KeyEvent.VK_N -> drawAndPlayStudentName = !drawAndPlayStudentName;
-            case KeyEvent.VK_P -> allMathematicsTasks.print();
+            case KeyEvent.VK_Q -> playQuestion = !playQuestion;
             case KeyEvent.VK_S -> showStudentsPage();
             case KeyEvent.VK_X -> handleExperimental();
             case KeyEvent.VK_T -> {
@@ -1313,7 +1363,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 System.out.println("transparency: " + transparency);
             }
             case KeyEvent.VK_W -> wolframMode = !wolframMode;
-
             case KeyEvent.VK_V -> {
                 if (e.isShiftDown()) {
                     soundVolume += 0.1f;
@@ -1324,9 +1373,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 System.out.println("soundVolume: " + soundVolume);
                 setVolume();
             }
-            case KeyEvent.VK_Z -> DropTask.print("z");
+            case KeyEvent.VK_Z -> soundCheck();
 
-            // Handle special cases with modifiers
             default -> {
             }
         }
@@ -1344,12 +1392,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         System.out.println("Experimental ...");
 
-        soundCheck();
-
-//        String theText = "Unsere Schule is coooool!";
-//        GoogleTTS.ttsMP3(theText, "de-DE", "google-tts.mp3");
-//        GoogleTTS.ttsWAV(theText, "de-DE", "resources/sound/google-tts.wav");
-        //Make.jarAndApp(this.getClass());
+        Make.jarAndApp(this.getClass());
     }
 
     void setTaskType(int newType) {
@@ -1806,7 +1849,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     System.out.println("❌ setSound - resource not found: " + resource);
                     String out = "resources" + resource;
                     boolean b = GoogleTTS.ttsWAV(student.name, "de-DE", out);
-                    if(b)System.out.println("✅ Sound created successfully \uD83C\uDFB5");
+                    if (b) {
+                        System.out.println("✅ Sound created successfully \uD83C\uDFB5");
+                    }
                 }
             }
         }

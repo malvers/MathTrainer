@@ -7,6 +7,9 @@ import java.util.Base64;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import javax.sound.sampled.AudioFormat;
+import javax.sound.sampled.AudioInputStream;
+
 public class GoogleTTS {
 
     private static final String API_KEY = System.getenv("GOOGLE_TTS_API_KEY");
@@ -95,6 +98,45 @@ public class GoogleTTS {
                         .put("name", "en-US-Standard-A")
                         .put("languageCode", "en-US");
         }
+    }
+
+    public static byte[] textToSpeechBytes(String text, String languageCode, String audioEncoding) {
+        if (API_KEY == null || API_KEY.isEmpty()) {
+            System.err.println("❌ GOOGLE_TTS_API_KEY not set.");
+            return null;
+        }
+
+        try {
+            JSONObject voiceInfo = getKnownWorkingVoice(languageCode);
+            JSONObject jsonRequest = buildTTSRequest(text, voiceInfo, audioEncoding);
+            String jsonString = jsonRequest.toString();
+
+            HttpURLConnection connection = (HttpURLConnection)
+                    new URL("https://texttospeech.googleapis.com/v1/text:synthesize?key=" + API_KEY)
+                            .openConnection();
+            connection.setRequestMethod("POST");
+            connection.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+            connection.setDoOutput(true);
+
+            try (OutputStream os = connection.getOutputStream()) {
+                os.write(jsonString.getBytes(StandardCharsets.UTF_8));
+            }
+
+            if (connection.getResponseCode() == 200) {
+                BufferedReader br = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
+                StringBuilder responseBuilder = new StringBuilder();
+                String line;
+                while ((line = br.readLine()) != null) {
+                    responseBuilder.append(line);
+                }
+
+                JSONObject jsonResponse = new JSONObject(responseBuilder.toString());
+                return Base64.getDecoder().decode(jsonResponse.getString("audioContent"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Generate MP3 (original method)
