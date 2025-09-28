@@ -41,9 +41,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private final Series series = new Series(10);
 
     private final AllMathematicsTasks allMathematicsTasks = new AllMathematicsTasks();
-    private final AllEnglishTasks allEnglishTasks = new AllEnglishTasks();
     private final AllDropTasks allDropTasks = new AllDropTasks();
-    private final AllComplexMathTasks allComplexMathTasks = new AllComplexMathTasks();
 
     private final URL[][] imagesMatrixURL = new URL[10][10];
 
@@ -214,9 +212,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         System.err.println("initAllTasks");
         allMathematicsTasks.clear();
-        allEnglishTasks.clear();
         allDropTasks.clear();
-        allComplexMathTasks.clear();
 
         for (int i = 0; i < numberTasksPerStudent; i++) {
 
@@ -238,9 +234,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int operation = Operations.getRandomOperation();
 
                 allMathematicsTasks.add(new MathTask(oneStudent.name, series, limitedToSelectedSeries, operation));
-                allEnglishTasks.add(new EnglishTask(oneStudent.name, true));
                 allDropTasks.add(new DropTask(oneStudent.name, true));
-                allComplexMathTasks.add(new ComplexMathTask(oneStudent.name, true));
             }
         }
 
@@ -355,9 +349,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private String getStringTaskType() {
 
         return switch (taskType) {
-            case TaskTypes.ENGLISH -> "English";
             case TaskTypes.MATHEMATICS -> "Mathematics";
-            case TaskTypes.COMPLEXMATH -> "Complex Mathematics";
             case TaskTypes.DROPPED -> {
                 if (droppedFileName.contains("nothing")) {
                     yield "Drop your file here ...";
@@ -697,9 +689,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeNumbers));
 
         MathTask mathTask = allMathematicsTasks.get(taskCounter);
-        EnglishTask englishTask = allEnglishTasks.get(taskCounter);
         DropTask dropTask = allDropTasks.get(taskCounter);
-        ComplexMathTask complexMathTask = allComplexMathTasks.get(taskCounter);
 
         if (debugMode) {
             g2d.setColor(Color.DARK_GRAY);
@@ -717,14 +707,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 iterationCount++;
             }
 
-            if (taskType == TaskTypes.ENGLISH) {
-                onDisplay = englishTask.getQuestion();
-            } else if (taskType == TaskTypes.MATHEMATICS) {
+            if (taskType == TaskTypes.MATHEMATICS) {
                 onDisplay = mathTask.getQuestion();
             } else if (taskType == TaskTypes.DROPPED) {
                 onDisplay = dropTask.getQuestion();
-            } else if (taskType == TaskTypes.COMPLEXMATH) {
-                onDisplay = complexMathTask.getQuestion();
             }
 
             if (!questionPlayed && playQuestion) {
@@ -734,9 +720,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             if (onDisplay.startsWith("\\(")) {
-                if (taskType == TaskTypes.COMPLEXMATH) {
-                    onDisplay = complexMathTask.getQuestion();
-                } else if (taskType == TaskTypes.DROPPED) {
+                if (taskType == TaskTypes.DROPPED) {
                     onDisplay = dropTask.getQuestion();
                 }
                 prepareLaTeXLabel(onDisplay);
@@ -751,13 +735,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             questionPlayed = false;
 
-            if (taskType == TaskTypes.ENGLISH) {
-                onDisplay = englishTask.getQuestion() + " " + englishTask.getAnswer();
-            } else if (taskType == TaskTypes.MATHEMATICS) {
+            if (taskType == TaskTypes.MATHEMATICS) {
                 onDisplay = mathTask.getQuestion() + " = " + mathTask.getResult();
             } else if (taskType == TaskTypes.DROPPED) {
-                onDisplay = getProperLatex(dropTask);
-            } else if (taskType == TaskTypes.COMPLEXMATH) {
                 onDisplay = getProperLatex(dropTask);
             }
 
@@ -1330,10 +1310,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             case KeyEvent.VK_0 -> loopColorScheme();
 
-            case KeyEvent.VK_1 -> setTaskType(TaskTypes.COMPLEXMATH);
-            case KeyEvent.VK_2 -> setTaskType(TaskTypes.MATHEMATICS);
-            case KeyEvent.VK_3 -> setTaskType(TaskTypes.ENGLISH);
-            case KeyEvent.VK_4 -> setTaskType(TaskTypes.DROPPED);
+            case KeyEvent.VK_1 -> setTaskType(TaskTypes.MATHEMATICS);
+            case KeyEvent.VK_2 -> setTaskType(TaskTypes.DROPPED);
 
             case KeyEvent.VK_A -> drawTask = !drawTask;
             case KeyEvent.VK_B -> initBeginning();
@@ -1501,12 +1479,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             solutionLabel = null;
 
-            if (taskType == TaskTypes.ENGLISH) {
-                EnglishTask.nextTask();
-            } else if (taskType == TaskTypes.DROPPED) {
+            if (taskType == TaskTypes.DROPPED) {
                 DropTask.nextTask();
-            } else if (taskType == TaskTypes.COMPLEXMATH) {
-                ComplexMathTask.nextTask();
             }
 
             taskCounter++;
@@ -1555,7 +1529,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             countDownCounter = -1;
 
-            if (taskType == TaskTypes.COMPLEXMATH && wolframMode) {
+            if (taskType == TaskTypes.DROPPED && wolframMode) {
                 solutionLabel = Latexer.renderLatexToImage("Thinking \\,...", 20, 200, Color.LIGHT_GRAY);
                 new Thread(this::wolframCalling).start();
             }
@@ -1565,22 +1539,23 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         return false;
     }
 
+    ///  TODO: adopt ///
     private void wolframCalling() {
 
-        String task = allComplexMathTasks.get(taskCounter).getQuestion();
-
-        List<String> solutions = WolframAlphaSolver.getSolutions(task);
-
-        //MTools.println("Found " + solutions.size() + " solutions for: " + task);
-        System.out.println("Found " + solutions.size() + " solutions for:" + task);
-
-        for (int i = 0; i < solutions.size(); i++) {
-            //MTools.println("Solution " + i + ": " + solutions.get(i));
-            String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
-            System.out.println("Solution " + i + ": " + properLatex);
-            solutionLabel = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
-        }
-        repaint();
+//        String task = allDropTasks.get(taskCounter).getQuestion();
+//
+//        List<String> solutions = WolframAlphaSolver.getSolutions(task);
+//
+//        //MTools.println("Found " + solutions.size() + " solutions for: " + task);
+//        System.out.println("Found " + solutions.size() + " solutions for:" + task);
+//
+//        for (int i = 0; i < solutions.size(); i++) {
+//            //MTools.println("Solution " + i + ": " + solutions.get(i));
+//            String properLatex = solutions.get(i).replaceAll("(\\d+)/(\\d+)", "\\\\frac{$1}{$2}");
+//            System.out.println("Solution " + i + ": " + properLatex);
+//            solutionLabel = Latexer.renderLatexToImage(properLatex, 30, 200, Color.LIGHT_GRAY);
+//        }
+//        repaint();
     }
 
     private void handleFinished() {
@@ -1623,7 +1598,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     backgroundImage = ImageIO.read(imagesMatrixURL[ind1][ind2]);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("some image could not be loaded: setImageForTask()");
         }
     }

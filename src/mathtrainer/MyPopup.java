@@ -9,10 +9,8 @@ public class MyPopup extends JPopupMenu {
     JMenuItem helpingMenu = new JMenuItem("Help");
     JMenuItem newGameMenu = new JMenuItem("New game");
 
-    JRadioButton complexMathMenu = new JRadioButton("Complex math [1]");
-    JRadioButton matheMenu = new JRadioButton("Mathematics [2]");
-    JRadioButton englishMenu = new JRadioButton("English [3]");
-    JRadioButton historyMenu = new JRadioButton("Dropped [4]");
+    JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
+    JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
     JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
     JRadioButton wischnewski = new JRadioButton("Team Ms. Wischnewski");
@@ -50,9 +48,7 @@ public class MyPopup extends JPopupMenu {
 
         ButtonGroup subjects = new ButtonGroup();
         subjects.add(matheMenu);
-        subjects.add(englishMenu);
         subjects.add(historyMenu);
-        subjects.add(complexMathMenu);
 
         selectActiveTaskType(mathTrainer.getTaskType());
 
@@ -60,15 +56,11 @@ public class MyPopup extends JPopupMenu {
 
         add(new Separator());
 
-        add(complexMathMenu);
         add(matheMenu);
-        add(englishMenu);
         add(historyMenu);
 
         matheMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.MATHEMATICS));
-        englishMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.ENGLISH));
         historyMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.DROPPED));
-        complexMathMenu.addActionListener(e -> mathTrainer.setTaskType(TaskTypes.COMPLEXMATH));
 
         settingsMenu.addActionListener(e -> mathTrainer.showSettingsPage());
         studentsMenu.addActionListener(e -> mathTrainer.showStudentsPage());
@@ -111,13 +103,9 @@ public class MyPopup extends JPopupMenu {
     }
 
     private void selectActiveTaskType(int activeSubject) {
-        if (activeSubject == TaskTypes.COMPLEXMATH) {
-            complexMathMenu.setSelected(true);
-        } else if (activeSubject == TaskTypes.MATHEMATICS) {
+        if (activeSubject == TaskTypes.MATHEMATICS) {
             matheMenu.setSelected(true);
-        } else if (activeSubject == TaskTypes.ENGLISH) {
-            englishMenu.setSelected(true);
-        }else if (activeSubject == TaskTypes.DROPPED) {
+        } else if (activeSubject == TaskTypes.DROPPED) {
             historyMenu.setSelected(true);
         }
     }
