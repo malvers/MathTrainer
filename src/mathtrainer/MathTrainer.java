@@ -31,8 +31,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static JFrame frame;
     private static Clip clip;
-    private final String sound2 = "sound/Madonna - Frozen.wav";
+    private final String sound2 = "Madonna - Frozen";
     private final String soundOnDisplay = sound2;
+    public String lastFileProcessed = null;
     private Timer timer;
     private MyCountDown countDown;
 
@@ -298,6 +299,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             os.writeBoolean(countDownMode);
             os.writeBoolean(drawStudents);
 
+            os.writeObject(lastFileProcessed);
+
             os.close();
             f.close();
         } catch (IOException e) {
@@ -338,11 +341,18 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDownMode = in.readBoolean();
             drawStudents = in.readBoolean();
 
+            lastFileProcessed = (String) in.readObject();
+
+            System.err.println("last file processed: " + lastFileProcessed);
+
             in.close();
             f.close();
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -1475,7 +1485,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (iterationCount % 2 > 0) {
 
-            //System.out.println("In task ...");
+            //System.out.println("In question ...");
 
             solutionLabel = null;
 
@@ -1497,7 +1507,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         } else {
 
-            //System.out.println("In result ...");
+            //System.out.println("In answer ...");
 
             if (taskCounter >= allTeams.get(actualTeam).getNumberTasks()) {
                 taskCounter = numberTasksPerStudent;
@@ -1774,14 +1784,18 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         try {
             setSound(name);
             clip.start();
+            if (name.contains("Frozen")) {
+                System.out.println("Looooooping ...");
+                clip.loop(10);
+            }
         } catch (Exception ex) {
             MTools.println("Error with playing sound: " + name);
         }
     }
 
     private static void setSound(String student) {
-        // Try loading via URL first (works great in JARs!)
 
+        // Try loading via URL first (works great in JARs!)
         String resource = "/sound/" + student + ".wav";
         URL soundUrl = MathTrainer.class.getResource(resource);
 
@@ -1812,27 +1826,44 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     private void soundCheck() {
-
         int count = 0;
         for (Team team : allTeams) {
-
             System.out.println("Team: " + team.fileName);
 
             for (OneStudent student : team) {
-
                 System.out.println((++count) + " name " + student.name);
 
+                // Check for Google TTS file
                 String resource = "/sound/" + student.name + ".wav";
                 URL soundUrl = MathTrainer.class.getResource(resource);
 
                 if (soundUrl == null) {
-                    System.out.println("❌ setSound - resource not found: " + resource);
-                    String out = "resources" + resource;
+                    System.out.println("❌ GoogleTTS file not found: " + resource);
+                    String out = "resources" + resource; // This becomes "resources/sound/name.wav"
                     boolean b = GoogleTTS.ttsWAV(student.name, "de-DE", out);
                     if (b) {
-                        System.out.println("✅ Sound created successfully \uD83C\uDFB5");
+                        System.out.println("✅ GoogleTTS sound created successfully 🎵");
                     }
                 }
+
+//                // Check for ElevenLabs file
+//                String resourceMRA = "/sound/" + student.name + "_ELEVEN.wav";
+//                URL soundUrlMRA = MathTrainer.class.getResource(resourceMRA);
+//
+//                if (soundUrlMRA == null) {
+//                    System.out.println("❌ ElevenLabs file not found: " + resourceMRA);
+//                    String out = "resources" + resourceMRA; // This becomes "resources/sound/name_MRA.wav"
+//                    System.out.println("Output path: " + out);
+//
+//                    // Use ElevenLabs - just the name as text
+//                    boolean b = ElevenLabsTTS.textToSpeech(student.name, out);
+//
+//                    if (b) {
+//                        System.out.println("✅ ElevenLabs sound created successfully 🎵");
+//                    } else {
+//                        System.err.println("❌ ElevenLabs generation failed for: " + student.name);
+//                    }
+//                }
             }
         }
     }

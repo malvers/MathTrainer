@@ -11,6 +11,7 @@ import java.util.List;
 public class TextFileDropTarget {
 
     private final MathTrainer mathTrainer;
+
     public TextFileDropTarget(MathTrainer mathTrainerIn) {
 
         mathTrainer = mathTrainerIn;
@@ -50,6 +51,7 @@ public class TextFileDropTarget {
     private void processTextFile(File file) {
 
         System.err.println("processTextFile: " + file);
+        mathTrainer.lastFileProcessed = file.getName();
 
         try (BufferedReader reader = new BufferedReader(
 

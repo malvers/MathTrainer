@@ -4,13 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import javax.sound.sampled.AudioFormat;
-import javax.sound.sampled.AudioInputStream;
-
 public class GoogleTTS {
+
 
     private static final String API_KEY = System.getenv("GOOGLE_TTS_API_KEY");
 
@@ -22,21 +21,7 @@ public class GoogleTTS {
         }
 
         try {
-            URL url = new URL("https://texttospeech.googleapis.com/v1/voices?key=" + API_KEY);
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-            conn.setRequestMethod("GET");
-            conn.setConnectTimeout(10000);
-            conn.setReadTimeout(10000);
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
-            StringBuilder response = new StringBuilder();
-            String line;
-            while ((line = br.readLine()) != null) {
-                response.append(line);
-            }
-
-            JSONObject json = new JSONObject(response.toString());
-            JSONArray voices = json.getJSONArray("voices");
+            var voices = getObjects();
 
             for (int i = 0; i < voices.length(); i++) {
                 JSONObject voice = voices.getJSONObject(i);
@@ -62,9 +47,29 @@ public class GoogleTTS {
         return null;
     }
 
+    private static JSONArray getObjects() throws IOException {
+        URL url = new URL("https://texttospeech.googleapis.com/v1/voices?key=" + API_KEY);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("GET");
+        conn.setConnectTimeout(10000);
+        conn.setReadTimeout(10000);
+
+        BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = br.readLine()) != null) {
+            response.append(line);
+        }
+
+        JSONObject json = new JSONObject(response.toString());
+        JSONArray voices = json.getJSONArray("voices");
+        return voices;
+    }
+
     // Build TTS JSON with proper voice configuration
     private static JSONObject buildTTSRequest(String text, JSONObject voiceInfo, String audioEncoding) {
-        JSONObject request = new JSONObject()
+
+        return new JSONObject()
                 .put("input", new JSONObject().put("text", text))
                 .put("voice", new JSONObject()
                         .put("languageCode", voiceInfo.getString("languageCode"))
@@ -74,30 +79,21 @@ public class GoogleTTS {
                         .put("speakingRate", 1.0)
                         .put("pitch", 0.0)
                         .put("volumeGainDb", 0.0));
-
-        return request;
     }
 
     // Alternative: Use specific known-working voices
     private static JSONObject getKnownWorkingVoice(String languageCode) {
-        switch (languageCode) {
-            case "en-US":
-                return new JSONObject()
-                        .put("name", "en-US-Standard-A")
-                        .put("languageCode", "en-US");
-            case "en-GB":
-                return new JSONObject()
-                        .put("name", "en-GB-Standard-A")
-                        .put("languageCode", "en-GB");
-            case "de-DE":
-                return new JSONObject()
-                        .put("name", "de-DE-Standard-A")
-                        .put("languageCode", "de-DE");
-            default:
-                return new JSONObject()
-                        .put("name", "en-US-Standard-A")
-                        .put("languageCode", "en-US");
-        }
+        return switch (languageCode) {
+            case "en-GB" -> new JSONObject()
+                    .put("name", "en-GB-Standard-A")
+                    .put("languageCode", "en-GB");
+            case "de-DE" -> new JSONObject()
+                    .put("name", "de-DE-Standard-A")
+                    .put("languageCode", "de-DE");
+            default -> new JSONObject()
+                    .put("name", "en-US-Standard-A")
+                    .put("languageCode", "en-US");
+        };
     }
 
     public static byte[] textToSpeechBytes(String text, String languageCode, String audioEncoding) {
@@ -305,30 +301,6 @@ public class GoogleTTS {
         }
     }
 
-    public static void main(String[] args) {
-        // Test with both MP3 and WAV
-        String text = "Mein Name ist Christoph und ich wohne in Dresden. Ich arbeite in der Schule als Physiklehrer.";
-
-        // Test MP3 (original functionality)
-        boolean successMp3 = ttsMP3(text, "de-DE", "google-tts-output.mp3");
-
-        // Test WAV (new functionality)
-        boolean successWav = ttsWAV(text, "de-DE", "google-tts-output.wav");
-
-        if (successMp3 && successWav) {
-            System.out.println("🎉 Both MP3 and WAV conversions complete!");
-        } else {
-            System.out.println("❌ One or both conversions failed.");
-
-            // Try with even simpler approach
-            try {
-                simpleTTS(text, "google-tts-simple.wav", "LINEAR16");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
     // Ultra-simple fallback method with format support
     private static void simpleTTS(String text, String outputFile, String audioEncoding) throws Exception {
         String url = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + API_KEY;
@@ -357,6 +329,23 @@ public class GoogleTTS {
             }
             String formatName = audioEncoding.equals("LINEAR16") ? "WAV" : "MP3";
             System.out.println("✅ Simple TTS worked! Format: " + formatName);
+        }
+    }
+
+    public static void main(String[] args) {
+        // Test with both MP3 and WAV
+        String text = "Mein Name ist Hugo und ich wohne in Meißen. Ich lerne in der Schule in der 5. Klasse.";
+        //String text = VoiceTextDE.theText;
+
+        // Test WAV (new functionality)
+//        boolean successWav = ttsWAV(text, "en-US", "google-tts-output.wav");
+        boolean successWav = ttsWAV(text, "de-DE", "voiceTextDE.wav");
+
+        if (successWav) {
+            System.out.println("🎉 WAV conversions complete!");
+        } else {
+            System.out.println("❌ Conversion failed.");
+
         }
     }
 }

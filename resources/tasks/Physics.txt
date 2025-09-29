@@ -1,43 +1,48 @@
-
 Was ist die Einheit der Spannung? :: - Volt (V)
 Was ist die Einheit des Widerstands? :: - Ohm (Ω)
 Was ist die Einheit der Leistung? :: - Watt (W)
 Was ist die Einheit der Energie? :: - Joule (J)
 Was ist die Einheit der Kraft? :: - Newton (N)
 Was ist die Einheit der Arbeit? :: - Joule (J)
-Was ist die Einheit der Frequenz? :: - Hertz (Hz)
-Was ist die Einheit der Ladung? :: - Coulomb (C)
-Was ist die Einheit der Kapazität? :: - Farad (F)
-Was ist die Einheit der Induktivität? :: - Henry (H)
 Was ist die Einheit des Drucks? :: - Pascal (Pa)
 Was ist die Einheit der Temperatur (SI)? :: - Kelvin (K)
-Was ist die Einheit der Lichtstärke? :: - Candela (cd)
 Was ist die Einheit der Stoffmenge? :: - Mol (mol)
 Was ist die Einheit der Zeit? :: - Sekunde (s)
-Was ist die Einheit der Masse? :: - Kilogramm (kg)
 Was ist die Einheit der Länge? :: - Meter (m)
 Was ist die Einheit der Masse? :: - Kilogramm (kg)
 Was ist die Einheit der Geschwindigkeit? :: - Meter pro Sekunde (m/s)
 Was ist die Einheit der Beschleunigung? :: - Meter pro Sekunde² (m/s²)
-Was ist die Einheit des Drehmoments? :: - Newtonmeter (Nm)
+Was ist die Einheit der Magnetischen Flussdichte? :: - Tesla (T)
+
+Was ist das SI-Symbol der Kraft? :: - F (Force)
+Was ist das SI-Symbol des Stromes? :: - I (Intensity)
+Was ist das SI-Symbol der Spannung? :: - U (Urge)
+Was ist das SI-Symbol des Wiederstandes? :: - R (Resistance)
+Was ist das SI-Symbol der Leistung? :: - P (Power)
+Was ist das SI-Symbol die Energie? :: - E (Energy)
+Was ist das SI-Symbol des Drucks? :: - p (Pressure)
+Was ist das SI-Symbol der Temperatur? :: - T (Temperature)
+Was ist das SI-Symbol der Zeit? :: - t (Time)
+Was ist das SI-Symbol der Länge? :: - l (Length) oder s (segment)
+Was ist das SI-Symbol der Masse? :: - m (Mass)
+Was ist das SI-Symbol der Beschleunigung? :: - a (Acceleration)
+Was ist das SI-Symbol der Magnetsichen Flussdichte? :: - B (no explanation 🧲)
+Was ist das SI-Symbol des Volumens? :: - V (Volume)
+
 
 Wer entdeckte die Elektronen? :: - J.J. Thomson
 Wer entdeckte die Radioaktivität? :: - Henri Becquerel
 Wer formulierte die Relativitätstheorie? :: - Albert Einstein
 Wer entdeckte die Röntgenstrahlen? :: - Wilhelm Conrad Röntgen
+Wer hat als erster wann die Lichtgeschwindigkeit gemessen? :: - Ole Rømer (um 1676).
+Wer hat als erster den Zusammenhang zwischen elektrischen Strom und Magnetismus gesehen? :: - Hans Christian Ørsted (1820).
 
 Was ist die Lichtgeschwindigkeit im Vakuum? :: - 299.792.458 m/s
-Was ist die Erdbeschleunigung? :: - 9,81 m/s²
-
-Was besagt das Ohmsche Gesetz? :: - U = R × I
-Was besagt das Newtonsche Gravitationsgesetz? :: - F = G × (m₁×m₂)/r²
-Was besagt der Energieerhaltungssatz? :: - Energie bleibt konstant
-Was besagt der Impulserhaltungssatz? :: - Impuls bleibt konstant
-Was besagt der Drehimpulserhaltungssatz? :: - Drehimpuls bleibt konstant
+Was ist die Erdbeschleunigung? :: - 9,81 m/s² (variiert - Ortsfaktor)
 
 Was ist ein elektrischer Leiter? :: - Material das Strom leitet
 Was ist ein Isolator? :: - Material das Strom nicht leitet
-Was ist ein Halbleiter? :: - Material mit leitenden Eigenschaften
+Wo werden z.B. Halbleiter eingesetzt? :: - In Transistoren, Dioden, Solarzellen u.v.a
 Was ist die Dichte? :: - Masse pro Volumen
 
 Was ist kinetische Energie? :: - Energie der Bewegung
@@ -46,10 +51,9 @@ Was ist Wärmeenergie? :: - thermische Energie
 Was ist elektrische Energie? :: - Energie des Stroms
 Was ist chemische Energie? :: - Energie in chemischen Bindungen
 
-Was ist eine Serienschaltung? :: - Verbraucher hintereinander
-Was ist eine Parallelschaltung? :: - Verbraucher parallel
+Was ist eine Serienschaltung? :: - Verbraucher sind in Reihe geschaltet
+Was ist eine Parallelschaltung? :: - Verbraucher sind parallel geschaltet
 Was ist der Wirkungsgrad? :: - Nutzen durch Aufwand
-Was ist die Frequenz? :: - Schwingungen pro Sekunde
 Was ist die Wellenlänge? :: - Abstand zweier Wellenberge
 
 Was ist Reflexion? :: - Zurückwerfen von Wellen
@@ -63,4 +67,13 @@ Was ist ein Elektron? :: - Negatives Elementarteilchen
 Was ist ein Proton? :: - Positives Elementarteilchen
 Was ist ein Neutron? :: - Neutrales Elementarteilchen
 Aus was besteht ein Atom? :: - Protonen und Neutronen (Kern), Elektronen (Hülle)
-Nicht verzagen ... :: Alvers fragen!
+
+Welchen Umfang hat die Erde am Äquator? :: - ca. 40.000 km
+Welchen Durchmesser hat die Erde ungefähr? :: - ca 12.700 km
+
+Gleiche Ladungen ziehen sich an oder stoßen sich ab? :: Stoßen sich ab!
+Unterschiedliche Ladungen ziehen sich an oder stoßen sich ab? :: Ziehen sich an!
+
+Das Wort Elektron kommt woher? :: - Vom griechischen Wort für Bernstein = Elektron!
+
+Nicht verzagen ... :: 🎓Alvers fragen!
