@@ -7,7 +7,6 @@ package mathtrainer;
  sk_27db7a41af907eadeaa4aa21a3689d66112efd0cfd0f28f0
 
  */
-
 import MyTools.Make;
 import mratools.MTools;
 
