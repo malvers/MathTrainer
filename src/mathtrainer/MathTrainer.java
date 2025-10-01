@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.JarURLConnection;
 import java.net.URL;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Timer;
 import java.util.*;
@@ -350,8 +351,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }
@@ -360,16 +360,18 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         return switch (taskType) {
             case TaskTypes.MATHEMATICS -> "Mathematics";
-            case TaskTypes.DROPPED -> {
-                if (droppedFileName.contains("nothing")) {
-                    yield "Drop your file here ...";
-                } else {
-                    int first = droppedFileName.indexOf('.');
-                    yield droppedFileName.substring(0, first);
-                }
-            }
-            default -> "Unknown";
+            case TaskTypes.DROPPED -> getGreeting();
+            default -> "Unknown Task";
         };
+    }
+
+    public static String getGreeting() {
+        LocalTime now = LocalTime.now();
+        if (now.getHour() < 12) {
+            return "Good morning!";
+        } else {
+            return "Good afternoon!";
+        }
     }
 
     @Override
@@ -495,6 +497,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.setColor(sc);
         }
 
+        if (!droppedFileName.contains("nothing")) {
+            g2d.setFont(new Font("Arial", Font.PLAIN, 16));
+            String toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
+            myDrawString(g2d, toRender, 80);
+        }
+
         g2d.drawString(str, 10, 26);
 
         g2d.setColor(Color.yellow);
@@ -548,9 +556,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("C", 50, yShift + (yPos * i));
         g2d.drawString("Count down on/off", xShift, yShift + (yPos * i++));
 
-        g2d.drawString("D", 50, yShift + (yPos * i));
-        g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos * i++));
-
         g2d.drawString("E", 50, yShift + (yPos * i));
         g2d.drawString("Show selected series (1 x 1 only)", xShift, yShift + (yPos * i++));
 
@@ -578,8 +583,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("W", 50, yShift + (yPos * i));
         g2d.drawString("Toggle thinking/wolfram mode", xShift, yShift + (yPos * i++));
 
-        g2d.drawString("Z", 50, yShift + (yPos * i));                      //++
-        g2d.drawString("Check if all names have sounds - developer only)", xShift, yShift + (yPos * i));
+        g2d.drawString("Z", 50, yShift + (yPos * i));
+        g2d.drawString("Check if all names have sounds - developer only)", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("D", 50, yShift + (yPos * i));
+        g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos));
+
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
@@ -676,18 +685,16 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        String toRender = getStringTaskType();
+        String toRender;
 
         if (taskType == TaskTypes.DROPPED) {
             if (droppedFileName.contains("nothing dropped")) {
                 return;
             }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            g2d.setColor(Color.GRAY);
             toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
+            myDrawString(g2d, toRender, 80);
         }
-
-        myDrawString(g2d, toRender, 80);
 
         drawStudentNameAndCountDown(g2d, getWidth() / 2);
 
@@ -1003,15 +1010,12 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private URL getUrl(String str) {
         URL localURL = null;
-        URL smileyURL = null;
         boolean found = false;
         for (URL url : photosURL) {
             localURL = url;
             String lStr = str.replace(" ", "");
             lStr = lStr.replace("Á", "A");
-            if (localURL.getPath().contains("smiley")) {
-                smileyURL = localURL;
-            }
+
 
             if (localURL.getPath().contains(lStr + ".png")) {
                 found = true;
@@ -1322,7 +1326,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_A -> drawTask = !drawTask;
             case KeyEvent.VK_B -> initBeginning();
             case KeyEvent.VK_C -> countDownMode = !countDownMode;
-            case KeyEvent.VK_D -> debugMode = !debugMode;
+            case KeyEvent.VK_D -> {
+                if (e.isMetaDown()) {
+                    debugMode = !debugMode;
+                }
+            }
             case KeyEvent.VK_E -> showSettingsPage();
             case KeyEvent.VK_H -> {
                 drawStudents = false;

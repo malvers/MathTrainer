@@ -10,7 +10,6 @@ import org.json.JSONObject;
 
 public class GoogleTTS {
 
-
     private static final String API_KEY = System.getenv("GOOGLE_TTS_API_KEY");
 
     // Pick first available Standard voice for the language
@@ -90,6 +89,9 @@ public class GoogleTTS {
             case "de-DE" -> new JSONObject()
                     .put("name", "de-DE-Standard-A")
                     .put("languageCode", "de-DE");
+            case "en-US" -> new JSONObject()
+                    .put("name", "en-US-Standard-A")
+                    .put("languageCode", "en-US");
             default -> new JSONObject()
                     .put("name", "en-US-Standard-A")
                     .put("languageCode", "en-US");
@@ -306,7 +308,7 @@ public class GoogleTTS {
         String url = "https://texttospeech.googleapis.com/v1/text:synthesize?key=" + API_KEY;
 
         String json = "{\"input\":{\"text\":\"" + text.replace("\"", "\\\"") +
-                "\"},\"voice\":{\"languageCode\":\"de-DE\",\"name\":\"de-DE-Standard-A\"}" +
+                "\"},\"voice\":{\"languageCode\":\"en-US\",\"name\":\"en-US-Standard-A\"}" +
                 ",\"audioConfig\":{\"audioEncoding\":\"" + audioEncoding + "\"}}";
 
         HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
@@ -333,19 +335,19 @@ public class GoogleTTS {
     }
 
     public static void main(String[] args) {
-        // Test with both MP3 and WAV
-        String text = "Mein Name ist Hugo und ich wohne in Meißen. Ich lerne in der Schule in der 5. Klasse.";
-        //String text = VoiceTextDE.theText;
 
-        // Test WAV (new functionality)
-//        boolean successWav = ttsWAV(text, "en-US", "google-tts-output.wav");
-        boolean successWav = ttsWAV(text, "de-DE", "voiceTextDE.wav");
+        String text = "Shees" +
+                "Kritische Kröten kauen keine konkreten Kroketten." +
+                "yalla" +
+                "Digga" + "six seven";
+
+        // Test WAV with English (US) voice
+        boolean successWav = ttsWAV(text, "de-DE", "english-tts-output.wav");
 
         if (successWav) {
-            System.out.println("🎉 WAV conversions complete!");
+            System.out.println("🎉 English WAV conversion complete!");
         } else {
-            System.out.println("❌ Conversion failed.");
-
+            System.out.println("❌ English conversion failed.");
         }
     }
 }
