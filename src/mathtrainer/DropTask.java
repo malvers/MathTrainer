@@ -37,15 +37,11 @@ public class DropTask {
         Collections.shuffle(tasks);
     }
 
-    protected static List<Vocabulary> getTasks() {
-        return tasks;
-    }
-
-    public static void print(String hint) {
-        for (Vocabulary task : tasks) {
-            System.err.println(hint + task.question + " :: " + task.answer);
-        }
-    }
+//    public static void print(String hint) {
+//        for (Vocabulary task : tasks) {
+//            System.err.println(hint + task.question + " :: " + task.answer);
+//        }
+//    }
 
     protected static class Vocabulary {
 
@@ -81,34 +77,34 @@ public class DropTask {
         Collections.shuffle(tasks);
     }
 
-    private void readTasksFromResource() throws IOException {
-
-        try (InputStream in = MathTrainer.class.getResourceAsStream("/history/history.txt")) {
-            if (in == null) {
-                throw new IOException("Resource not found: " + "/history/history.txt");
-            }
-
-            try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
-                List<String> lines = reader.lines().toList();
-
-                for (String line : lines) {
-                    line = line.trim();
-                    if (line.isEmpty() || line.startsWith("//")) {
-                        continue;
-                    }
-                    String[] parts = line.split("\\s*::\\s*");
-                    if (parts.length >= 2) {
-                        try {
-                            tasks.add(new DropTask.Vocabulary(parts[0], parts[1]));
-                        } catch (NumberFormatException e) {
-                            System.err.println("Skipping line: " + line);
-                        }
-                    }
-                }
-                Collections.shuffle(tasks);
-            }
-        }
-    }
+//    private void readTasksFromResource() throws IOException {
+//
+//        try (InputStream in = MathTrainer.class.getResourceAsStream("/history/history.txt")) {
+//            if (in == null) {
+//                throw new IOException("Resource not found: " + "/history/history.txt");
+//            }
+//
+//            try (BufferedReader reader = new BufferedReader(new InputStreamReader(in, StandardCharsets.UTF_8))) {
+//                List<String> lines = reader.lines().toList();
+//
+//                for (String line : lines) {
+//                    line = line.trim();
+//                    if (line.isEmpty() || line.startsWith("//")) {
+//                        continue;
+//                    }
+//                    String[] parts = line.split("\\s*::\\s*");
+//                    if (parts.length >= 2) {
+//                        try {
+//                            tasks.add(new DropTask.Vocabulary(parts[0], parts[1]));
+//                        } catch (NumberFormatException e) {
+//                            System.err.println("Skipping line: " + line);
+//                        }
+//                    }
+//                }
+//                Collections.shuffle(tasks);
+//            }
+//        }
+//    }
 
     String getQuestion() {
         if (taskNumber >= tasks.size()) {
@@ -119,9 +115,5 @@ public class DropTask {
 
     public String getAnswer() {
         return tasks.get(taskNumber).answer;
-    }
-
-    public Color getColor() {
-        return Color.WHITE;
     }
 }
