@@ -1384,7 +1384,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         String directory = dialog.getDirectory();
         String file = dialog.getFile();
         try {
-            droppedFileName = directory + file;
+            droppedFileName = file;
             DropTask.readTasksFromFile(Path.of(directory + file));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -1488,7 +1488,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                     timer.scheduleAtFixedRate(new TimerTask() {
                         @Override
                         public void run() {
-                            //System.out.println( "running:" );
                             repaint();
                         }
                     }, 0, 200);
