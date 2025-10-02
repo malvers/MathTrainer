@@ -33,9 +33,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private static JFrame frame;
     private static Clip clip;
+    private String currendDirectory;
     private final String sound2 = "Madonna - Frozen";
     private final String soundOnDisplay = sound2;
-    public String lastFileProcessed = null;
+    public String lastFileProcessed = "";
     private Timer timer;
     private MyCountDown countDown;
 
@@ -99,7 +100,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage solutionLabel;
     private boolean wolframMode = true;
     private boolean countDownMode = true;
-    private static String droppedFileName = "nothing dropped";
+    private String currendFileName = "nothing dropped";
     private boolean questionPlayed = false;
     private boolean playQuestion = false;
 
@@ -301,7 +302,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             os.writeBoolean(countDownMode);
             os.writeBoolean(drawStudents);
 
-            os.writeObject(lastFileProcessed);
+            os.writeObject(currendDirectory + lastFileProcessed);
+
+            os.writeBoolean(wolframMode);
 
             os.close();
             f.close();
@@ -343,9 +346,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDownMode = in.readBoolean();
             drawStudents = in.readBoolean();
 
-            lastFileProcessed = (String) in.readObject();
+            currendFileName = lastFileProcessed = (String) in.readObject();
 
-            System.err.println("last file processed: " + lastFileProcessed);
+            DropTask.readTasksFromFile(Path.of(lastFileProcessed));
+
+            wolframMode = in.readBoolean();
 
             in.close();
             f.close();
@@ -498,9 +503,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.setColor(sc);
         }
 
-        if (!droppedFileName.contains("nothing")) {
+        if (!currendFileName.contains("nothing")) {
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            String toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
+            String toRender = currendFileName.substring(0, currendFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
@@ -689,11 +694,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         String toRender;
 
         if (taskType == TaskTypes.DROPPED) {
-            if (droppedFileName.contains("nothing dropped")) {
+            if (currendFileName.contains("nothing dropped")) {
                 return;
             }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            toRender = droppedFileName.substring(0, droppedFileName.indexOf('.'));
+            toRender = currendFileName.substring(0, currendFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
@@ -1377,18 +1382,20 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         display();
     }
 
-    private static void loadFile() {
+    private void loadFile() {
 
         FileDialog dialog = new FileDialog(frame, "Select a file", FileDialog.LOAD); // LOAD or SAVE
         dialog.setVisible(true);
-        String directory = dialog.getDirectory();
+        currendDirectory = dialog.getDirectory();
         String file = dialog.getFile();
         try {
-            droppedFileName = file;
-            DropTask.readTasksFromFile(Path.of(directory + file));
+            lastFileProcessed = currendFileName = file;
+            DropTask.readTasksFromFile(Path.of(currendDirectory + file));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
         }
+
+        initBeginning();
     }
 
     private void loopColorScheme() {
@@ -1467,7 +1474,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         drawStudents = false;
         drawHelp = false;
 
-        if (droppedFileName.contains("nothing dropped")) {
+        if (currendFileName.contains("nothing dropped")) {
             return false;
         }
 
@@ -1958,6 +1965,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void setDroppedFileName(String name) {
-        droppedFileName = name;
+        currendFileName = name;
     }
 }

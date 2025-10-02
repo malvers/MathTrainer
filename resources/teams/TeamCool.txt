@@ -1,6 +1,6 @@
 // 9a 2025
 Willem
-//Ferris
+Ferris
 Avelina
 Sophia-Elaine
 Mariella
@@ -13,16 +13,16 @@ Oskar
 Paul-Julius
 Eva
 Livius
-//Valentina
+Valentina
 Anton
 Mila
 Mika
 Ella
-//Hendrik
+Hendrik
 Benjamin
 Friederike
-//Sophia
+Sophia
 Sophia Anja
 Keira
 Friedrich
-//Lorenz
+Lorenz

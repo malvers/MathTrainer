@@ -15,7 +15,7 @@ import java.util.List;
 public class DropTask {
 
     protected static String student;
-    private static final List<Vocabulary> tasks = new ArrayList<>();
+    private static List<Vocabulary> tasks = new ArrayList<>();
     private static int taskNumber = 0;
 
     public DropTask(String nameIn) {
@@ -62,6 +62,7 @@ public class DropTask {
 
         List<String> lines = Files.readAllLines(path);
 
+        tasks = new ArrayList<>();
         for (String line : lines) {
             line = line.trim();
             if (line.isEmpty() || line.startsWith("//")) {
