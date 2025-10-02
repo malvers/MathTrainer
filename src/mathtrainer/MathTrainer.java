@@ -302,8 +302,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             os.writeBoolean(countDownMode);
             os.writeBoolean(drawStudents);
 
-            os.writeObject(currendDirectory + lastFileProcessed);
-
+            if (currendDirectory == null) {
+                currendDirectory = "";
+            }
+            os.writeObject(currendDirectory + currendFileName);
             os.writeBoolean(wolframMode);
 
             os.close();
@@ -348,9 +350,13 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             currendFileName = lastFileProcessed = (String) in.readObject();
 
-            DropTask.readTasksFromFile(Path.of(lastFileProcessed));
+            System.out.println("cfn: " + currendFileName);
+
+            DropTask.readTasksFromFile(Path.of(currendFileName));
 
             wolframMode = in.readBoolean();
+
+            System.out.println("wolfram: " + wolframMode);
 
             in.close();
             f.close();
@@ -505,7 +511,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         if (!currendFileName.contains("nothing")) {
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            String toRender = currendFileName.substring(0, currendFileName.indexOf('.'));
+            String toRender = currendFileName.substring(currendFileName.lastIndexOf("/") + 1, currendFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
@@ -590,17 +596,17 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("Toggle thinking/wolfram mode", xShift, yShift + (yPos * i++));
 
         g2d.drawString("Z", 50, yShift + (yPos * i));
-        g2d.drawString("Check if all names have sounds - developer only)", xShift, yShift + (yPos * i++));
+        g2d.drawString("Check if all names have sounds (developer only)", xShift, yShift + (yPos * i++));
 
         g2d.drawString("D", 50, yShift + (yPos * i));
-        g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos));
+        g2d.drawString("Toggle debug mode (developer only)", xShift, yShift + (yPos * i));
 
 
         g2d.setFont(new Font("Arial", Font.PLAIN, 16));
         FontMetrics metrics = g2d.getFontMetrics();
         Rectangle2D bounds = metrics.getStringBounds(copyright, g2d);
         g2d.setColor(Color.GRAY);
-        g2d.drawString(copyright, (float) ((double) getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 30);
+        g2d.drawString(copyright, (float) ((double) getWidth() / 2 - bounds.getWidth() / 2), getHeight() - 36);
 
         drawTeamAndNumberTasks(g2d);
     }
@@ -698,7 +704,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 return;
             }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            toRender = currendFileName.substring(0, currendFileName.indexOf('.'));
+            toRender = currendFileName.substring(currendFileName.lastIndexOf("/") + 1, currendFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
