@@ -545,10 +545,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("Loop color scheme", xShift, yShift + (yPos * i++));
 
         g2d.drawString("1 ", 50, yShift + (yPos * i));
-        g2d.drawString("Dropped files are take", xShift, yShift + (yPos * i++));
+        g2d.drawString("Dropped or loaded files are taken", xShift, yShift + (yPos * i++));
 
         g2d.drawString("2 ", 50, yShift + (yPos * i));
-        g2d.drawString("Mathematics", xShift, yShift + (yPos * i++));
+        g2d.drawString("1 x 1", xShift, yShift + (yPos * i++));
 
         g2d.drawString("↓", 50, yShift + (yPos * i));
         g2d.drawString("Next task", xShift, yShift + (yPos * i++));
@@ -572,7 +572,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("Show selected series (1 x 1 only)", xShift, yShift + (yPos * i++));
 
         g2d.drawString("L", 50, yShift + (yPos * i));
-        g2d.drawString("Limit mode no/off", xShift, yShift + (yPos * i++));
+        g2d.drawString("Limit mode no/off (1 x 1 only)", xShift, yShift + (yPos * i++));
 
         g2d.drawString("M", 50, yShift + (yPos * i));
         g2d.drawString("Hintergrundmusik on/off", xShift, yShift + (yPos * i++));
@@ -582,6 +582,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.drawString("S", 50, yShift + (yPos * i));
         g2d.drawString("Show statistics students", xShift, yShift + (yPos * i++));
+
+        g2d.drawString("O", 50, yShift + (yPos * i));
+        g2d.drawString("Open file", xShift, yShift + (yPos * i++));
 
         g2d.drawString("Q", 50, yShift + (yPos * i));
         g2d.drawString("Toggle play question", xShift, yShift + (yPos * i++));
@@ -595,6 +598,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.drawString("W", 50, yShift + (yPos * i));
         g2d.drawString("Toggle thinking/wolfram mode", xShift, yShift + (yPos * i++));
 
+        i++;
+
+        g2d.setColor(Color.GRAY);
         g2d.drawString("Z", 50, yShift + (yPos * i));
         g2d.drawString("Check if all names have sounds (developer only)", xShift, yShift + (yPos * i++));
 
