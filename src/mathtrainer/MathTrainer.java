@@ -7,6 +7,7 @@ package mathtrainer;
  sk_27db7a41af907eadeaa4aa21a3689d66112efd0cfd0f28f0
 
  */
+
 import MyTools.Make;
 import mratools.MTools;
 
@@ -20,6 +21,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.net.JarURLConnection;
 import java.net.URL;
+import java.nio.file.Path;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Timer;
@@ -97,7 +99,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage solutionLabel;
     private boolean wolframMode = true;
     private boolean countDownMode = true;
-    private String droppedFileName = "nothing dropped";
+    private static String droppedFileName = "nothing dropped";
     private boolean questionPlayed = false;
     private boolean playQuestion = false;
 
@@ -504,7 +506,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         g2d.drawString(str, 10, 26);
 
-        g2d.setColor(Color.yellow);
+        //g2d.setColor(Color.yellow);
         str = allTeams.get(actualTeam).getNumberTasks() + " Tasks";
         width = (int) metrics.getStringBounds(str, g2d).getWidth();
         int xShift = 10;
@@ -1289,6 +1291,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             case KeyEvent.VK_RIGHT -> handleWrong();
 
+            case KeyEvent.VK_F1 -> System.out.println("F1 F1 F1 F1");
+
             ///  34 = arrow down
             case KeyEvent.VK_DOWN, 34, KeyEvent.VK_SPACE -> {
                 if (handleNextTask()) {
@@ -1342,6 +1346,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             case KeyEvent.VK_M -> toggleMusicOnOff();
             case KeyEvent.VK_N -> drawAndPlayStudentName = !drawAndPlayStudentName;
+            case KeyEvent.VK_O -> loadFile();
             case KeyEvent.VK_Q -> playQuestion = !playQuestion;
             case KeyEvent.VK_S -> showStudentsPage();
             case KeyEvent.VK_X -> handleExperimental();
@@ -1370,6 +1375,20 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
         }
         display();
+    }
+
+    private static void loadFile() {
+
+        FileDialog dialog = new FileDialog(frame, "Select a file", FileDialog.LOAD); // LOAD or SAVE
+        dialog.setVisible(true);
+        String directory = dialog.getDirectory();
+        String file = dialog.getFile();
+        try {
+            droppedFileName = directory + file;
+            DropTask.readTasksFromFile(Path.of(directory + file));
+        } catch (IOException ex) {
+            throw new RuntimeException(ex);
+        }
     }
 
     private void loopColorScheme() {
@@ -1456,6 +1475,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             System.out.println("\nhandleDown() - beginning");
             beginning = false;
+
+            timer = new Timer();
+            resetTimerStart();
 
             if (taskCounter == 0 && !timeStartIsRested) {
 

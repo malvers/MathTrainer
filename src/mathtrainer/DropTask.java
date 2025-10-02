@@ -58,7 +58,7 @@ public class DropTask {
         }
     }
 
-    private void readTasksFromFile(Path path) throws IOException {
+    protected static void readTasksFromFile(Path path) throws IOException {
 
         List<String> lines = Files.readAllLines(path);
 
