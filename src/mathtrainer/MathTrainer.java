@@ -102,6 +102,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean playQuestion = false;
     private boolean nameLearning = false;
     private boolean showAllNames = true;
+    private BufferedImage smileyImage;
 
     public MathTrainer() {
 
@@ -941,20 +942,28 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         var localURL = getPhotoUrl(studentName);
 
+        if (localURL == null) {
+            localURL = getPhotoUrl("Smiley");
+        }
+
         if (localURL != null) {
+
+            int s = 120;
+            int y = getHeight() - yPos + 26;
+
+            if (nameLearning) {
+                s = 300;
+                y -= 480;
+            }
+            int x = (getWidth() - s) / 2;
+
+            BufferedImage img = null;
             try {
-                BufferedImage img = ImageIO.read(localURL);
-                int s = 120;
-                int y = getHeight() - yPos + 26;
+                img = ImageIO.read(localURL);
 
-                if (nameLearning) {
-                    s = 300;
-                    y -= 480;
+                if (img != null) {
+                    g2d.drawImage(img, x, y, s, s, null);
                 }
-                int x = (getWidth() - s) / 2;
-
-                g2d.drawImage(img, x, y, s, s, null);
-
             } catch (IOException e) {
                 System.err.println("image not found: " + localURL);
             }
