@@ -68,7 +68,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private long finalDeltaT;
 
     private final String settingsFileName = "MatheTrainer.binary.settings";
-//    private final String pinnedName = "";
 
     private boolean timeStartIsRested = false;
     protected boolean drawStudentsList = false;
@@ -102,6 +101,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean questionPlayed = false;
     private boolean playQuestion = false;
     private boolean nameLearning = false;
+    private boolean showAllNames = true;
 
     public MathTrainer() {
 
@@ -307,6 +307,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             os.writeObject(currendDirectory + currentFileName);
             os.writeBoolean(wolframMode);
             os.writeBoolean(nameLearning);
+            os.writeBoolean(showAllNames);
 
             os.close();
             f.close();
@@ -356,6 +357,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             wolframMode = in.readBoolean();
             nameLearning = in.readBoolean();
+            showAllNames = in.readBoolean();
 
             in.close();
             f.close();
@@ -412,11 +414,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         /// draw number students
         String str = allTeams.get(actualTeam).size() + " Students";
 
-//        if (!pinnedName.isEmpty()) {
-//            g2d.setColor(Color.RED);
-//            str = pinnedName;
-//        }
-
         FontMetrics metrics = g2d.getFontMetrics();
         int width;
         //g2d.drawString(str, (float) (getWidth() / 2.0 - width / 2.0), 26);
@@ -436,6 +433,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         if (!currentFileName.contains("nothing")) {
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
             String toRender = currentFileName.substring(currentFileName.lastIndexOf("/") + 1, currentFileName.indexOf('.'));
+            if (nameLearning) {
+                toRender = "Learning Names Mode";
+            }
             myDrawString(g2d, toRender, 80);
         }
 
@@ -596,9 +596,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             String name = team.get(i).name;
-//            if (name.contentEquals(pinnedName)) {
-//                g2d.setColor(Color.RED);
-//            }
             g2d.drawString(name, xIndent, yShift + factorDrawStudent * fontSizeStudent * i);
             int num = team.get(i).getNumberTasks();
             String str = "" + num;
@@ -635,6 +632,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
             toRender = currentFileName.substring(currentFileName.lastIndexOf("/") + 1, currentFileName.indexOf('.'));
+            if (nameLearning) {
+                toRender = "Learning Names Mode";
+            }
             myDrawString(g2d, toRender, 80);
         }
 
@@ -891,7 +891,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         metrics = g2d.getFontMetrics();
         studentName = allMathematicsTasks.get(taskCounter).name;
 
-        String lStr = studentName.substring(0, studentName.indexOf(" "));
+        String lStr = studentName;
+
+        if (!showAllNames) {
+            lStr = studentName.substring(0, studentName.indexOf(" "));
+        }
 
         sw = metrics.stringWidth(lStr);
         yPos = 220;
@@ -899,11 +903,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         drawStudentPhoto(g2d, studentName, yPos);
 
         if (drawAndPlayStudentName) {
-
-            g2d.setColor(Color.LIGHT_GRAY);
-//            if (!pinnedName.isEmpty()) {
-//                studentName = pinnedName;
-//            }
 
             if (isWindows) {
                 yPos += 50;
@@ -949,8 +948,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int y = getHeight() - yPos + 26;
 
                 if (nameLearning) {
-                    s = 320;
-                    y -= 500;
+                    s = 300;
+                    y -= 480;
                 }
                 int x = (getWidth() - s) / 2;
 
@@ -963,6 +962,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     private URL getPhotoUrl(String studentName) {
+
         String encodedName = encodeStudentName(studentName);
 
         for (URL url : photosURL) {
@@ -1951,6 +1951,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             case KeyEvent.VK_N -> {
                 if (e.isMetaDown()) {
                     nameLearning = !nameLearning;
+                } else if (e.isShiftDown()) {
+                    showAllNames = !showAllNames;
                 } else {
                     drawAndPlayStudentName = !drawAndPlayStudentName;
                 }
