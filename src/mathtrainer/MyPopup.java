@@ -19,7 +19,7 @@ public class MyPopup extends JPopupMenu {
     public MyPopup(MathTrainer mathTrainer) {
 
         helpingMenu.addActionListener(e -> {
-            mathTrainer.drawStudents = false;
+            mathTrainer.drawStudentsList = false;
             mathTrainer.drawSettings = false;
             mathTrainer.drawHelp = !mathTrainer.drawHelp;
             mathTrainer.repaint();

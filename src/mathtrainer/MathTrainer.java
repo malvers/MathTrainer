@@ -71,7 +71,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 //    private final String pinnedName = "";
 
     private boolean timeStartIsRested = false;
-    protected boolean drawStudents = false;
+    protected boolean drawStudentsList = false;
     private boolean showDuration = false;
     private boolean beginning = true;
     public boolean drawHelp = false;
@@ -163,7 +163,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         penalty = 0;
 
         showDuration = false;
-        drawStudents = false;
+        drawStudentsList = false;
         drawHelp = false;
         drawSettings = false;
 
@@ -299,7 +299,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             os.writeInt(taskType);
             os.writeInt(actualTeam);
             os.writeBoolean(countDownMode);
-            os.writeBoolean(drawStudents);
+            os.writeBoolean(drawStudentsList);
 
             if (currendDirectory == null) {
                 currendDirectory = "";
@@ -346,7 +346,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             actualTeam = in.readInt();
             countDownMode = in.readBoolean();
-            drawStudents = in.readBoolean();
+            drawStudentsList = in.readBoolean();
 
             currentFileName = lastFileProcessed = (String) in.readObject();
 
@@ -642,7 +642,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         /// question and answer
 
-        if(nameLearning) return;
+        if (nameLearning) {
+            return;
+        }
 
         g2d.setFont(new Font("Arial", Font.PLAIN, fontSizeNumbers));
 
@@ -894,7 +896,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         sw = metrics.stringWidth(lStr);
         yPos = 220;
 
-        drawStudenPhoto(g2d, studentName, yPos);
+        drawStudentPhoto(g2d, studentName, yPos);
 
         if (drawAndPlayStudentName) {
 
@@ -936,7 +938,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    private void drawStudenPhoto(Graphics2D g2d, String studentName, int yPos) {
+    private void drawStudentPhoto(Graphics2D g2d, String studentName, int yPos) {
 
         var localURL = getPhotoUrl(studentName);
 
@@ -946,45 +948,59 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 int s = 120;
                 int y = getHeight() - yPos + 26;
 
-                if(nameLearning) {
-                    s = 360;
-                    y -= 520;
+                if (nameLearning) {
+                    s = 320;
+                    y -= 500;
                 }
                 int x = (getWidth() - s) / 2;
 
                 g2d.drawImage(img, x, y, s, s, null);
 
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                System.err.println("image not found: " + localURL);
             }
         }
     }
 
     private URL getPhotoUrl(String studentName) {
-
-        URL localURL = null;
-        boolean found = false;
+        String encodedName = encodeStudentName(studentName);
 
         for (URL url : photosURL) {
+            String path = url.getPath().toLowerCase();
 
-            localURL = url;
+            // Try multiple matching strategies
+            boolean matches = path.contains(encodedName.toLowerCase()) ||
+                    path.contains(studentName.toLowerCase()) ||
+                    getFilenameWithoutExtension(path).equalsIgnoreCase(studentName) ||
+                    getFilenameWithoutExtension(path).equalsIgnoreCase(encodedName);
 
-            String str = studentName.replace(" ", "%20");
-            str = str.replace("Á", "A");
-
-//            System.out.println("str:   " + str);
-//            System.out.println("URL:   " + localURL.getPath());
-
-            if (localURL.getPath().contains(str)) {
-//                System.out.println("found: " + str);
-                found = true;
-                break;
+            if (matches) {
+                return url;
             }
         }
-        if (!found) {
-            localURL = null;//smileyURL;
+        return null;
+    }
+
+    private String getFilenameWithoutExtension(String path) {
+        String filename = path.substring(path.lastIndexOf("/") + 1);
+        return filename.replaceFirst("\\.[^.]+$", "");
+    }
+
+    public static String encodeStudentName(String studentName) {
+        if (studentName == null) {
+            return null;
         }
-        return localURL;
+
+        return studentName
+                .replace("ö", "%C3%B6")
+                .replace("Ö", "%C3%96")
+                .replace("ä", "%C3%A4")
+                .replace("Ä", "%C3%84")
+                .replace("ü", "%C3%BC")
+                .replace("Ü", "%C3%9C")
+                .replace("ß", "%C3%9F")
+                .replace(" ", "%20")
+                .replace("Á", "A");
     }
 
     private void drawSchoolIsCool(Graphics2D g2d, ColorSheme cs, int xPos) {
@@ -1163,7 +1179,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     void showSettingsPage() {
         drawHelp = false;
-        drawStudents = false;
+        drawStudentsList = false;
         drawSettings = !drawSettings;
         repaint();
     }
@@ -1171,7 +1187,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     void showStudentsPage() {
         drawSettings = false;
         drawHelp = false;
-        drawStudents = !drawStudents;
+        drawStudentsList = !drawStudentsList;
         repaint();
     }
 
@@ -1206,7 +1222,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void handleEscape() {
 
-        drawStudents = false;
+        drawStudentsList = false;
         drawSettings = false;
         beginning = false;
 //        initAllTasks(true);
@@ -1215,7 +1231,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private boolean handleNextTask() {
 
         drawSettings = false;
-        drawStudents = false;
+        drawStudentsList = false;
         drawHelp = false;
 
         if (currentFileName.contains("nothing dropped")) {
@@ -1365,7 +1381,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
     private void handleWrong() {
 
-        if (drawStudents && drawSettings) {
+        if (drawStudentsList && drawSettings) {
             return;
         }
         penalty += countDownFrom;
@@ -1467,7 +1483,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             String photoName = photoNames.get(counter);
 
-            //System.out.println("photo: " + photoName);
+            System.out.println("photo: " + photoName);
 
             URL imageUrl = getClass().getResource("/photos" + "/" + photoName);
             photosURL.add(imageUrl);
@@ -1724,7 +1740,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        if (drawStudents) {
+        if (drawStudentsList) {
             drawStudentsList(g2d, cs);
             drawTeamAndNumberTasks(g2d);
             return;
@@ -1767,7 +1783,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             return;
         }
 
-        if (drawStudents) {
+        if (drawStudentsList) {
             Team team = allTeams.get(actualTeam);
             int yShift = 80;
             int yPos = e.getY();
@@ -1923,7 +1939,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             case KeyEvent.VK_E -> showSettingsPage();
             case KeyEvent.VK_H -> {
-                drawStudents = false;
+                drawStudentsList = false;
                 drawSettings = false;
                 drawHelp = !drawHelp;
             }
