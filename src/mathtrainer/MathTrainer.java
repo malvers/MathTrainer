@@ -68,7 +68,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private long finalDeltaT;
 
     private final String settingsFileName = "MatheTrainer.binary.settings";
-    private String pinnedName = "";
+//    private final String pinnedName = "";
 
     private boolean timeStartIsRested = false;
     protected boolean drawStudents = false;
@@ -98,7 +98,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     private BufferedImage solutionLabel;
     private boolean wolframMode = true;
     private boolean countDownMode = true;
-    private String currendFileName = "nothing dropped";
+    private String currentFileName = "nothing dropped";
     private boolean questionPlayed = false;
     private boolean playQuestion = false;
     private boolean nameLearning = false;
@@ -304,7 +304,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             if (currendDirectory == null) {
                 currendDirectory = "";
             }
-            os.writeObject(currendDirectory + currendFileName);
+            os.writeObject(currendDirectory + currentFileName);
             os.writeBoolean(wolframMode);
             os.writeBoolean(nameLearning);
 
@@ -348,11 +348,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             countDownMode = in.readBoolean();
             drawStudents = in.readBoolean();
 
-            currendFileName = lastFileProcessed = (String) in.readObject();
+            currentFileName = lastFileProcessed = (String) in.readObject();
 
-            System.out.println("cfn: " + currendFileName);
+            System.out.println("cfn: " + currentFileName);
 
-            DropTask.readTasksFromFile(Path.of(currendFileName));
+            DropTask.readTasksFromFile(Path.of(currentFileName));
 
             wolframMode = in.readBoolean();
             nameLearning = in.readBoolean();
@@ -385,81 +385,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    @Override
-    public int getHeight() {
-        return frame.getHeight();
-    }
-
-    @Override
-    public int getWidth() {
-        return frame.getWidth();
-    }
-
-    @Override
-    public void paint(Graphics g) {
-
-        Graphics2D g2d = (Graphics2D) g;
-
-        ColorSheme cs = allColorSchemes.get(colorSchemeId);
-
-        if (backgroundImage != null) {
-            float scWidth = (float) this.getWidth() / (float) backgroundImage.getWidth();
-            float scHeight = (float) this.getHeight() / (float) backgroundImage.getHeight();
-            if (scWidth < scHeight) {
-                g2d.drawImage(backgroundImage, 0, 0, (int) (backgroundImage.getWidth() * scHeight), (int) (backgroundImage.getHeight() * scHeight), this);
-            } else {
-                g2d.drawImage(backgroundImage, 0, 0, (int) (backgroundImage.getWidth() * scWidth), (int) (backgroundImage.getHeight() * scWidth), this);
-            }
-
-            if (beginning) {
-                g2d.setColor(ColorSheme.darkBlue);
-                g2d.fillRect(0, 0, getWidth(), getHeight());
-            } else {
-                drawTransparentCover(g2d);
-            }
-        }
-
-        g2d.setColor(cs.fgLight);
-        g2d.setColor(cs.fgDark);
-
-        drawTeamAndNumberTasks(g2d);
-
-        if (drawHelp) {
-            drawHelp(g2d, cs);
-            return;
-        }
-
-        if (drawSettings) {
-            drawSettings(g2d, cs);
-            return;
-        }
-
-        if (drawStudents) {
-            drawStudentsList(g2d, cs);
-            drawTeamAndNumberTasks(g2d);
-            return;
-        }
-
-        if (showDuration) {
-            drawDurationAtTheEnd(g2d, getWidth() / 2, cs);
-            return;
-        }
-
-        if (taskType == TaskTypes.MATHEMATICS) {
-            drawMathOperations(g2d, cs);
-        }
-
-        if (drawTask) {
-            drawTasks(g2d, cs);
-        }
-
-        if (!beginning) {
-            drawRunningTime(g2d, getWidth() / 2, cs);
-        }
-
-        drawLaTexLabel(g2d);
-    }
-
     private void drawLaTexLabel(Graphics2D g2d) {
         if (laTeXLabel == null) {
             return;
@@ -487,10 +412,10 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         /// draw number students
         String str = allTeams.get(actualTeam).size() + " Students";
 
-        if (!pinnedName.isEmpty()) {
-            g2d.setColor(Color.RED);
-            str = pinnedName;
-        }
+//        if (!pinnedName.isEmpty()) {
+//            g2d.setColor(Color.RED);
+//            str = pinnedName;
+//        }
 
         FontMetrics metrics = g2d.getFontMetrics();
         int width;
@@ -508,9 +433,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             g2d.setColor(sc);
         }
 
-        if (!currendFileName.contains("nothing")) {
+        if (!currentFileName.contains("nothing")) {
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            String toRender = currendFileName.substring(currendFileName.lastIndexOf("/") + 1, currendFileName.indexOf('.'));
+            String toRender = currentFileName.substring(currentFileName.lastIndexOf("/") + 1, currentFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
@@ -671,9 +596,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
 
             String name = team.get(i).name;
-            if (name.contentEquals(pinnedName)) {
-                g2d.setColor(Color.RED);
-            }
+//            if (name.contentEquals(pinnedName)) {
+//                g2d.setColor(Color.RED);
+//            }
             g2d.drawString(name, xIndent, yShift + factorDrawStudent * fontSizeStudent * i);
             int num = team.get(i).getNumberTasks();
             String str = "" + num;
@@ -705,11 +630,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         String toRender;
 
         if (taskType == TaskTypes.DROPPED) {
-            if (currendFileName.contains("nothing dropped")) {
+            if (currentFileName.contains("nothing dropped")) {
                 return;
             }
             g2d.setFont(new Font("Arial", Font.PLAIN, 16));
-            toRender = currendFileName.substring(currendFileName.lastIndexOf("/") + 1, currendFileName.indexOf('.'));
+            toRender = currentFileName.substring(currentFileName.lastIndexOf("/") + 1, currentFileName.indexOf('.'));
             myDrawString(g2d, toRender, 80);
         }
 
@@ -963,29 +888,33 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         metrics = g2d.getFontMetrics();
         studentName = allMathematicsTasks.get(taskCounter).name;
-        sw = metrics.stringWidth(studentName);
+
+        String lStr = studentName.substring(0, studentName.indexOf(" "));
+
+        sw = metrics.stringWidth(lStr);
         yPos = 220;
+
         drawStudenPhoto(g2d, studentName, yPos);
 
         if (drawAndPlayStudentName) {
 
             g2d.setColor(Color.LIGHT_GRAY);
-            if (!pinnedName.isEmpty()) {
-                studentName = pinnedName;
-            }
+//            if (!pinnedName.isEmpty()) {
+//                studentName = pinnedName;
+//            }
 
             if (isWindows) {
                 yPos += 50;
             }
 
-            g2d.drawString(studentName, xPos - (sw / 2), getHeight() - yPos);
+            g2d.drawString(lStr, xPos - (sw / 2), getHeight() - yPos);
 
             /// draw count down
 
-            studentName = "" + countDownCounter;
+            lStr = "" + countDownCounter;
             g2d.setFont(new Font("Arial", Font.PLAIN, 50));
             metrics = g2d.getFontMetrics();
-            sw = metrics.stringWidth(studentName);
+            sw = metrics.stringWidth(lStr);
             if (countDownCounter > -1) {
                 int rw = 68;
                 g2d.setColor(Color.CYAN.darker());
@@ -1002,7 +931,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 }
 
                 g2d.drawRect(getWidth() / 2 - rw / 2 + 1, getHeight() - yPos - rw / 2 - 19, rw, rw);
-                g2d.drawString(studentName, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
+                g2d.drawString(lStr, (float) getWidth() / 2.0f - (float) sw / 2.0f, getHeight() - yPos);
             }
         }
     }
@@ -1197,226 +1126,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         repaint();
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-    }
-
-    @Override
-    public void mousePressed(MouseEvent e) {
-
-        if (SwingUtilities.isRightMouseButton(e)) {
-            mathtrainer.MyPopup pop = new mathtrainer.MyPopup(this);
-            pop.show(this, e.getX(), e.getY());
-            return;
-        }
-
-        if (handleOperationToggling(e)) {
-            return;
-        }
-
-        if (drawStudents) {
-            Team team = allTeams.get(actualTeam);
-            int yShift = 80;
-            int yPos = e.getY();
-
-            // Find the closest student regardless of exact bounds
-            int closestStudent = -1;
-            double minDistance = Double.MAX_VALUE;
-
-            for (int i = 0; i < team.size(); i++) {
-                double studentY = yShift + factorDrawStudent * fontSizeStudent * i;
-                double distance = Math.abs(yPos - studentY);
-
-                // If this student is closer and within reasonable range
-                if (distance < minDistance && distance < fontSizeStudent * 1.5) {
-                    minDistance = distance;
-                    closestStudent = i;
-                }
-            }
-
-            if (closestStudent != -1) {
-                team.get(closestStudent).present = !team.get(closestStudent).present;
-                repaint();
-            } else {
-                System.out.println("No student found for click Y: " + yPos);
-            }
-
-        } else if (drawSettings) {
-
-            double yPos = e.getY();
-            int id = (int) ((yPos - (fontSizeStudent)) / (factorDrawStudent * fontSizeStudent));
-
-            if (id + 2 < series.size()) {
-                series.set(id + 2, !series.get(id + 2));
-            }
-            repaint();
-        }
-    }
-
-    private boolean handleOperationToggling(MouseEvent e) {
-
-        int xPos = e.getX();
-        int yPos = e.getY();
-        if (yPos < getHeight() - 100) {
-            return false;
-        }
-
-        int xInc = 38;
-        int xStart = 0;
-
-        if (xPos < xInc) {
-            System.out.println(" + ");
-            Operations.toggleOperationOnOff(Operations.plus);
-            initAllTasks();
-            repaint();
-            return true;
-        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
-            System.out.println(" - ");
-            Operations.toggleOperationOnOff(Operations.minus);
-            initAllTasks();
-            repaint();
-            return true;
-        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
-            System.out.println(" X ");
-            Operations.toggleOperationOnOff(Operations.multiply);
-            initAllTasks();
-            repaint();
-            return true;
-        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
-            Operations.toggleOperationOnOff(Operations.divide);
-            System.out.println(" : ");
-            initAllTasks();
-            repaint();
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-        requestFocus();
-        repaint();
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
-    }
-
-    @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
-
-    @Override
-    public void keyPressed(KeyEvent e) {
-
-//        System.out.println("key: " + e.getKeyCode() + " shift: " + e.isShiftDown());
-
-        switch (e.getKeyCode()) {
-
-            case KeyEvent.VK_ESCAPE -> handleEscape();
-
-            case KeyEvent.VK_RIGHT -> handleWrong();
-
-            case KeyEvent.VK_F1 -> System.out.println("F1 F1 F1 F1");
-
-            ///  34 = arrow down
-            case KeyEvent.VK_DOWN, 34, KeyEvent.VK_SPACE -> {
-                if (handleNextTask()) {
-                    return;
-                }
-            }
-            // 93 = PLUS
-            case 93 -> {
-                if (e.isShiftDown()) {
-                    fontSizeNumbers += 5;
-                } else {
-                    numberTasksPerStudent++;
-                    initAllTasks();
-                }
-            }
-            // 47 = bMINUS
-            case 47 -> {
-                if (e.isShiftDown()) {
-                    fontSizeNumbers -= 5;
-                } else {
-                    numberTasksPerStudent--;
-                    if (numberTasksPerStudent < 3) {
-                        numberTasksPerStudent = 3;
-                    }
-                    initAllTasks();
-                }
-            }
-
-            case KeyEvent.VK_0 -> loopColorScheme();
-
-            case KeyEvent.VK_1 -> setTaskType(TaskTypes.MATHEMATICS);
-            case KeyEvent.VK_2 -> setTaskType(TaskTypes.DROPPED);
-
-            case KeyEvent.VK_A -> drawTask = !drawTask;
-            case KeyEvent.VK_B -> initBeginning();
-            case KeyEvent.VK_C -> countDownMode = !countDownMode;
-            case KeyEvent.VK_D -> {
-                if (e.isMetaDown()) {
-                    debugMode = !debugMode;
-                }
-            }
-            case KeyEvent.VK_E -> showSettingsPage();
-            case KeyEvent.VK_H -> {
-                drawStudents = false;
-                drawSettings = false;
-                drawHelp = !drawHelp;
-            }
-            case KeyEvent.VK_L -> {
-                limitedToSelectedSeries = !limitedToSelectedSeries;
-                initAllTasks();
-            }
-            case KeyEvent.VK_M -> toggleMusicOnOff();
-            case KeyEvent.VK_N -> {
-                if (e.isMetaDown()) {
-                    nameLearning = !nameLearning;
-                } else {
-                    drawAndPlayStudentName = !drawAndPlayStudentName;
-                }
-            }
-            case KeyEvent.VK_O -> loadFile();
-            case KeyEvent.VK_Q -> playQuestion = !playQuestion;
-            case KeyEvent.VK_S -> showStudentsPage();
-            case KeyEvent.VK_X -> handleExperimental();
-            case KeyEvent.VK_T -> {
-                if (e.isShiftDown()) {
-                    transparency -= 0.1F;
-                } else {
-                    transparency += 0.1F;
-                }
-                System.out.println("transparency: " + transparency);
-            }
-            case KeyEvent.VK_W -> wolframMode = !wolframMode;
-            case KeyEvent.VK_V -> {
-                if (e.isShiftDown()) {
-                    soundVolume += 0.1f;
-                } else {
-                    soundVolume -= 0.1f;
-                }
-                soundVolume = Math.max(0.1f, Math.min(1.0f, soundVolume));
-                System.out.println("soundVolume: " + soundVolume);
-                setVolume();
-            }
-            case KeyEvent.VK_Z -> soundCheck();
-
-            default -> {
-            }
-        }
-        display();
-    }
-
     private void loadFile() {
 
         FileDialog dialog = new FileDialog(frame, "Select a file", FileDialog.LOAD); // LOAD or SAVE
@@ -1424,7 +1133,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         currendDirectory = dialog.getDirectory();
         String file = dialog.getFile();
         try {
-            lastFileProcessed = currendFileName = file;
+            lastFileProcessed = currentFileName = file;
             DropTask.readTasksFromFile(Path.of(currendDirectory + file));
         } catch (IOException ex) {
             throw new RuntimeException(ex);
@@ -1509,7 +1218,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         drawStudents = false;
         drawHelp = false;
 
-        if (currendFileName.contains("nothing dropped")) {
+        if (currentFileName.contains("nothing dropped")) {
             return false;
         }
 
@@ -1572,7 +1281,9 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             setImageForTask();
             if (drawAndPlayStudentName) {
-                setAndPlaySound(allMathematicsTasks.get(taskCounter).name);
+                String name = allMathematicsTasks.get(taskCounter).name;
+                name = name.substring(0, name.indexOf(" "));
+                setAndPlaySound(name);
             }
 
         } else {
@@ -1844,11 +1555,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         timerStart = System.currentTimeMillis();
     }
 
-    @Override
-    public void keyReleased(KeyEvent e) {
-
-    }
-
     private static void setAndPlaySound(String name) {
 
         try {
@@ -1946,15 +1652,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
     }
 
-    @Override
-    public void mouseDragged(MouseEvent e) {
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
     public int getTaskType() {
         return taskType;
     }
@@ -1976,6 +1673,316 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         drawAndPlayStudentName = !drawAndPlayStudentName;
     }
 
+    ///  overwrites ///////////////////////////////////////////////////////////
+
+    @Override
+    public int getHeight() {
+        return frame.getHeight();
+    }
+
+    @Override
+    public int getWidth() {
+        return frame.getWidth();
+    }
+
+    @Override
+    public void paint(Graphics g) {
+
+        Graphics2D g2d = (Graphics2D) g;
+
+        ColorSheme cs = allColorSchemes.get(colorSchemeId);
+
+        if (backgroundImage != null) {
+            float scWidth = (float) this.getWidth() / (float) backgroundImage.getWidth();
+            float scHeight = (float) this.getHeight() / (float) backgroundImage.getHeight();
+            if (scWidth < scHeight) {
+                g2d.drawImage(backgroundImage, 0, 0, (int) (backgroundImage.getWidth() * scHeight), (int) (backgroundImage.getHeight() * scHeight), this);
+            } else {
+                g2d.drawImage(backgroundImage, 0, 0, (int) (backgroundImage.getWidth() * scWidth), (int) (backgroundImage.getHeight() * scWidth), this);
+            }
+
+            if (beginning) {
+                g2d.setColor(ColorSheme.darkBlue);
+                g2d.fillRect(0, 0, getWidth(), getHeight());
+            } else {
+                drawTransparentCover(g2d);
+            }
+        }
+
+        g2d.setColor(cs.fgLight);
+        g2d.setColor(cs.fgDark);
+
+        drawTeamAndNumberTasks(g2d);
+
+        if (drawHelp) {
+            drawHelp(g2d, cs);
+            return;
+        }
+
+        if (drawSettings) {
+            drawSettings(g2d, cs);
+            return;
+        }
+
+        if (drawStudents) {
+            drawStudentsList(g2d, cs);
+            drawTeamAndNumberTasks(g2d);
+            return;
+        }
+
+        if (showDuration) {
+            drawDurationAtTheEnd(g2d, getWidth() / 2, cs);
+            return;
+        }
+
+        if (taskType == TaskTypes.MATHEMATICS) {
+            drawMathOperations(g2d, cs);
+        }
+
+        if (drawTask) {
+            drawTasks(g2d, cs);
+        }
+
+        if (!beginning) {
+            drawRunningTime(g2d, getWidth() / 2, cs);
+        }
+
+        drawLaTexLabel(g2d);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+
+        if (SwingUtilities.isRightMouseButton(e)) {
+            mathtrainer.MyPopup pop = new mathtrainer.MyPopup(this);
+            pop.show(this, e.getX(), e.getY());
+            return;
+        }
+
+        if (handleOperationToggling(e)) {
+            return;
+        }
+
+        if (drawStudents) {
+            Team team = allTeams.get(actualTeam);
+            int yShift = 80;
+            int yPos = e.getY();
+
+            // Find the closest student regardless of exact bounds
+            int closestStudent = -1;
+            double minDistance = Double.MAX_VALUE;
+
+            for (int i = 0; i < team.size(); i++) {
+                double studentY = yShift + factorDrawStudent * fontSizeStudent * i;
+                double distance = Math.abs(yPos - studentY);
+
+                // If this student is closer and within reasonable range
+                if (distance < minDistance && distance < fontSizeStudent * 1.5) {
+                    minDistance = distance;
+                    closestStudent = i;
+                }
+            }
+
+            if (closestStudent != -1) {
+                team.get(closestStudent).present = !team.get(closestStudent).present;
+                repaint();
+            } else {
+                System.out.println("No student found for click Y: " + yPos);
+            }
+
+        } else if (drawSettings) {
+
+            double yPos = e.getY();
+            int id = (int) ((yPos - (fontSizeStudent)) / (factorDrawStudent * fontSizeStudent));
+
+            if (id + 2 < series.size()) {
+                series.set(id + 2, !series.get(id + 2));
+            }
+            repaint();
+        }
+    }
+
+    private boolean handleOperationToggling(MouseEvent e) {
+
+        int xPos = e.getX();
+        int yPos = e.getY();
+        if (yPos < getHeight() - 100) {
+            return false;
+        }
+
+        int xInc = 38;
+        int xStart = 0;
+
+        if (xPos < xInc) {
+            System.out.println(" + ");
+            Operations.toggleOperationOnOff(Operations.plus);
+            initAllTasks();
+            repaint();
+            return true;
+        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
+            System.out.println(" - ");
+            Operations.toggleOperationOnOff(Operations.minus);
+            initAllTasks();
+            repaint();
+            return true;
+        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
+            System.out.println(" X ");
+            Operations.toggleOperationOnOff(Operations.multiply);
+            initAllTasks();
+            repaint();
+            return true;
+        } else if (xPos > (xStart += xInc) && xPos < (xStart + xInc)) {
+            Operations.toggleOperationOnOff(Operations.divide);
+            System.out.println(" : ");
+            initAllTasks();
+            repaint();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+        requestFocus();
+        repaint();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+//        System.out.println("key: " + e.getKeyCode() + " shift: " + e.isShiftDown());
+
+        switch (e.getKeyCode()) {
+
+            case KeyEvent.VK_ESCAPE -> handleEscape();
+
+            case KeyEvent.VK_RIGHT -> handleWrong();
+
+            case KeyEvent.VK_F1 -> System.out.println("F1 F1 F1 F1");
+
+            ///  34 = arrow down
+            case KeyEvent.VK_DOWN, 34, KeyEvent.VK_SPACE -> {
+                if (handleNextTask()) {
+                    return;
+                }
+            }
+            // 93 = PLUS
+            case 93 -> {
+                if (e.isShiftDown()) {
+                    fontSizeNumbers += 5;
+                } else {
+                    numberTasksPerStudent++;
+                    initAllTasks();
+                }
+            }
+            // 47 = bMINUS
+            case 47 -> {
+                if (e.isShiftDown()) {
+                    fontSizeNumbers -= 5;
+                } else {
+                    numberTasksPerStudent--;
+                    if (numberTasksPerStudent < 3) {
+                        numberTasksPerStudent = 3;
+                    }
+                    initAllTasks();
+                }
+            }
+
+            case KeyEvent.VK_0 -> loopColorScheme();
+
+            case KeyEvent.VK_1 -> setTaskType(TaskTypes.MATHEMATICS);
+            case KeyEvent.VK_2 -> setTaskType(TaskTypes.DROPPED);
+
+            case KeyEvent.VK_A -> drawTask = !drawTask;
+            case KeyEvent.VK_B -> initBeginning();
+            case KeyEvent.VK_C -> countDownMode = !countDownMode;
+            case KeyEvent.VK_D -> {
+                if (e.isMetaDown()) {
+                    debugMode = !debugMode;
+                }
+            }
+            case KeyEvent.VK_E -> showSettingsPage();
+            case KeyEvent.VK_H -> {
+                drawStudents = false;
+                drawSettings = false;
+                drawHelp = !drawHelp;
+            }
+            case KeyEvent.VK_L -> {
+                limitedToSelectedSeries = !limitedToSelectedSeries;
+                initAllTasks();
+            }
+            case KeyEvent.VK_M -> toggleMusicOnOff();
+            case KeyEvent.VK_N -> {
+                if (e.isMetaDown()) {
+                    nameLearning = !nameLearning;
+                } else {
+                    drawAndPlayStudentName = !drawAndPlayStudentName;
+                }
+            }
+            case KeyEvent.VK_O -> loadFile();
+            case KeyEvent.VK_Q -> playQuestion = !playQuestion;
+            case KeyEvent.VK_S -> showStudentsPage();
+            case KeyEvent.VK_X -> handleExperimental();
+            case KeyEvent.VK_T -> {
+                if (e.isShiftDown()) {
+                    transparency -= 0.1F;
+                } else {
+                    transparency += 0.1F;
+                }
+                System.out.println("transparency: " + transparency);
+            }
+            case KeyEvent.VK_W -> wolframMode = !wolframMode;
+            case KeyEvent.VK_V -> {
+                if (e.isShiftDown()) {
+                    soundVolume += 0.1f;
+                } else {
+                    soundVolume -= 0.1f;
+                }
+                soundVolume = Math.max(0.1f, Math.min(1.0f, soundVolume));
+                System.out.println("soundVolume: " + soundVolume);
+                setVolume();
+            }
+            case KeyEvent.VK_Z -> soundCheck();
+
+            default -> {
+            }
+        }
+        display();
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+
+    }
+
+    @Override
+    public void mouseDragged(MouseEvent e) {
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+
+    }
 
     /// main for testing ///////////////////////////////////////////////
 
@@ -2000,6 +2007,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     public void setDroppedFileName(String name) {
-        currendFileName = name;
+        currentFileName = name;
     }
 }
