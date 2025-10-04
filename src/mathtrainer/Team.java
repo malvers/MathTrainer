@@ -63,7 +63,7 @@ public class Team extends ArrayList<OneStudent> {
         int sum = 0;
         for (int i = 0; i < size(); i++) {
             OneStudent oneStudent = getStudent(i);
-            if (oneStudent.anwesend) {
+            if (oneStudent.present) {
                 sum += oneStudent.getNumberTasks();
             }
         }

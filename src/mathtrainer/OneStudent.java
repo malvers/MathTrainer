@@ -15,12 +15,12 @@ public class OneStudent {
 
     private int numberTasks;
     int numberRightSolutions;
-    boolean anwesend = true;
+    boolean present = true;
 
     public OneStudent(String nameIn) {
         name = nameIn;
         if (nameIn.contentEquals("Michael")) {
-            anwesend = false;
+            present = false;
         }
         numberTasks = 0;
         numberRightSolutions = 0;
