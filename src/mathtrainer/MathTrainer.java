@@ -1641,6 +1641,11 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 if (soundUrl == null) {
                     System.out.println("❌ GoogleTTS file not found: " + resource);
                     String out = "resources" + resource; // This becomes "resources/sound/name.wav"
+
+                    if (student.name.contains("Ryk")) {
+                        student.name = student.name.replace("Ryk", "Reik");
+                    }
+
                     boolean b = GoogleTTS.ttsWAV(student.name, "de-DE", out);
                     if (b) {
                         System.out.println("✅ GoogleTTS sound created successfully 🎵");
