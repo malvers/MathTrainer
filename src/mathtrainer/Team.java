@@ -52,10 +52,12 @@ public class Team extends ArrayList<OneStudent> {
     }
 
     private void initTeamId() {
-        teamsString = new String[3]; // adjust if person is added
-        teamsString[0] = "Alvers";
-        teamsString[1] = "Wischnewski";
-        teamsString[2] = "Cool";
+        teamsString = new String[5]; // adjust if person is added
+        teamsString[0] = "Michael";
+        teamsString[1] = "Magdalena";
+        teamsString[2] = "Hannah";
+        teamsString[3] = "Maria";
+        teamsString[4] = "Tibor";
     }
 
     public int getNumberTasks() {

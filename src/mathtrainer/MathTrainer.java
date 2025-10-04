@@ -123,7 +123,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         Runtime.getRuntime().addShutdownHook(t);
 
-        actualTeam = Teachers.ALVERS;
+        actualTeam = Teachers.MICHAEL;
 
         readSettings();
 
@@ -1492,7 +1492,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
             String photoName = photoNames.get(counter);
 
-            System.out.println("photo: " + photoName);
+//            System.out.println("photo: " + photoName);
 
             URL imageUrl = getClass().getResource("/photos" + "/" + photoName);
             photosURL.add(imageUrl);

@@ -12,9 +12,11 @@ public class MyPopup extends JPopupMenu {
     JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
-    JRadioButton alvers = new JRadioButton("Team Dr. Alvers");
-    JRadioButton wischnewski = new JRadioButton("Team Ms. Wischnewski");
-    JRadioButton michel = new JRadioButton("Team Flexi");
+    JRadioButton michael = new JRadioButton("Team Michael");
+    JRadioButton tibor = new JRadioButton("Team Tibor");
+    JRadioButton magdalena = new JRadioButton("Team Magdalena");
+    JRadioButton hannah = new JRadioButton("Team Hannah");
+    JRadioButton maria = new JRadioButton("Team Maria");
 
     public MyPopup(MathTrainer mathTrainer) {
 
@@ -28,23 +30,31 @@ public class MyPopup extends JPopupMenu {
         newGameMenu.addActionListener(e -> mathTrainer.initBeginning());
         newGameMenu.addActionListener(e -> mathTrainer.toggleCountDownOn());
 
-        /// Teacher
-        alvers.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.ALVERS);
+        /// TEAM
+        michael.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.MICHAEL);
             //sleep();
             this.setVisible(false); // ← Close popup after selection
         });
-        wischnewski.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.WISCHNEWSKI);
-            //sleep();
+        magdalena.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.MAGDALENA);
             this.setVisible(false);
         });
-        michel.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.MICHEL);
-            //sleep();
+        hannah.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.HANNAH);
             this.setVisible(false);
         });
-        /// end Teacher
+
+        maria.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.MARIA);
+            this.setVisible(false);
+        });
+
+        tibor.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.TIBOR);
+            this.setVisible(false);
+        });
+        /// end TEAM
 
         ButtonGroup subjects = new ButtonGroup();
         subjects.add(matheMenu);
@@ -68,15 +78,19 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         ButtonGroup teacher = new ButtonGroup();
-        teacher.add(alvers);
-        teacher.add(wischnewski);
-        teacher.add(michel);
+        teacher.add(michael);
+        teacher.add(tibor);
+        teacher.add(magdalena);
+        teacher.add(hannah);
+        teacher.add(maria);
 
         selectActiveTeam(mathTrainer.actualTeam);
 
-        add(alvers);
-        add(wischnewski);
-        add(michel);
+        add(michael);
+        add(tibor);
+        add(magdalena);
+        add(hannah);
+        add(maria);
 
         add(new Separator());
 
@@ -112,12 +126,16 @@ public class MyPopup extends JPopupMenu {
 
     private void selectActiveTeam(int actualTeam) {
 
-        if (actualTeam == Teachers.ALVERS) {
-            alvers.setSelected(true);
-        } else if (actualTeam == Teachers.WISCHNEWSKI) {
-            wischnewski.setSelected(true);
-        } else if (actualTeam == Teachers.MICHEL) {
-            michel.setSelected(true);
+        if (actualTeam == Teachers.MICHAEL) {
+            michael.setSelected(true);
+        } else if (actualTeam == Teachers.MAGDALENA) {
+            magdalena.setSelected(true);
+        } else if (actualTeam == Teachers.HANNAH) {
+            hannah.setSelected(true);
+        } else if (actualTeam == Teachers.MARIA) {
+            maria.setSelected(true);
+        } else if (actualTeam == Teachers.TIBOR) {
+            tibor.setSelected(true);
         }
     }
 }
