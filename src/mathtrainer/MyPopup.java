@@ -12,14 +12,14 @@ public class MyPopup extends JPopupMenu {
     JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
-    JRadioButton fivea = new JRadioButton(Teams.getTeamName(Teams.FIVEA));
-    JRadioButton fiveb = new JRadioButton(Teams.getTeamName(Teams.LAURA_MICHEL));
-    JRadioButton sixb = new JRadioButton(Teams.getTeamName(Teams.SIXB));
+    JRadioButton julialaura = new JRadioButton(Teams.getTeamName(Teams.JULIA_LAURA));
+    JRadioButton laramichel = new JRadioButton(Teams.getTeamName(Teams.LAURA_MICHEL));
+    JRadioButton lauramassari = new JRadioButton(Teams.getTeamName(Teams.LAURA_MASSARI));
     JRadioButton michael = new JRadioButton(Teams.getTeamName(Teams.MICHAEL));
     JRadioButton tibor = new JRadioButton(Teams.getTeamName(Teams.TIBOR));
     JRadioButton magdalena = new JRadioButton(Teams.getTeamName(Teams.MAGDALENA));
-    JRadioButton hannah = new JRadioButton(Teams.getTeamName(Teams.HANNAH));
-    JRadioButton maria = new JRadioButton(Teams.getTeamName(Teams.MARIA));
+    JRadioButton luiseleon = new JRadioButton(Teams.getTeamName(Teams.LUISE_LEON));
+    JRadioButton marinaevgenija = new JRadioButton(Teams.getTeamName(Teams.MARINA_EVGENIJA));
 
     public MyPopup(MathTrainer mathTrainer) {
 
@@ -43,13 +43,13 @@ public class MyPopup extends JPopupMenu {
             mathTrainer.setActualTeam(Teams.MAGDALENA);
             this.setVisible(false);
         });
-        hannah.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teams.HANNAH);
+        luiseleon.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.LUISE_LEON);
             this.setVisible(false);
         });
 
-        maria.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teams.MARIA);
+        marinaevgenija.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.MARINA_EVGENIJA);
             this.setVisible(false);
         });
 
@@ -58,17 +58,17 @@ public class MyPopup extends JPopupMenu {
             this.setVisible(false);
         });
 
-        sixb.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teams.SIXB);
+        lauramassari.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.LAURA_MASSARI);
             this.setVisible(false);
         });
 
-        fivea.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teams.FIVEA);
+        julialaura.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.JULIA_LAURA);
             this.setVisible(false);
         });
 
-        fiveb.addActionListener(e -> {
+        laramichel.addActionListener(e -> {
             mathTrainer.setActualTeam(Teams.LAURA_MICHEL);
             this.setVisible(false);
         });
@@ -97,26 +97,25 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         ButtonGroup teacher = new ButtonGroup();
-        teacher.add(fivea);
-        teacher.add(fivea);
-        teacher.add(sixb);
+        teacher.add(julialaura);
+        teacher.add(laramichel);
+        teacher.add(magdalena);
+        teacher.add(lauramassari);
         teacher.add(michael);
         teacher.add(tibor);
-        teacher.add(magdalena);
-        teacher.add(maria);
-        teacher.add(hannah);
-        teacher.add(maria);
+        teacher.add(marinaevgenija);
+        teacher.add(luiseleon);
 
         selectActiveTeam(mathTrainer.actualTeam);
 
-        add(fivea);
-        add(fiveb);
-        add(sixb);
+        add(julialaura);
+        add(laramichel);
+        add(magdalena);
+        add(lauramassari);
         add(michael);
         add(tibor);
-        add(magdalena);
-        add(hannah);
-        add(maria);
+        add(marinaevgenija);
+        add(luiseleon);
 
         add(new Separator());
 
@@ -156,18 +155,18 @@ public class MyPopup extends JPopupMenu {
             michael.setSelected(true);
         } else if (actualTeam == Teams.MAGDALENA) {
             magdalena.setSelected(true);
-        } else if (actualTeam == Teams.HANNAH) {
-            hannah.setSelected(true);
-        } else if (actualTeam == Teams.MARIA) {
-            maria.setSelected(true);
+        } else if (actualTeam == Teams.LUISE_LEON) {
+            luiseleon.setSelected(true);
+        } else if (actualTeam == Teams.MARINA_EVGENIJA) {
+            marinaevgenija.setSelected(true);
         } else if (actualTeam == Teams.TIBOR) {
             tibor.setSelected(true);
-        } else if (actualTeam == Teams.SIXB) {
-            sixb.setSelected(true);
-        } else if (actualTeam == Teams.FIVEA) {
-            fivea.setSelected(true);
+        } else if (actualTeam == Teams.LAURA_MASSARI) {
+            lauramassari.setSelected(true);
+        } else if (actualTeam == Teams.JULIA_LAURA) {
+            julialaura.setSelected(true);
         } else if (actualTeam == Teams.LAURA_MICHEL) {
-            fiveb.setSelected(true);
+            laramichel.setSelected(true);
         }
     }
 }

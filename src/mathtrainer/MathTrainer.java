@@ -1359,7 +1359,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
             }
             countDownCounter = -1;
 
-            if (taskType == TaskTypes.DROPPED && wolframMode) {
+            if (taskType == TaskTypes.DROPPED && wolframMode && !nameLearning) {
                 solutionLabel = Latexer.renderLatexToImage("Thinking \\,...", 20, 200, Color.LIGHT_GRAY);
                 new Thread(this::wolframCalling).start();
             }
