@@ -13,7 +13,7 @@ public class MyPopup extends JPopupMenu {
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
     JRadioButton fivea = new JRadioButton(Teams.getTeamName(Teams.FIVEA));
-    JRadioButton fiveb = new JRadioButton(Teams.getTeamName(Teams.FIVEB));
+    JRadioButton fiveb = new JRadioButton(Teams.getTeamName(Teams.LAURA_MICHEL));
     JRadioButton sixb = new JRadioButton(Teams.getTeamName(Teams.SIXB));
     JRadioButton michael = new JRadioButton(Teams.getTeamName(Teams.MICHAEL));
     JRadioButton tibor = new JRadioButton(Teams.getTeamName(Teams.TIBOR));
@@ -69,7 +69,7 @@ public class MyPopup extends JPopupMenu {
         });
 
         fiveb.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teams.FIVEB);
+            mathTrainer.setActualTeam(Teams.LAURA_MICHEL);
             this.setVisible(false);
         });
 
@@ -166,7 +166,7 @@ public class MyPopup extends JPopupMenu {
             sixb.setSelected(true);
         } else if (actualTeam == Teams.FIVEA) {
             fivea.setSelected(true);
-        } else if (actualTeam == Teams.FIVEB) {
+        } else if (actualTeam == Teams.LAURA_MICHEL) {
             fiveb.setSelected(true);
         }
     }

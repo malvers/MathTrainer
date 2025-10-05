@@ -938,7 +938,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
     }
 
     private void drawStudentPhoto(Graphics2D g2d, String studentName, int yPos) {
-
         var localURL = getPhotoUrl(studentName);
 
         if (localURL == null) {
@@ -946,7 +945,6 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         }
 
         if (localURL != null) {
-
             int s = 120;
             int y = getHeight() - yPos + 26;
 
@@ -961,10 +959,26 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
                 img = ImageIO.read(localURL);
 
                 if (img != null) {
-                    g2d.drawImage(img, x, y, s, s, null);
+                    // Calculate center crop for square aspect ratio
+                    int originalWidth = img.getWidth();
+                    int originalHeight = img.getHeight();
+
+                    int cropSize = Math.min(originalWidth, originalHeight);
+                    int cropX = (originalWidth - cropSize) / 2;
+                    int cropY = (originalHeight - cropSize) / 2;
+
+                    // Create cropped square image
+                    BufferedImage croppedImg = img.getSubimage(cropX, cropY, cropSize, cropSize);
+                    g2d.drawImage(croppedImg, x, y, s, s, null);
                 }
             } catch (IOException e) {
                 System.err.println("image not found: " + localURL);
+            } catch (Exception e) {
+                // Fallback to original drawing if cropping fails
+                System.err.println("Cropping failed, using original: " + e.getMessage());
+                if (img != null) {
+                    g2d.drawImage(img, x, y, s, s, null);
+                }
             }
         }
     }
