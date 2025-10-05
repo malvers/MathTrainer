@@ -12,13 +12,13 @@ public class Teams {
     protected static final short SIXB = 7;
 
     private static final String[] TEAM_NAMES = {
-            "Michael",
-            "Magdalena",
+            "Michael (8a)",
+            "Magdalena (6a)",
             "9b 2025/2026",
             "9a 2025/2026",
-            "Tibor",
+            "Tibor (8b)",
             "5a 2025/2026",
-            "Laura und Michel",
+            "Laura und Michel (5b)",
             "6b 2025/2026"
     };
 

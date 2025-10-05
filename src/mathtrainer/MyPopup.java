@@ -12,14 +12,14 @@ public class MyPopup extends JPopupMenu {
     JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
-    JRadioButton fivea = new JRadioButton("Team 5a 2025/2026");
-    JRadioButton fiveb = new JRadioButton("Team Laura & Michael");
-    JRadioButton sixb = new JRadioButton("Team 6b 2025/2026");
-    JRadioButton michael = new JRadioButton("Team Michael");
-    JRadioButton tibor = new JRadioButton("Team Tibor");
-    JRadioButton magdalena = new JRadioButton("Team Magdalena");
-    JRadioButton hannah = new JRadioButton("Team 9b 2025/2026");
-    JRadioButton maria = new JRadioButton("Team 9a 2025/2026");
+    JRadioButton fivea = new JRadioButton(Teams.getTeamName(Teams.FIVEA));
+    JRadioButton fiveb = new JRadioButton(Teams.getTeamName(Teams.FIVEB));
+    JRadioButton sixb = new JRadioButton(Teams.getTeamName(Teams.SIXB));
+    JRadioButton michael = new JRadioButton(Teams.getTeamName(Teams.MICHAEL));
+    JRadioButton tibor = new JRadioButton(Teams.getTeamName(Teams.TIBOR));
+    JRadioButton magdalena = new JRadioButton(Teams.getTeamName(Teams.MAGDALENA));
+    JRadioButton hannah = new JRadioButton(Teams.getTeamName(Teams.HANNAH));
+    JRadioButton maria = new JRadioButton(Teams.getTeamName(Teams.MARIA));
 
     public MyPopup(MathTrainer mathTrainer) {
 

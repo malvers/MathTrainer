@@ -52,7 +52,7 @@ public class Team extends ArrayList<OneStudent> {
     }
 
     private void initTeamId() {
-        teamsString = new String[9]; // adjust if person is added
+        teamsString = new String[8]; // adjust if person is added
         teamsString[0] = "Michael";
         teamsString[1] = "Magdalena";
         teamsString[2] = "Hannah";
@@ -61,7 +61,6 @@ public class Team extends ArrayList<OneStudent> {
         teamsString[5] = "FiveA";
         teamsString[6] = "FiveB";
         teamsString[7] = "SixB";
-        teamsString[8] = "Bla";
 
     }
 
