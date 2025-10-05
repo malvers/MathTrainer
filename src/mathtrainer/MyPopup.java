@@ -12,12 +12,14 @@ public class MyPopup extends JPopupMenu {
     JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
-    JRadioButton sixb = new JRadioButton("Team 6b");
+    JRadioButton fivea = new JRadioButton("Team 5a 2025/2026");
+    JRadioButton fiveb = new JRadioButton("Team Laura & Michael");
+    JRadioButton sixb = new JRadioButton("Team 6b 2025/2026");
     JRadioButton michael = new JRadioButton("Team Michael");
     JRadioButton tibor = new JRadioButton("Team Tibor");
     JRadioButton magdalena = new JRadioButton("Team Magdalena");
-    JRadioButton hannah = new JRadioButton("Team Hannah");
-    JRadioButton maria = new JRadioButton("Team Maria");
+    JRadioButton hannah = new JRadioButton("Team 9b 2025/2026");
+    JRadioButton maria = new JRadioButton("Team 9a 2025/2026");
 
     public MyPopup(MathTrainer mathTrainer) {
 
@@ -33,33 +35,44 @@ public class MyPopup extends JPopupMenu {
 
         /// TEAM
         michael.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.MICHAEL);
+            mathTrainer.setActualTeam(Teams.MICHAEL);
             //sleep();
             this.setVisible(false); // ← Close popup after selection
         });
         magdalena.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.MAGDALENA);
+            mathTrainer.setActualTeam(Teams.MAGDALENA);
             this.setVisible(false);
         });
         hannah.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.HANNAH);
+            mathTrainer.setActualTeam(Teams.HANNAH);
             this.setVisible(false);
         });
 
         maria.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.MARIA);
+            mathTrainer.setActualTeam(Teams.MARIA);
             this.setVisible(false);
         });
 
         tibor.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.TIBOR);
+            mathTrainer.setActualTeam(Teams.TIBOR);
             this.setVisible(false);
         });
 
         sixb.addActionListener(e -> {
-            mathTrainer.setActualTeam(Teachers.SIXB);
+            mathTrainer.setActualTeam(Teams.SIXB);
             this.setVisible(false);
         });
+
+        fivea.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.FIVEA);
+            this.setVisible(false);
+        });
+
+        fiveb.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teams.FIVEB);
+            this.setVisible(false);
+        });
+
         /// end TEAM
 
         ButtonGroup subjects = new ButtonGroup();
@@ -84,15 +97,20 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         ButtonGroup teacher = new ButtonGroup();
+        teacher.add(fivea);
+        teacher.add(fivea);
         teacher.add(sixb);
         teacher.add(michael);
         teacher.add(tibor);
         teacher.add(magdalena);
+        teacher.add(maria);
         teacher.add(hannah);
         teacher.add(maria);
 
         selectActiveTeam(mathTrainer.actualTeam);
 
+        add(fivea);
+        add(fiveb);
         add(sixb);
         add(michael);
         add(tibor);
@@ -134,18 +152,22 @@ public class MyPopup extends JPopupMenu {
 
     private void selectActiveTeam(int actualTeam) {
 
-        if (actualTeam == Teachers.MICHAEL) {
+        if (actualTeam == Teams.MICHAEL) {
             michael.setSelected(true);
-        } else if (actualTeam == Teachers.MAGDALENA) {
+        } else if (actualTeam == Teams.MAGDALENA) {
             magdalena.setSelected(true);
-        } else if (actualTeam == Teachers.HANNAH) {
+        } else if (actualTeam == Teams.HANNAH) {
             hannah.setSelected(true);
-        } else if (actualTeam == Teachers.MARIA) {
+        } else if (actualTeam == Teams.MARIA) {
             maria.setSelected(true);
-        } else if (actualTeam == Teachers.TIBOR) {
+        } else if (actualTeam == Teams.TIBOR) {
             tibor.setSelected(true);
-        } else if (actualTeam == Teachers.SIXB) {
+        } else if (actualTeam == Teams.SIXB) {
             sixb.setSelected(true);
+        } else if (actualTeam == Teams.FIVEA) {
+            fivea.setSelected(true);
+        } else if (actualTeam == Teams.FIVEB) {
+            fiveb.setSelected(true);
         }
     }
 }

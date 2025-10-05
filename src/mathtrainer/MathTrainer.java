@@ -6,7 +6,6 @@ package mathtrainer;
  Student selection better
  */
 
-import MyTools.Make;
 import mratools.MTools;
 
 import javax.imageio.ImageIO;
@@ -123,7 +122,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         Runtime.getRuntime().addShutdownHook(t);
 
-        actualTeam = Teachers.MICHAEL;
+        actualTeam = Teams.MICHAEL;
 
         readSettings();
 
@@ -413,7 +412,7 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
         g2d.setColor(Color.WHITE);
 
         /// draw number students
-        String str = allTeams.get(actualTeam).size() + " Students";
+        String str = Teams.getTeamName(actualTeam) + " - " + allTeams.get(actualTeam).size() + " Students";
 
         FontMetrics metrics = g2d.getFontMetrics();
         int width;

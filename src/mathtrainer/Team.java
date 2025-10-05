@@ -60,8 +60,8 @@ public class Team extends ArrayList<OneStudent> {
         teamsString[4] = "Tibor";
         teamsString[5] = "FiveA";
         teamsString[6] = "FiveB";
-        teamsString[7] = "SixA";
-        teamsString[8] = "SixB";
+        teamsString[7] = "SixB";
+        teamsString[8] = "Bla";
 
     }
 
