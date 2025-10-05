@@ -12,6 +12,7 @@ public class MyPopup extends JPopupMenu {
     JRadioButton matheMenu = new JRadioButton("Mathematics [1]");
     JRadioButton historyMenu = new JRadioButton("Dropped [2]");
 
+    JRadioButton sixb = new JRadioButton("Team 6b");
     JRadioButton michael = new JRadioButton("Team Michael");
     JRadioButton tibor = new JRadioButton("Team Tibor");
     JRadioButton magdalena = new JRadioButton("Team Magdalena");
@@ -54,6 +55,11 @@ public class MyPopup extends JPopupMenu {
             mathTrainer.setActualTeam(Teachers.TIBOR);
             this.setVisible(false);
         });
+
+        sixb.addActionListener(e -> {
+            mathTrainer.setActualTeam(Teachers.SIXB);
+            this.setVisible(false);
+        });
         /// end TEAM
 
         ButtonGroup subjects = new ButtonGroup();
@@ -78,6 +84,7 @@ public class MyPopup extends JPopupMenu {
         add(new Separator());
 
         ButtonGroup teacher = new ButtonGroup();
+        teacher.add(sixb);
         teacher.add(michael);
         teacher.add(tibor);
         teacher.add(magdalena);
@@ -86,6 +93,7 @@ public class MyPopup extends JPopupMenu {
 
         selectActiveTeam(mathTrainer.actualTeam);
 
+        add(sixb);
         add(michael);
         add(tibor);
         add(magdalena);
@@ -136,6 +144,8 @@ public class MyPopup extends JPopupMenu {
             maria.setSelected(true);
         } else if (actualTeam == Teachers.TIBOR) {
             tibor.setSelected(true);
+        } else if (actualTeam == Teachers.SIXB) {
+            sixb.setSelected(true);
         }
     }
 }

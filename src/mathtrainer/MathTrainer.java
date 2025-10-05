@@ -1178,7 +1178,8 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 
         System.out.println("Experimental ...");
 
-        Make.jarAndApp(this.getClass());
+        readParkingFromResources();
+        //Make.jarAndApp(this.getClass());
     }
 
     void setTaskType(int newType) {
@@ -1495,6 +1496,35 @@ public class MathTrainer extends JPanel implements MouseListener, MouseMotionLis
 //            System.out.println("photo: " + photoName);
 
             URL imageUrl = getClass().getResource("/photos" + "/" + photoName);
+            photosURL.add(imageUrl);
+
+            if (imageUrl == null) {
+                System.err.println("Image not found: " + photoName);
+                counter++;
+                continue;
+            }
+
+            counter++;
+        }
+    }
+
+    private void readParkingFromResources() {
+
+        java.util.List<String> photoNames = getResourceListing("/parking");
+
+        // Filter only image files (optional)
+        photoNames.removeIf(name -> !name.toLowerCase().matches(".*\\.(png|jpg|jpeg|gif|bmp)$"));
+
+        System.out.println("Number of photos: " + photoNames.size());
+
+        int counter = 0;
+        for (int i = 0; i < photoNames.size(); i++) {
+
+            String photoName = photoNames.get(counter);
+
+            System.out.println("photo: " + photoName);
+
+            URL imageUrl = getClass().getResource("/parking" + "/" + photoName);
             photosURL.add(imageUrl);
 
             if (imageUrl == null) {
